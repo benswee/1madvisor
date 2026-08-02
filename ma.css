@@ -1,0 +1,571 @@
+/* ═══════════════════════════════════════════════════════════════════
+   $1M ADVISOR — SHARED STYLESHEET
+   Paste into  Website Settings ▸ Custom CSS  (WITHOUT <style> tags).
+   Site level, not page level — so one edit restyles every stage page.
+
+   SCOPE RULE
+   ----------
+   This file sets colour, type, borders, radius, shadow, sticky and order.
+   It NEVER sets row widths, row margins, or row vertical padding — those
+   belong to GHL's row settings. Hard-code them here and GHL's mobile
+   breakpoints stop working.
+   ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────
+   TOKENS  — all values taken from live 1mclub.ca
+   ───────────────────────────────────────────── */
+:root {
+  --ma-gold:        #ECA021;
+  --ma-rust:        #E05C26;
+  --ma-navy:        #253850;
+  --ma-navy-deep:   #1E2D3F;
+  --ma-navy-footer: #0A2840;
+  --ma-ink:         #101828;
+  --ma-paper:       #F0EFEF;
+
+  --ma-rule:        rgba(74,111,138,.20);
+  --ma-gold-10:     rgba(236,160,33,.10);
+  --ma-gold-15:     rgba(236,160,33,.15);
+  --ma-body:        rgba(240,239,239,.78);
+  --ma-muted:       rgba(240,239,239,.45);
+
+  --ma-sans:        'Montserrat', sans-serif;   /* structure */
+  --ma-text:        'Inter', sans-serif;        /* long-form body */
+
+  /* If you make the header sticky, raise this to header height + 16px. */
+  --ma-sticky-top:  24px;
+}
+
+
+/* ─────────────────────────────────────────────
+   ROW 3 LAYOUT
+   Add these as Custom Classes in GHL:
+     row     → ma-row-main
+     col 1   → ma-col-nav
+     col 2   → ma-col-main
+     col 3   → ma-col-optin
+   ───────────────────────────────────────────── */
+
+/* position:sticky dies if ANY ancestor has overflow:hidden.
+   GHL sets that on some row wrappers — this is the fix. */
+.ma-row-main,
+.ma-row-main .row,
+.ma-row-main [class*="col-"],
+.ma-col-nav,
+.ma-col-main,
+.ma-col-optin { overflow: visible; }
+
+/* flex-start, so each rail column is only as tall as its own content.
+   That is what gives position:sticky room to travel inside the row. */
+.ma-row-main .row { align-items: flex-start; }
+
+/* THE RAILS ARE THE CARDS.
+   The card cannot be an inner <div>, because the opt-in card has to wrap a
+   native GHL Form element sitting between two separate Custom HTML blocks —
+   and an unclosed <div> in one block is auto-closed by the parser, so the
+   closing tag in the next block never matches. Styling the COLUMN sidesteps
+   that completely.
+   ⚠️ Set BOTH columns' own padding to 0 in GHL — the padding here is ours. */
+.ma-col-nav,
+.ma-col-optin {
+  position: sticky;
+  top: var(--ma-sticky-top);
+  font-family: var(--ma-sans);
+  background: var(--ma-navy);
+  border: 1px solid var(--ma-rule);
+  border-radius: 12px;
+}
+.ma-col-nav   { padding: 20px 14px; }
+.ma-col-optin { padding: 22px 20px; }
+
+.ma-nav-brand {
+  text-align: center;
+  padding-bottom: 16px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--ma-rule);
+}
+.ma-nav-brand .ma-wordmark {
+  display: block;
+  font-size: 20px; font-weight: 900; letter-spacing: -.4px;
+  color: var(--ma-paper);
+}
+.ma-nav-brand .ma-wordmark em { font-style: normal; color: var(--ma-gold); }
+.ma-nav-brand .ma-eyebrow {
+  display: block; margin-top: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ma-gold);
+}
+
+/* <details> gives us a free mobile accordion. The summary is hidden on
+   desktop and the `open` attribute is managed by 01-funnel-stages.js. */
+.ma-nav-acc > summary {
+  display: none;
+  cursor: pointer; list-style: none;
+  padding: 12px; border-radius: 8px;
+  font-size: 15px; font-weight: 700; color: var(--ma-paper);
+  background: var(--ma-gold-10); text-align: center;
+}
+.ma-nav-acc > summary::-webkit-details-marker { display: none; }
+
+.ma-nav { display: block; }
+.ma-nav a {
+  display: block;
+  padding: 13px 12px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  font-size: 15px; font-weight: 700; line-height: 1.35;
+  color: var(--ma-paper);
+  text-align: center;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.ma-nav a:hover { background: var(--ma-gold-10); color: var(--ma-gold); }
+.ma-nav a.is-active {
+  background: var(--ma-gold);
+  color: var(--ma-ink);
+  font-weight: 800;
+}
+
+
+/* ─────────────────────────────────────────────
+   CENTRE COLUMN
+   ───────────────────────────────────────────── */
+.ma-main { font-family: var(--ma-sans); }
+
+.ma-h1 {
+  font-size: 56px; font-weight: 800; line-height: 1.08;
+  letter-spacing: -1.12px;
+  color: var(--ma-paper);
+  margin: 0;
+}
+.ma-h1 em { font-style: normal; color: var(--ma-gold); }
+
+.ma-accent-rule {
+  width: 88px; height: 4px; border-radius: 2px;
+  background: var(--ma-gold);
+  margin: 18px 0 0;
+}
+
+.ma-kicker {
+  font-size: 13px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ma-gold);
+  margin: 0 0 14px;
+}
+
+/* Video — 16:9 box. If you use VTurb, it injects its own spacer, so
+   remove aspect-ratio below or the ratio gets applied twice. */
+.ma-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--ma-rule);
+}
+.ma-video iframe,
+.ma-video video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: 0;
+}
+
+/* Placeholder for stages whose video isn't shot yet. */
+.ma-video--soon {
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--ma-navy) 0%, var(--ma-navy-deep) 100%);
+}
+.ma-video--soon span {
+  font-size: 13px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ma-muted);
+}
+
+/* CTA. A plain <a> is safe here — it is a link, not a form input.
+   (The never-hand-code rule applies to fields that must POST to GHL.) */
+.ma-cta {
+  display: block;
+  width: 100%;
+  padding: 20px 28px;
+  border-radius: 50px;
+  background: var(--ma-rust);
+  color: #fff !important;
+  font-size: 16px; font-weight: 800; letter-spacing: .8px;
+  text-transform: uppercase; text-align: center;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(224,92,38,.28);
+  transition: transform .25s, box-shadow .25s;
+}
+.ma-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(224,92,38,.38);
+}
+
+/* Lesson notes — the part acquisition.com leaves empty. */
+.ma-lesson {
+  font-family: var(--ma-text);
+  font-size: 17px; line-height: 1.75;
+  color: var(--ma-body);
+}
+.ma-lesson p       { margin: 0 0 18px; }
+.ma-lesson strong  { color: var(--ma-paper); font-weight: 600; }
+.ma-lesson h3 {
+  font-family: var(--ma-sans);
+  font-size: 22px; font-weight: 900; letter-spacing: -.22px;
+  color: var(--ma-gold);
+  margin: 32px 0 12px;
+}
+.ma-lesson ul { margin: 0 0 18px; padding-left: 22px; }
+.ma-lesson li { margin-bottom: 8px; }
+
+/* Resources */
+.ma-res {
+  border-top: 1px solid var(--ma-rule);
+  padding-top: 24px;
+}
+.ma-res-label {
+  font-family: var(--ma-sans);
+  font-size: 13px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ma-gold);
+  margin: 0 0 14px;
+}
+.ma-res a {
+  display: block;
+  font-family: var(--ma-text);
+  font-size: 16px; font-weight: 500;
+  color: var(--ma-paper);
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ma-rule);
+  transition: color .2s, padding-left .2s;
+}
+.ma-res a::before { content: '→'; color: var(--ma-gold); margin-right: 10px; }
+.ma-res a:hover { color: var(--ma-gold); padding-left: 6px; }
+
+/* Prev / next — generated automatically from the stage registry. */
+.ma-pager { display: flex; gap: 12px; }
+.ma-pager a {
+  flex: 1 1 0; min-width: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--ma-gold);
+  border-radius: 50px;
+  font-family: var(--ma-sans);
+  font-size: 13px; font-weight: 700; letter-spacing: .4px;
+  color: var(--ma-gold);
+  text-decoration: none; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: background .2s, color .2s;
+}
+.ma-pager a:hover { background: var(--ma-gold); color: var(--ma-ink); }
+.ma-pager a.is-empty { visibility: hidden; }
+
+
+/* ─────────────────────────────────────────────
+   RIGHT RAIL — OPT-IN
+   NOTE: the FORM ITSELF is a native GHL Form element and is styled in
+   GHL's Form Builder, not here. See README §5. This styles the frame.
+   ───────────────────────────────────────────── */
+.ma-badge {
+  display: inline-block;
+  background: var(--ma-gold);
+  color: var(--ma-ink);
+  padding: 7px 14px;
+  border-radius: 4px;
+  font-size: 12px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ma-optin-head {
+  font-size: 21px; font-weight: 900; line-height: 1.25;
+  letter-spacing: -.21px;
+  color: var(--ma-paper);
+  margin: 0 0 8px;
+}
+.ma-optin-sub {
+  font-family: var(--ma-text);
+  font-size: 14px; line-height: 1.6;
+  color: var(--ma-body);
+  margin: 0;
+}
+.ma-consent {
+  font-family: var(--ma-text);
+  font-size: 11px; line-height: 1.6;
+  color: var(--ma-muted);
+  margin: 0;
+}
+.ma-consent a { color: var(--ma-body); text-decoration: underline; }
+
+
+/* ─────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────── */
+.ma-footer {
+  font-family: var(--ma-sans);
+  text-align: center;
+  color: var(--ma-muted);
+  font-size: 12px; line-height: 1.8;
+}
+.ma-footer p { margin: 0 0 10px; }
+.ma-footer a { color: var(--ma-body); text-decoration: underline; }
+
+
+/* ═════════════════════════════════════════════
+   MOBILE — single breakpoint at 768px.
+   Matches the existing 1M Club and tech-apply builds. Do not add a second.
+   ═════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Reorder: content → opt-in → index.
+     GHL stacks columns in DOM order, which would put a 13-item index
+     above the video. */
+  .ma-row-main .row  { display: flex; flex-direction: column; }
+  .ma-col-main       { order: 1; }
+  .ma-col-optin      { order: 2; }
+  .ma-col-nav        { order: 3; }
+
+  /* Sticky off — a sticky rail on a phone just eats the screen. */
+  .ma-col-nav,
+  .ma-col-optin { position: static; }
+
+  /* Index collapses to an accordion. */
+  .ma-nav-acc > summary { display: block; }
+  .ma-nav-acc[open] > summary { margin-bottom: 12px; }
+  .ma-col-nav { padding: 14px; }
+  .ma-nav-brand { display: none; }
+
+  .ma-h1        { font-size: 32px; letter-spacing: -.5px; }
+  .ma-accent-rule { width: 64px; height: 3px; margin-top: 14px; }
+  .ma-lesson    { font-size: 16px; }
+  .ma-lesson h3 { font-size: 19px; }
+  .ma-cta       { padding: 17px 22px; font-size: 14px; }
+  .ma-optin-head{ font-size: 19px; }
+  .ma-pager     { flex-direction: column; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOME PAGE
+   Full-width stacked sections — no 3-column layout, no sidebar opt-in.
+   Section backgrounds are GHL row settings; this styles the contents only.
+   Add `ma-on-gold` to a block sitting on a gold row to flip text to ink.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.ma-sec { font-family: var(--ma-sans); }
+.ma-sec--c { text-align: center; }
+
+.ma-eyebrow-c {
+  font-size: 13px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ma-gold);
+  margin: 0 0 16px;
+}
+
+.ma-hero-h1 {
+  font-size: 64px; font-weight: 800; line-height: 1.06;
+  letter-spacing: -1.28px;
+  color: var(--ma-paper);
+  margin: 0;
+}
+.ma-hero-h1 em { font-style: normal; color: var(--ma-gold); }
+
+.ma-hero-sub {
+  font-family: var(--ma-text);
+  font-size: 19px; line-height: 1.65;
+  color: var(--ma-body);
+  max-width: 720px;
+  margin: 24px auto 0;
+}
+
+.ma-h2 {
+  font-size: 46px; font-weight: 900; line-height: 1.14;
+  letter-spacing: -.92px;
+  color: var(--ma-paper);
+  margin: 0;
+}
+.ma-h2 em { font-style: normal; color: var(--ma-gold); }
+
+.ma-lede {
+  font-family: var(--ma-text);
+  font-size: 18px; line-height: 1.7;
+  color: var(--ma-body);
+  max-width: 760px;
+  margin: 20px auto 0;
+}
+
+/* On a gold row, everything flips to ink. */
+.ma-on-gold .ma-h2,
+.ma-on-gold .ma-hero-h1 { color: var(--ma-ink); }
+.ma-on-gold .ma-h2 em    { color: #6B3F00; }
+.ma-on-gold .ma-lede,
+.ma-on-gold .ma-hero-sub { color: rgba(16,24,40,.78); }
+.ma-on-gold .ma-eyebrow-c{ color: #6B3F00; }
+
+/* ---------- BUTTONS ---------- */
+.ma-btn-row {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+.ma-btn {
+  display: inline-block;
+  padding: 20px 40px;
+  border-radius: 50px;
+  background: var(--ma-rust);
+  color: #fff !important;
+  font-size: 16px; font-weight: 800; letter-spacing: .8px;
+  text-transform: uppercase; text-decoration: none;
+  box-shadow: 0 6px 24px rgba(224,92,38,.28);
+  transition: transform .25s, box-shadow .25s;
+}
+.ma-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(224,92,38,.38);
+}
+.ma-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--ma-gold);
+  color: var(--ma-gold) !important;
+  box-shadow: none;
+}
+.ma-btn--ghost:hover {
+  background: var(--ma-gold);
+  color: var(--ma-ink) !important;
+  box-shadow: none;
+}
+.ma-on-gold .ma-btn--ghost {
+  border-color: var(--ma-ink);
+  color: var(--ma-ink) !important;
+}
+.ma-on-gold .ma-btn--ghost:hover { background: var(--ma-ink); color: var(--ma-gold) !important; }
+
+/* ---------- 3-UP GRID ---------- */
+.ma-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.ma-card {
+  background: var(--ma-gold-10);
+  border: 1px solid var(--ma-rule);
+  border-radius: 12px;
+  padding: 32px 26px;
+}
+.ma-card-icon { font-size: 30px; line-height: 1; margin-bottom: 16px; }
+.ma-card h3 {
+  font-size: 22px; font-weight: 900; letter-spacing: -.22px;
+  color: var(--ma-gold);
+  margin: 0 0 12px;
+}
+.ma-card p {
+  font-family: var(--ma-text);
+  font-size: 16px; line-height: 1.65;
+  color: var(--ma-body);
+  margin: 0;
+}
+
+/* ---------- VIDEO TESTIMONIALS ----------
+   Works for BOTH clip formats — add ma-tst--vertical to the grid if the
+   videos are phone-shot 9:16, otherwise it defaults to 16:9 landscape. */
+.ma-tst-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.ma-tst {
+  background: var(--ma-navy);
+  border: 1px solid var(--ma-rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.ma-tst-vid {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.ma-tst-grid--vertical .ma-tst-vid { aspect-ratio: 9 / 16; }
+.ma-tst-vid iframe,
+.ma-tst-vid video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: 0;
+}
+.ma-tst-body { padding: 22px 22px 26px; }
+.ma-tst-quote {
+  font-family: var(--ma-text);
+  font-size: 16px; line-height: 1.6;
+  color: var(--ma-body);
+  margin: 0 0 14px;
+}
+.ma-tst-name {
+  font-size: 15px; font-weight: 800; letter-spacing: -.15px;
+  color: var(--ma-gold);
+  margin: 0;
+}
+.ma-tst-meta {
+  font-family: var(--ma-text);
+  font-size: 13px; color: var(--ma-muted);
+  margin: 3px 0 0;
+}
+
+/* ---------- ROADMAP PREVIEW ---------- */
+.ma-ladder {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.ma-ladder a {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  background: var(--ma-gold-10);
+  border: 1px solid var(--ma-rule);
+  border-radius: 10px;
+  font-size: 15px; font-weight: 700;
+  color: var(--ma-paper);
+  text-decoration: none;
+  text-align: left;
+  transition: background .2s, transform .2s;
+}
+.ma-ladder a:hover {
+  background: var(--ma-gold-15);
+  transform: translateX(4px);
+  color: var(--ma-gold);
+}
+.ma-ladder .ma-ladder-n {
+  flex: 0 0 auto;
+  font-size: 13px; font-weight: 900;
+  color: var(--ma-gold);
+  min-width: 22px;
+}
+
+/* ---------- AUTHORITY STRIP ---------- */
+.ma-strip {
+  font-size: 15px; font-weight: 700; letter-spacing: 1px;
+  color: var(--ma-paper);
+  text-align: center;
+  margin: 0;
+}
+.ma-strip .ma-sep { color: var(--ma-gold); margin: 0 14px; }
+.ma-on-gold .ma-strip { color: var(--ma-ink); }
+.ma-on-gold .ma-strip .ma-sep { color: #6B3F00; }
+
+
+@media (max-width: 768px) {
+  .ma-hero-h1  { font-size: 34px; letter-spacing: -.6px; }
+  .ma-hero-sub { font-size: 16px; margin-top: 18px; }
+  .ma-h2       { font-size: 28px; letter-spacing: -.5px; }
+  .ma-lede     { font-size: 16px; }
+
+  .ma-btn-row  { flex-direction: column; gap: 12px; }
+  .ma-btn      { width: 100%; padding: 17px 24px; font-size: 14px; }
+
+  .ma-grid-3,
+  .ma-tst-grid,
+  .ma-ladder   { grid-template-columns: 1fr; gap: 16px; }
+
+  .ma-card     { padding: 24px 20px; }
+  .ma-card h3  { font-size: 19px; }
+
+  /* Vertical clips are tall — cap them so the section stays scrollable. */
+  .ma-tst-grid--vertical .ma-tst-vid { aspect-ratio: 3 / 4; }
+
+  .ma-strip    { font-size: 12px; }
+  .ma-strip .ma-sep { margin: 0 7px; }
+}
