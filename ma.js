@@ -25,39 +25,49 @@
 /* URL prefix for lesson pages. Trailing slash required. */
 var MA_BASE = '/training/';
 
+/* Where to send lessons marked `soon: true` (i.e. the GHL page doesn't
+   exist yet). Leave null and they render greyed-out and NOT clickable —
+   which is the safe default, because linking to a page that doesn't exist
+   gives visitors a 404. Set it to a shared "coming soon" page URL if you
+   ever want those lessons clickable instead. */
+var MA_SOON_URL = null;
+
 
 /* ---------- 2. THE REGISTRY ---------- */
 /* Entries with `group` are non-clickable section headings.
    Entries with `slug` are lesson pages.
      slug    → URL segment, must match the GHL page slug exactly
      label   → shown in the index, roadmap and (as fallback) the page H1
-     teacher → the "Assigned To" name from the sheet; shown everywhere */
+     teacher → the "Assigned To" name from the sheet; shown everywhere
+     soon    → the GHL page isn't built yet: renders greyed with a "Soon"
+               tag and is not clickable. DELETE this flag the moment the
+               page goes live, and the link switches itself on. */
 
 var MA_STAGES = [
   { slug: 'start', label: 'Start Here' },
 
   { group: 'Marketing — Getting Clients' },
-  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord' },
-  { slug: 'client-conferences', label: 'Client Conferences',                   teacher: 'Ace' },
-  { slug: 'networking',         label: 'Strategic Networking',                 teacher: 'Clement' },
-  { slug: 'accountants',        label: 'Working With Client Accountants',      teacher: 'Tim' },
+  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord', soon: true },
+  { slug: 'client-conferences', label: 'Client Conferences',                   teacher: 'Ace', soon: true },
+  { slug: 'networking',         label: 'Strategic Networking',                 teacher: 'Clement', soon: true },
+  { slug: 'accountants',        label: 'Working With Client Accountants',      teacher: 'Tim', soon: true },
 
   { group: 'Sales — Closing Bigger Cases' },
-  { slug: 'discovery',          label: 'The Discovery Process',                teacher: 'Tim' },
-  { slug: 'rrsp-trap',          label: 'Fixing The RRSP Trap',                 teacher: 'Tim' },
-  { slug: 'irp',                label: 'Insured Retirement Plan (IRP)',        teacher: 'Tim' },
-  { slug: 'personal-ifa',       label: 'Personal IFA',                         teacher: 'Tim' },
-  { slug: 'corp-insurance',     label: 'Corporate Insurance Sales',            teacher: 'Thomas' },
+  { slug: 'discovery',          label: 'The Discovery Process',                teacher: 'Tim', soon: true },
+  { slug: 'rrsp-trap',          label: 'Fixing The RRSP Trap',                 teacher: 'Tim', soon: true },
+  { slug: 'irp',                label: 'Insured Retirement Plan (IRP)',        teacher: 'Tim', soon: true },
+  { slug: 'personal-ifa',       label: 'Personal IFA',                         teacher: 'Tim', soon: true },
+  { slug: 'corp-insurance',     label: 'Corporate Insurance Sales',            teacher: 'Thomas', soon: true },
 
   { group: 'Investments — Building AUM' },
-  { slug: 'aum-engine',         label: 'Building A Predictable AUM Engine',    teacher: 'Harry' },
-  { slug: 'growth-framework',   label: 'The 3-Step Investment Growth Framework', teacher: 'Harry' },
+  { slug: 'aum-engine',         label: 'Building A Predictable AUM Engine',    teacher: 'Harry', soon: true },
+  { slug: 'growth-framework',   label: 'The 3-Step Investment Growth Framework', teacher: 'Harry', soon: true },
 
   { group: 'Practice Growth — Mindset & Team' },
-  { slug: 'mindset',            label: 'Mindset',                              teacher: 'Tim' },
-  { slug: 'top-20',             label: 'The Top-20 Wealth Blueprint',          teacher: 'Tim' },
-  { slug: 'delegation',         label: 'Delegation',                           teacher: 'Gord' },
-  { slug: 'scaling',            label: 'Scaling Beyond You',                   teacher: 'Harry' }
+  { slug: 'mindset',            label: 'Mindset',                              teacher: 'Tim', soon: true },
+  { slug: 'top-20',             label: 'The Top-20 Wealth Blueprint',          teacher: 'Tim', soon: true },
+  { slug: 'delegation',         label: 'Delegation',                           teacher: 'Gord', soon: true },
+  { slug: 'scaling',            label: 'Scaling Beyond You',                   teacher: 'Harry', soon: true }
 ];
 
 
@@ -96,6 +106,21 @@ var MA_STAGES = [
     return null;
   }
 
+  /* Where a lesson links to — null means "render it as not clickable".
+     Guarantees no link in the index, roadmap or pager can 404. */
+  function hrefFor(s) {
+    if (!s.soon) return MA_BASE + s.slug;
+    return MA_SOON_URL || null;
+  }
+
+  /* Lessons whose page actually exists — used for prev/next so the pager
+     never walks a visitor into a page that hasn't been built. */
+  function builtLessons() {
+    var out = [], all = lessons();
+    for (var i = 0; i < all.length; i++) if (hrefFor(all[i])) out.push(all[i]);
+    return out;
+  }
+
   /* The group heading a lesson sits under (null for Start Here). */
   function groupOf(slug) {
     var g = null;
@@ -123,11 +148,14 @@ var MA_STAGES = [
         continue;
       }
 
-      html += '<a href="' + MA_BASE + s.slug + '"'
-            + (s.slug === cur ? ' class="is-active"' : '') + '>'
-            + '<span class="ma-nav-label">' + esc(s.label) + '</span>'
-            + (s.teacher ? '<span class="ma-nav-teacher">' + esc(s.teacher) + '</span>' : '')
-            + '</a>';
+      var href = hrefFor(s);
+      var inner = '<span class="ma-nav-label">' + esc(s.label) + '</span>'
+                + (s.teacher ? '<span class="ma-nav-teacher">' + esc(s.teacher)
+                    + (s.soon ? ' <em class="ma-soon">Soon</em>' : '') + '</span>' : '');
+
+      html += href
+        ? '<a href="' + href + '"' + (s.slug === cur ? ' class="is-active"' : '') + '>' + inner + '</a>'
+        : '<span class="ma-nav-item is-soon">' + inner + '</span>';
     }
 
     el.innerHTML = html;
@@ -139,7 +167,7 @@ var MA_STAGES = [
   function renderPager(el) {
     if (el.getAttribute('data-ma-rendered') === '1') return;
 
-    var list = lessons(), cur = currentSlug(el), i = -1;
+    var list = builtLessons(), cur = currentSlug(el), i = -1;
     for (var n = 0; n < list.length; n++) if (list[n].slug === cur) i = n;
 
     var prev = i > 0 ? list[i - 1] : null;
@@ -148,9 +176,9 @@ var MA_STAGES = [
     /* Empty slots stay in the DOM as invisible placeholders so a lone
        "Next" button keeps its half of the row instead of stretching. */
     el.innerHTML =
-      (prev ? '<a href="' + MA_BASE + prev.slug + '">← ' + esc(prev.label) + '</a>'
+      (prev ? '<a href="' + hrefFor(prev) + '">← ' + esc(prev.label) + '</a>'
             : '<a class="is-empty" aria-hidden="true"></a>') +
-      (next ? '<a href="' + MA_BASE + next.slug + '">' + esc(next.label) + ' →</a>'
+      (next ? '<a href="' + hrefFor(next) + '">' + esc(next.label) + ' →</a>'
             : '<a class="is-empty" aria-hidden="true"></a>');
 
     el.setAttribute('data-ma-rendered', '1');
@@ -174,12 +202,17 @@ var MA_STAGES = [
       if (s.slug === 'start') continue;   /* the roadmap lists lessons only */
 
       n++;
-      html += '<a href="' + MA_BASE + s.slug + '">'
-            + '<span class="ma-ladder-n">' + n + '</span>'
-            + '<span class="ma-ladder-body">'
-            + '<span class="ma-ladder-label">' + esc(s.label) + '</span>'
-            + (s.teacher ? '<span class="ma-ladder-teacher">' + esc(s.teacher) + '</span>' : '')
-            + '</span></a>';
+      var lhref = hrefFor(s);
+      var lbody = '<span class="ma-ladder-n">' + n + '</span>'
+                + '<span class="ma-ladder-body">'
+                + '<span class="ma-ladder-label">' + esc(s.label) + '</span>'
+                + (s.teacher ? '<span class="ma-ladder-teacher">' + esc(s.teacher)
+                    + (s.soon ? ' <em class="ma-soon">Soon</em>' : '') + '</span>' : '')
+                + '</span>';
+
+      html += lhref
+        ? '<a href="' + lhref + '">' + lbody + '</a>'
+        : '<span class="is-soon">' + lbody + '</span>';
     }
 
     el.innerHTML = html;

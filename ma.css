@@ -217,6 +217,29 @@
   font-size: 11px; font-weight: 600; letter-spacing: .4px;
   color: var(--ma-muted);
 }
+/* Lessons whose page isn't built yet: present in the list so the
+   curriculum reads complete, but visibly inactive and not clickable. */
+.ma-nav .ma-nav-item.is-soon {
+  display: block;
+  padding: 10px 10px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+  cursor: default;
+  opacity: .5;
+}
+.ma-soon {
+  font-style: normal;
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border: 1px solid var(--ma-rule);
+  border-radius: 20px;
+  font-size: 9px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--ma-gold);
+  vertical-align: 1px;
+}
+
 .ma-nav a:hover { background: var(--ma-gold-10); }
 .ma-nav a:hover .ma-nav-label { color: var(--ma-gold); }
 
@@ -642,6 +665,19 @@
   font-size: 13px; font-weight: 900;
   color: var(--ma-gold);
   min-width: 22px;
+}
+/* Roadmap equivalent of the index's inactive state. */
+.ma-ladder > .is-soon {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  background: var(--ma-gold-10);
+  border: 1px solid var(--ma-rule);
+  border-radius: 10px;
+  font-size: 15px; font-weight: 700;
+  color: var(--ma-paper);
+  text-align: left;
+  cursor: default;
+  opacity: .5;
 }
 .ma-ladder-body   { display: block; min-width: 0; }
 .ma-ladder-label  { display: block; }
