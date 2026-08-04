@@ -39,6 +39,46 @@
 
 
 /* ─────────────────────────────────────────────
+   SECTION BACKGROUND HELPERS
+   GHL's section background picker has no gradient option. Instead, set
+   the section's Advanced ▸ CSS Class to one of these. The solid colours
+   (#000000 header, #ECA021 gold, #0A2840 footer) work fine in the picker,
+   but classes exist for them too if that's easier to keep consistent.
+   ───────────────────────────────────────────── */
+.ma-bg-navy   { background: linear-gradient(135deg, #253850 0%, #1E2D3F 100%) !important; }
+.ma-bg-gold   { background: #ECA021 !important; }
+.ma-bg-black  { background: #000000 !important; }
+.ma-bg-footer { background: #0A2840 !important; }
+
+
+/* ─────────────────────────────────────────────
+   HEADER  (section 1 on every page, black band)
+   ───────────────────────────────────────────── */
+.ma-header {
+  font-family: var(--ma-sans);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ma-header-logo {
+  font-size: 22px; font-weight: 900; letter-spacing: -.5px;
+  color: var(--ma-paper);
+  text-decoration: none;
+}
+.ma-header-logo em { font-style: normal; color: var(--ma-gold); }
+.ma-header-nav { display: flex; gap: 28px; }
+.ma-header-nav a {
+  font-size: 13px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--ma-paper);
+  text-decoration: none;
+  transition: color .2s;
+}
+.ma-header-nav a:hover { color: var(--ma-gold); }
+
+
+/* ─────────────────────────────────────────────
    ROW 3 LAYOUT
    Add these as Custom Classes in GHL:
      row     → ma-row-main
@@ -48,17 +88,28 @@
    ───────────────────────────────────────────── */
 
 /* position:sticky dies if ANY ancestor has overflow:hidden.
-   GHL sets that on some row wrappers — this is the fix. */
+   GHL sets that on some wrappers. The selector list is deliberately wide —
+   it covers GHL's .c-row/.c-column naming, its id-classes (row-xxx/col-xxx),
+   and the .inner containers, so it works whatever wrapper GHL renders. */
 .ma-row-main,
 .ma-row-main .row,
+.ma-row-main .c-row,
+.ma-row-main .c-column,
+.ma-row-main .inner,
+.ma-row-main [class*="row-"],
 .ma-row-main [class*="col-"],
 .ma-col-nav,
 .ma-col-main,
 .ma-col-optin { overflow: visible; }
 
 /* flex-start, so each rail column is only as tall as its own content.
-   That is what gives position:sticky room to travel inside the row. */
-.ma-row-main .row { align-items: flex-start; }
+   That is what gives position:sticky room to travel inside the row.
+   VERIFIED against the live GHL DOM (2026-08-02): the actual flex container
+   is the row's `.inner` div — that selector is the one doing the work here. */
+.ma-row-main .inner,
+.ma-row-main .row,
+.ma-row-main .c-row,
+.ma-row-main [class*="row-"] { align-items: flex-start; }
 
 /* THE RAILS ARE THE CARDS.
    The card cannot be an inner <div>, because the opt-in card has to wrap a
@@ -66,9 +117,14 @@
    and an unclosed <div> in one block is auto-closed by the parser, so the
    closing tag in the next block never matches. Styling the COLUMN sidesteps
    that completely.
-   ⚠️ Set BOTH columns' own padding to 0 in GHL — the padding here is ours. */
-.ma-col-nav,
-.ma-col-optin {
+
+   Every selector is prefixed with .ma-row-main on purpose: GHL emits a
+   per-column rule (.col-xxxx { padding:10px 5px; background:transparent })
+   LATER in the document at equal specificity, which silently beats a bare
+   single-class rule. Two classes outrank it regardless of order.
+   ⚠️ GHL column padding setting no longer matters — these rules now win. */
+.ma-row-main .ma-col-nav,
+.ma-row-main .ma-col-optin {
   position: sticky;
   top: var(--ma-sticky-top);
   font-family: var(--ma-sans);
@@ -76,8 +132,26 @@
   border: 1px solid var(--ma-rule);
   border-radius: 12px;
 }
-.ma-col-nav   { padding: 20px 14px; }
-.ma-col-optin { padding: 22px 20px; }
+.ma-row-main .ma-col-nav   { padding: 20px 14px; }
+.ma-row-main .ma-col-optin { padding: 22px 20px; }
+
+/* 16 lessons + 4 group headings makes the index taller than some laptop
+   screens, and a sticky element taller than the viewport can never be
+   fully scrolled to. Cap it and let the index scroll inside itself.
+   Must stay AFTER the overflow:visible rule above — same specificity,
+   later wins. (Overflow on the sticky element itself is fine; only an
+   ANCESTOR with overflow:hidden breaks sticky.) */
+.ma-row-main .ma-col-nav {
+  max-height: calc(100vh - (var(--ma-sticky-top) * 2));
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ma-rule) transparent;
+}
+.ma-row-main .ma-col-nav::-webkit-scrollbar        { width: 6px; }
+.ma-row-main .ma-col-nav::-webkit-scrollbar-track  { background: transparent; }
+.ma-row-main .ma-col-nav::-webkit-scrollbar-thumb  {
+  background: var(--ma-rule); border-radius: 3px;
+}
 
 .ma-nav-brand {
   text-align: center;
@@ -109,23 +183,46 @@
 .ma-nav-acc > summary::-webkit-details-marker { display: none; }
 
 .ma-nav { display: block; }
+
+/* Group heading — the four head topics. Not clickable. */
+.ma-nav-group {
+  margin: 20px 0 8px;
+  padding: 0 10px;
+  font-size: 10px; font-weight: 800; letter-spacing: 1.6px; line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--ma-gold);
+  border-top: 1px solid var(--ma-rule);
+  padding-top: 14px;
+}
+.ma-nav-group:first-child { margin-top: 6px; border-top: 0; padding-top: 0; }
+
 .ma-nav a {
   display: block;
-  padding: 13px 12px;
-  margin-bottom: 4px;
+  padding: 10px 10px;
+  margin-bottom: 2px;
   border-radius: 8px;
-  font-size: 15px; font-weight: 700; line-height: 1.35;
-  color: var(--ma-paper);
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   transition: background .2s, color .2s;
 }
-.ma-nav a:hover { background: var(--ma-gold-10); color: var(--ma-gold); }
-.ma-nav a.is-active {
-  background: var(--ma-gold);
-  color: var(--ma-ink);
-  font-weight: 800;
+.ma-nav-label {
+  display: block;
+  font-size: 14px; font-weight: 700; line-height: 1.3;
+  color: var(--ma-paper);
 }
+/* The "Assigned To" name from the course sheet. */
+.ma-nav-teacher {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px; font-weight: 600; letter-spacing: .4px;
+  color: var(--ma-muted);
+}
+.ma-nav a:hover { background: var(--ma-gold-10); }
+.ma-nav a:hover .ma-nav-label { color: var(--ma-gold); }
+
+.ma-nav a.is-active { background: var(--ma-gold); }
+.ma-nav a.is-active .ma-nav-label   { color: var(--ma-ink); font-weight: 800; }
+.ma-nav a.is-active .ma-nav-teacher { color: rgba(16,24,40,.65); }
 
 
 /* ─────────────────────────────────────────────
@@ -152,6 +249,16 @@
   text-transform: uppercase; color: var(--ma-gold);
   margin: 0 0 14px;
 }
+
+/* "Taught by <name>" under the page H1 — filled from the registry. */
+.ma-byline {
+  font-family: var(--ma-text);
+  font-size: 16px; font-weight: 400;
+  color: var(--ma-body);
+  margin: 16px 0 0;
+}
+.ma-byline strong { color: var(--ma-gold); font-weight: 600; }
+.ma-byline:empty  { display: none; }
 
 /* Video — 16:9 box. If you use VTurb, it injects its own spacer, so
    remove aspect-ratio below or the ratio gets applied twice. */
@@ -316,20 +423,22 @@
 
   /* Reorder: content → opt-in → index.
      GHL stacks columns in DOM order, which would put a 13-item index
-     above the video. */
-  .ma-row-main .row  { display: flex; flex-direction: column; }
+     above the video. Selector list widened to match GHL's row naming. */
+  .ma-row-main .row,
+  .ma-row-main .c-row,
+  .ma-row-main [class*="row-"] { display: flex; flex-direction: column; }
   .ma-col-main       { order: 1; }
   .ma-col-optin      { order: 2; }
   .ma-col-nav        { order: 3; }
 
   /* Sticky off — a sticky rail on a phone just eats the screen. */
-  .ma-col-nav,
-  .ma-col-optin { position: static; }
+  .ma-row-main .ma-col-nav,
+  .ma-row-main .ma-col-optin { position: static; }
 
   /* Index collapses to an accordion. */
   .ma-nav-acc > summary { display: block; }
   .ma-nav-acc[open] > summary { margin-bottom: 12px; }
-  .ma-col-nav { padding: 14px; }
+  .ma-row-main .ma-col-nav { padding: 14px; }
   .ma-nav-brand { display: none; }
 
   .ma-h1        { font-size: 32px; letter-spacing: -.5px; }
@@ -534,6 +643,24 @@
   color: var(--ma-gold);
   min-width: 22px;
 }
+.ma-ladder-body   { display: block; min-width: 0; }
+.ma-ladder-label  { display: block; }
+.ma-ladder-teacher {
+  display: block; margin-top: 2px;
+  font-family: var(--ma-text);
+  font-size: 12px; font-weight: 400;
+  color: var(--ma-muted);
+}
+/* Group heading spans the full grid width and opens each block. */
+.ma-ladder-group {
+  grid-column: 1 / -1;
+  margin: 26px 0 2px;
+  font-size: 12px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ma-gold);
+  text-align: left;
+}
+.ma-ladder-group:first-child { margin-top: 0; }
 
 /* ---------- AUTHORITY STRIP ---------- */
 .ma-strip {
@@ -568,4 +695,8 @@
 
   .ma-strip    { font-size: 12px; }
   .ma-strip .ma-sep { margin: 0 7px; }
+
+  .ma-header        { flex-direction: column; gap: 10px; }
+  .ma-header-nav    { gap: 18px; }
+  .ma-header-nav a  { font-size: 11px; letter-spacing: .6px; }
 }
