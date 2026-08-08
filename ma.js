@@ -37,6 +37,8 @@ var MA_SOON_URL = null;
 /* Entries with `group` are non-clickable section headings.
    Entries with `slug` are lesson pages.
      slug    → URL segment, must match the GHL page slug exactly
+     url     → explicit path override; used instead of MA_BASE + slug for
+               both link generation and detecting the current page
      label   → shown in the index, roadmap and (as fallback) the page H1
      teacher → the "Assigned To" name from the sheet; shown everywhere
      video   → YouTube ID ('aB3xY9kLmNo') OR a full embed URL (Vimeo…).
@@ -52,7 +54,7 @@ var MA_SOON_URL = null;
                page goes live, and the link switches itself on. */
 
 var MA_STAGES = [
-  { slug: 'start', label: 'Start Here' },
+  { slug: 'start', label: 'Start Here', url: '/training' },   /* hub page lives at the bare prefix */
 
   { group: 'Marketing — Getting Clients' },
   { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord', soon: true,
@@ -92,6 +94,13 @@ var MA_STAGES = [
 
   function slugFromPath() {
     var p = location.pathname.replace(/\/+$/, '');
+    /* pages with an explicit url match on the whole path (the hub lives at
+       the bare /training, whose last segment matches no slug) */
+    for (var i = 0; i < MA_STAGES.length; i++) {
+      if (MA_STAGES[i].url && MA_STAGES[i].url.replace(/\/+$/, '') === p) {
+        return MA_STAGES[i].slug;
+      }
+    }
     return p.slice(p.lastIndexOf('/') + 1);
   }
 
@@ -118,6 +127,7 @@ var MA_STAGES = [
   /* Where a lesson links to — null means "render it as not clickable".
      Guarantees no link in the index, roadmap or pager can 404. */
   function hrefFor(s) {
+    if (s.url) return s.url;
     if (!s.soon) return MA_BASE + s.slug;
     return MA_SOON_URL || null;
   }
