@@ -255,11 +255,20 @@ var MA_STAGES = [
      attribute, so it is managed here: open on desktop, closed on mobile —
      unless the visitor has opened it themselves. */
   function syncAccordion() {
+    /* The markup ships with `open`, so the index is visible even if this
+       never runs. That matters: on desktop the <summary> is display:none,
+       so a wrongly-closed <details> would hide the whole index with no way
+       to reopen it. Fail open, always.
+       innerWidth can read 0 while the page is still laying out — treat any
+       non-positive width as "don't touch it". */
+    var w = window.innerWidth;
+    if (!w) return;
+
     var accs = document.querySelectorAll('.ma-nav-acc');
     for (var i = 0; i < accs.length; i++) {
       var a = accs[i];
       if (a.getAttribute('data-ma-touched') === '1') continue;
-      if (window.innerWidth > 768) a.setAttribute('open', '');
+      if (w > 768) a.setAttribute('open', '');
       else a.removeAttribute('open');
     }
   }
@@ -296,6 +305,7 @@ var MA_STAGES = [
   /* GHL sometimes mounts page blocks after DOMContentLoaded. One late
      retry costs nothing and covers that race. */
   setTimeout(init, 600);
+  window.addEventListener('load', syncAccordion);
 
   var t;
   window.addEventListener('resize', function () {

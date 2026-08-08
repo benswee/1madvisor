@@ -172,7 +172,13 @@
 }
 
 /* <details> gives us a free mobile accordion. The summary is hidden on
-   desktop and the `open` attribute is managed by 01-funnel-stages.js. */
+   desktop and the `open` attribute is managed by 01-funnel-stages.js.
+   Belt and braces: on desktop the list is forced visible even if the
+   element somehow ends up without `open` — otherwise the entire index
+   disappears with no <summary> to reopen it. */
+@media (min-width: 769px) {
+  .ma-nav-acc:not([open]) > .ma-nav { display: block; }
+}
 .ma-nav-acc > summary {
   display: none;
   cursor: pointer; list-style: none;
