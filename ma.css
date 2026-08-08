@@ -62,7 +62,8 @@
    Old browsers without :has() simply keep the navy gradient — current look,
    nothing breaks. (.ghl-row variant keeps the local preview honest.) */
 .c-section:has(.ma-row-main),
-.ghl-row:has(.ma-row-main) {
+.ghl-row:has(.ma-row-main),
+.ghl-row.ma-row-main {
   background: linear-gradient(135deg, var(--ma-deep-1) 0%, var(--ma-deep-2) 100%) !important;
 }
 .ma-bg-gold   { background: #ECA021 !important; }
