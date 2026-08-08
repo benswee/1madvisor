@@ -24,6 +24,8 @@
   --ma-ink:         #101828;
   --ma-paper:       #F0EFEF;
 
+  --ma-deep-1:      #1B2938;   /* lesson-page canvas: darker than every card on it */
+  --ma-deep-2:      #141F2B;
   --ma-panel:       #2C4058;   /* one step lighter than --ma-navy: content panels */
   --ma-panel-edge:  #344A64;   /* lighter still: callouts inside a panel */
   --ma-rule:        rgba(74,111,138,.20);
@@ -49,6 +51,20 @@
    but classes exist for them too if that's easier to keep consistent.
    ───────────────────────────────────────────── */
 .ma-bg-navy   { background: linear-gradient(135deg, #253850 0%, #1E2D3F 100%) !important; }
+.ma-bg-deep   { background: linear-gradient(135deg, #1B2938 0%, #141F2B 100%) !important; }
+
+/* THE LESSON-PAGE CANVAS DARKENS ITSELF.
+   The 3-column section needs a canvas darker than the cards sitting on it,
+   or the index card (#253850) vanishes into a #253850 background. Rather
+   than asking Ben to change section classes, the section CONTAINING the
+   3-column row is darkened automatically via :has(). Two-class specificity
+   plus !important outranks ma-bg-navy if that class is also on the section.
+   Old browsers without :has() simply keep the navy gradient — current look,
+   nothing breaks. (.ghl-row variant keeps the local preview honest.) */
+.c-section:has(.ma-row-main),
+.ghl-row:has(.ma-row-main) {
+  background: linear-gradient(135deg, var(--ma-deep-1) 0%, var(--ma-deep-2) 100%) !important;
+}
 .ma-bg-gold   { background: #ECA021 !important; }
 .ma-bg-black  { background: #000000 !important; }
 .ma-bg-footer { background: #0A2840 !important; }
@@ -135,7 +151,10 @@
   border: 1px solid var(--ma-rule);
   border-radius: 12px;
 }
-.ma-row-main .ma-col-nav   { padding: 20px 14px; }
+.ma-row-main .ma-col-nav   {
+  padding: 20px 14px;
+  border-color: rgba(74,111,138,.34);   /* reads as a crisp edge on the deep canvas */
+}
 
 /* The opt-in is the only conversion point on the page, so it gets the
    visual weight: a gold edge, a lifted surface and a soft gold halo.
