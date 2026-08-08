@@ -39,6 +39,10 @@ var MA_SOON_URL = null;
      slug    → URL segment, must match the GHL page slug exactly
      label   → shown in the index, roadmap and (as fallback) the page H1
      teacher → the "Assigned To" name from the sheet; shown everywhere
+     video   → YouTube ID ('aB3xY9kLmNo') OR a full embed URL (Vimeo, VTurb…).
+               Omit it and the page keeps its "Video Coming Soon" panel.
+     optin   → headline above the form on that lesson's page. Omit it and
+               the page keeps whatever headline is written in its HTML.
      soon    → the GHL page isn't built yet: renders greyed with a "Soon"
                tag and is not clickable. DELETE this flag the moment the
                page goes live, and the link switches itself on. */
@@ -247,6 +251,33 @@ var MA_STAGES = [
        keeping it in the HTML avoids an empty flash before this runs. */
     var title = document.querySelector('[data-ma-title]');
     if (title && !title.textContent.trim()) title.textContent = st.label;
+
+    /* ---- VIDEO ----
+       The page ships with the "Video Coming Soon" panel already in place,
+       so a lesson with no video (or a JS failure) shows something sensible
+       rather than an empty hole. We only ever REPLACE it. */
+    var vid = document.querySelector('[data-ma-video]');
+    if (vid && st.video && vid.getAttribute('data-ma-rendered') !== '1') {
+      var src = /^https?:\/\//.test(st.video)
+        ? st.video
+        : 'https://www.youtube.com/embed/' + encodeURIComponent(st.video) + '?rel=0';
+
+      vid.classList.remove('ma-video--soon');
+      vid.innerHTML =
+        '<iframe src="' + esc(src) + '" title="' + esc(st.label) + '"'
+        + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"'
+        + ' allowfullscreen></iframe>';
+      vid.setAttribute('data-ma-rendered', '1');
+    }
+
+    /* ---- OPT-IN HEADLINE ----
+       Per-lesson class offer. Same rule: only overwrite when the registry
+       actually has one, so the HTML default survives otherwise. */
+    var optin = document.querySelector('[data-ma-optin]');
+    if (optin && st.optin && optin.getAttribute('data-ma-rendered') !== '1') {
+      optin.textContent = st.optin;
+      optin.setAttribute('data-ma-rendered', '1');
+    }
   }
 
 
