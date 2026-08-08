@@ -32,6 +32,9 @@ var MA_BASE = '/training/';
    ever want those lessons clickable instead. */
 var MA_SOON_URL = null;
 
+/* Stamped by regen.py in the deployed copy; 'dev' when run from source. */
+var MA_JS_VERSION = 'd6a21939';
+
 
 /* ---------- 2. THE REGISTRY ---------- */
 /* Entries with `group` are non-clickable section headings.
@@ -326,7 +329,22 @@ var MA_STAGES = [
     }
   }
 
+  /* Tiny version line in the footer: proves at a glance which stylesheet
+     generation the page is actually serving and which registry it loaded —
+     ends every "did my paste land?" debugging session. */
+  function renderVersion() {
+    var ft = document.querySelector('.ma-footer');
+    if (!ft || ft.querySelector('.ma-version')) return;
+    var cssv = getComputedStyle(document.documentElement)
+                 .getPropertyValue('--ma-css-version').replace(/["' ]/g, '') || 'pre-stamp';
+    var p = document.createElement('p');
+    p.className = 'ma-version';
+    p.textContent = 'design ' + cssv + ' · registry ' + MA_JS_VERSION;
+    ft.appendChild(p);
+  }
+
   function init() {
+    renderVersion();
     var navs = document.querySelectorAll('.ma-nav');
     for (var i = 0; i < navs.length; i++) renderNav(navs[i]);
 

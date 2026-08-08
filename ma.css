@@ -607,6 +607,12 @@
 }
 .ma-footer p { margin: 0 0 10px; }
 .ma-footer a { color: var(--ma-body); text-decoration: underline; }
+.ma-footer .ma-version {
+  margin-top: 14px;
+  font-size: 10px; letter-spacing: 1px;
+  color: rgba(240,239,239,.25);
+  user-select: all;
+}
 
 
 /* ═════════════════════════════════════════════
