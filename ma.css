@@ -67,6 +67,17 @@
 .ghl-row.ma-row-main {
   background: linear-gradient(135deg, var(--ma-deep-1) 0%, var(--ma-deep-2) 100%) !important;
 }
+
+/* WIDTH OF THE 3-COLUMN LAYOUT.
+   GHL's default section content width caps the container at 1170px,
+   leaving big dead margins on wide screens. Owned here instead (house
+   rule: layout constants live in CSS, not builder settings): up to
+   1400px, never more than 96% of the viewport. Rails and middle share
+   the extra room via their percentage widths. */
+.c-section:has(.ma-row-main) .inner,
+.ghl-row.ma-row-main .ghl-inner {
+  max-width: min(1400px, 96vw) !important;
+}
 .ma-bg-gold   { background: #ECA021 !important; }
 .ma-bg-black  { background: #000000 !important; }
 .ma-bg-footer { background: #0A2840 !important; }
