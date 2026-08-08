@@ -26,6 +26,7 @@
 
   --ma-deep-1:      #1B2938;   /* lesson-page canvas: darker than every card on it */
   --ma-deep-2:      #141F2B;
+  --ma-mid:         #203044;   /* middle column's own surface, between canvas and cards */
   --ma-panel:       #2C4058;   /* one step lighter than --ma-navy: content panels */
   --ma-panel-edge:  #344A64;   /* lighter still: callouts inside a panel */
   --ma-rule:        rgba(74,111,138,.20);
@@ -131,6 +132,11 @@
 .ma-row-main .c-row,
 .ma-row-main [class*="row-"] { align-items: flex-start; }
 
+/* The gutter between the three cards. GHL's column-gap setting was 0, so
+   the cards sat edge-to-edge — enforced here instead so no builder setting
+   can reintroduce it. Percent-width columns shrink to absorb the gaps. */
+.ma-row-main .inner { gap: 28px; }
+
 /* THE RAILS ARE THE CARDS.
    The card cannot be an inner <div>, because the opt-in card has to wrap a
    native GHL Form element sitting between two separate Custom HTML blocks —
@@ -155,6 +161,16 @@
 .ma-row-main .ma-col-nav   {
   padding: 20px 14px;
   border-color: rgba(74,111,138,.34);   /* reads as a crisp edge on the deep canvas */
+}
+
+/* The middle column gets its own surface — a step above the canvas, a step
+   below the panels that sit on it — so the page reads as three zones even
+   where no panel happens to be. Deliberately quieter than both rails. */
+.ma-row-main .ma-col-main {
+  background: var(--ma-mid);
+  border: 1px solid rgba(74,111,138,.16);
+  border-radius: 12px;
+  padding: 24px;
 }
 
 /* The opt-in is the only conversion point on the page, so it gets the
@@ -597,6 +613,9 @@
   .ma-col-main       { order: 1; }
   .ma-col-optin      { order: 2; }
   .ma-col-nav        { order: 3; }
+
+  .ma-row-main .inner { gap: 20px; }
+  .ma-row-main .ma-col-main { padding: 14px; }
 
   /* Sticky off — a sticky rail on a phone just eats the screen. */
   .ma-row-main .ma-col-nav,
