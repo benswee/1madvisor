@@ -39,8 +39,12 @@ var MA_SOON_URL = null;
      slug    → URL segment, must match the GHL page slug exactly
      label   → shown in the index, roadmap and (as fallback) the page H1
      teacher → the "Assigned To" name from the sheet; shown everywhere
-     video   → YouTube ID ('aB3xY9kLmNo') OR a full embed URL (Vimeo, VTurb…).
+     video   → YouTube ID ('aB3xY9kLmNo') OR a full embed URL (Vimeo…).
                Omit it and the page keeps its "Video Coming Soon" panel.
+     videos  → for multi-part lessons: named map, one entry per part, e.g.
+                 videos: { 'middle-class': 'id1', 'affluent': 'id2' }
+               matched to <div data-ma-video="middle-class"> hooks in the
+               page. A part with no entry keeps its Coming Soon panel.
      optin   → headline above the form on that lesson's page. Omit it and
                the page keeps whatever headline is written in its HTML.
      soon    → the GHL page isn't built yet: renders greyed with a "Soon"
@@ -51,7 +55,8 @@ var MA_STAGES = [
   { slug: 'start', label: 'Start Here' },
 
   { group: 'Marketing — Getting Clients' },
-  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord', soon: true },
+  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord', soon: true,
+    optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market' },
   { slug: 'client-conferences', label: 'Client Conferences',                   teacher: 'Ace', soon: true },
   { slug: 'networking',         label: 'Strategic Networking',                 teacher: 'Clement', soon: true },
   { slug: 'accountants',        label: 'Working With Client Accountants',      teacher: 'Tim', soon: true },
@@ -252,15 +257,22 @@ var MA_STAGES = [
     var title = document.querySelector('[data-ma-title]');
     if (title && !title.textContent.trim()) title.textContent = st.label;
 
-    /* ---- VIDEO ----
-       The page ships with the "Video Coming Soon" panel already in place,
+    /* ---- VIDEOS ----
+       Every page ships with "Video Coming Soon" panels already in place,
        so a lesson with no video (or a JS failure) shows something sensible
-       rather than an empty hole. We only ever REPLACE it. */
-    var vid = document.querySelector('[data-ma-video]');
-    if (vid && st.video && vid.getAttribute('data-ma-rendered') !== '1') {
-      var src = /^https?:\/\//.test(st.video)
-        ? st.video
-        : 'https://www.youtube.com/embed/' + encodeURIComponent(st.video) + '?rel=0';
+       rather than an empty hole. We only ever REPLACE panels.
+       A bare data-ma-video hook takes the lesson's `video`; a named hook
+       (data-ma-video="affluent") takes videos['affluent']. */
+    var hooks = document.querySelectorAll('[data-ma-video]');
+    for (var h = 0; h < hooks.length; h++) {
+      var vid = hooks[h];
+      if (vid.getAttribute('data-ma-rendered') === '1') continue;
+      var key = vid.getAttribute('data-ma-video');
+      var raw = key ? (st.videos || {})[key] : st.video;
+      if (!raw) continue;
+      var src = /^https?:\/\//.test(raw)
+        ? raw
+        : 'https://www.youtube.com/embed/' + encodeURIComponent(raw) + '?rel=0';
 
       vid.classList.remove('ma-video--soon');
       vid.innerHTML =
