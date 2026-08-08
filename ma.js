@@ -231,7 +231,7 @@ var MA_STAGES = [
 
     var kicker = document.querySelector('[data-ma-kicker]');
     if (kicker && kicker.getAttribute('data-ma-rendered') !== '1') {
-      kicker.textContent = groupOf(slug) || 'Free Training For Canadian Advisors';
+      kicker.textContent = groupOf(slug) || 'Complimentary Training For Canadian Advisors';
       kicker.setAttribute('data-ma-rendered', '1');
     }
 
