@@ -662,6 +662,36 @@
   .ma-cta       { padding: 17px 22px; font-size: 14px; }
   .ma-optin-head{ font-size: 19px; }
   .ma-pager     { flex-direction: column; }
+
+
+  /* ── home page mobile (merged here: GHL's CSS pipeline rewrites or
+     drops a SECOND max-width block, verified 2026-08-08 — everything
+     mobile must live in this ONE block) ── */
+
+  .ma-hero-h1  { font-size: 34px; letter-spacing: -.6px; }
+  .ma-hero-sub { font-size: 16px; margin-top: 18px; }
+  .ma-h2       { font-size: 28px; letter-spacing: -.5px; }
+  .ma-lede     { font-size: 16px; }
+
+  .ma-btn-row  { flex-direction: column; gap: 12px; }
+  .ma-btn      { width: 100%; padding: 17px 24px; font-size: 14px; }
+
+  .ma-grid-3,
+  .ma-tst-grid,
+  .ma-ladder   { grid-template-columns: 1fr !important; gap: 16px; }
+
+  .ma-card     { padding: 24px 20px; }
+  .ma-card h3  { font-size: 19px; }
+
+  /* Vertical clips are tall — cap them so the section stays scrollable. */
+  .ma-tst-grid--vertical .ma-tst-vid { aspect-ratio: 3 / 4; }
+
+  .ma-strip    { font-size: 12px; }
+  .ma-strip .ma-sep { margin: 0 7px; }
+
+  .ma-header        { flex-direction: column; gap: 10px; }
+  .ma-header-nav    { gap: 18px; }
+  .ma-header-nav a  { font-size: 11px; letter-spacing: .6px; }
 }
 
 
@@ -901,29 +931,4 @@
 .ma-on-gold .ma-strip .ma-sep { color: #6B3F00; }
 
 
-@media (max-width: 768px) {
-  .ma-hero-h1  { font-size: 34px; letter-spacing: -.6px; }
-  .ma-hero-sub { font-size: 16px; margin-top: 18px; }
-  .ma-h2       { font-size: 28px; letter-spacing: -.5px; }
-  .ma-lede     { font-size: 16px; }
 
-  .ma-btn-row  { flex-direction: column; gap: 12px; }
-  .ma-btn      { width: 100%; padding: 17px 24px; font-size: 14px; }
-
-  .ma-grid-3,
-  .ma-tst-grid,
-  .ma-ladder   { grid-template-columns: 1fr; gap: 16px; }
-
-  .ma-card     { padding: 24px 20px; }
-  .ma-card h3  { font-size: 19px; }
-
-  /* Vertical clips are tall — cap them so the section stays scrollable. */
-  .ma-tst-grid--vertical .ma-tst-vid { aspect-ratio: 3 / 4; }
-
-  .ma-strip    { font-size: 12px; }
-  .ma-strip .ma-sep { margin: 0 7px; }
-
-  .ma-header        { flex-direction: column; gap: 10px; }
-  .ma-header-nav    { gap: 18px; }
-  .ma-header-nav a  { font-size: 11px; letter-spacing: .6px; }
-}
