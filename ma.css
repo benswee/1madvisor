@@ -76,9 +76,10 @@
    the extra room via their percentage widths. */
 .c-section:has(.ma-row-main) .inner,
 .ghl-row.ma-row-main .ghl-inner {
-  /* desktop: 100px side margins (Ben's call), capped only on very wide
-     monitors so the row doesn't grow absurd on a 32" display */
-  max-width: min(1880px, calc(100vw - 200px)) !important;
+  /* desktop: the row prefers 1720px wide (= 100px margins on a 1920
+     screen). On smaller windows the margins compress first, down to a
+     20px floor per side — only then does the row itself shrink. */
+  max-width: min(1720px, calc(100vw - 40px)) !important;
 }
 .ma-bg-gold   { background: #ECA021 !important; }
 .ma-bg-black  { background: #000000 !important; }
