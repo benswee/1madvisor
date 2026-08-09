@@ -76,11 +76,11 @@
    the extra room via their percentage widths. */
 .c-section:has(.ma-row-main) .inner,
 .ghl-row.ma-row-main .ghl-inner {
-  /* desktop: the row prefers 1600px wide (~ MacBook Pro 16" full screen
-     with comfortable margins). On smaller windows the margins compress
-     first, down to a 20px floor per side — only then does the row itself
-     shrink. */
-  max-width: min(1600px, calc(100vw - 40px)) !important;
+  /* desktop: proportional to each user's screen — the row takes 92% of
+     the viewport (4% margin each side), so a 13" laptop and a 27" display
+     both get margins that feel the same. Capped at 1800px only so
+     ultrawide monitors don't stretch the layout absurdly. */
+  max-width: min(92vw, 1800px) !important;
 }
 .ma-bg-gold   { background: #ECA021 !important; }
 .ma-bg-black  { background: #000000 !important; }
