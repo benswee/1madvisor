@@ -627,12 +627,16 @@
   .ma-row-main .row,
   .ma-row-main .c-row,
   .ma-row-main [class*="row-"] { display: flex; flex-direction: column; }
-  /* content first, then the (collapsed, one-row) lesson accordion, form
-     last. The index used to go last, but as an 84px accordion it belongs
-     above the form — it is the hub's primary navigation. */
-  .ma-col-main       { order: 1; }
-  .ma-col-nav        { order: 2; }
+  /* Ben's call (2026-08-08): lesson picker FIRST on mobile — it is the
+     hub's primary navigation and collapses to one tappable row. Then the
+     content, form last. */
+  .ma-col-nav        { order: 1; }
+  .ma-col-main       { order: 2; }
   .ma-col-optin      { order: 3; }
+
+  /* Breathing room for the stacked cards — without this the card borders
+     run nearly edge-to-edge on a phone. */
+  .ma-row-main .inner { padding-left: 12px; padding-right: 12px; }
 
   .ma-row-main .inner { gap: 20px; }
   .ma-row-main .ma-col-main { padding: 14px; }

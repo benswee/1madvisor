@@ -33,7 +33,7 @@ var MA_BASE = '/training/';
 var MA_SOON_URL = null;
 
 /* Stamped by regen.py in the deployed copy; 'dev' when run from source. */
-var MA_JS_VERSION = 'd6a21939';
+var MA_JS_VERSION = 'a98ec942';
 
 
 /* ---------- 2. THE REGISTRY ---------- */
@@ -159,6 +159,12 @@ var MA_STAGES = [
     /* GHL re-renders Custom HTML blocks on every builder edit, which would
        otherwise append a second copy of the whole index. */
     if (el.getAttribute('data-ma-rendered') === '1') return;
+
+    /* The <summary> is mobile-only UI (display:none on desktop) — label it
+       from here so wording changes ship without re-pasting the block. */
+    var acc = el.closest('.ma-nav-acc');
+    var sum = acc && acc.querySelector('summary');
+    if (sum) sum.textContent = 'Select A Lesson ▾';
 
     var cur = currentSlug(el), html = '';
 
