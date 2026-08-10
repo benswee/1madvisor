@@ -33,7 +33,7 @@ var MA_BASE = '/training/';
 var MA_SOON_URL = null;
 
 /* Stamped by regen.py in the deployed copy; 'dev' when run from source. */
-var MA_JS_VERSION = 'a98ec942';
+var MA_JS_VERSION = 'dev';
 
 
 /* ---------- 2. THE REGISTRY ---------- */
@@ -60,7 +60,7 @@ var MA_STAGES = [
   { slug: 'start', label: 'Start Here', url: '/training' },   /* hub page lives at the bare prefix */
 
   { group: 'Marketing — Getting Clients' },
-  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord', soon: true,
+  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord',
     optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market' },
   { slug: 'client-conferences', label: 'Client Conferences',                   teacher: 'Ace', soon: true },
   { slug: 'networking',         label: 'Strategic Networking',                 teacher: 'Clement', soon: true },
