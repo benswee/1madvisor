@@ -545,9 +545,10 @@
 .ma-col-optin .form-label {
   display: block;
   margin-bottom: 6px;
-  font-size: 12px; font-weight: 700; letter-spacing: .4px;
+  font-size: 13px; font-weight: 700; letter-spacing: .5px;
   text-transform: uppercase;
-  color: var(--ma-body) !important;
+  color: var(--ma-paper) !important;   /* full brightness — the muted tone read
+                                          as faint next to the white fields */
 }
 
 .ma-col-optin input[type="text"],
