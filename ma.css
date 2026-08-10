@@ -549,8 +549,9 @@
 .ma-col-optin .form-builder--wrap,
 .ma-col-optin .form-builder--wrap-full {
   background: transparent !important;
-  border: 0 !important;
-  padding: 0 !important;
+  border: 1px solid rgba(74,111,138,.34) !important;  /* subtle frame around the form */
+  border-radius: 10px !important;
+  padding: 16px 14px !important;
 }
 
 .ma-col-optin label,
