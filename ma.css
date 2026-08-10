@@ -541,6 +541,18 @@
 .ma-col-optin form,
 .ma-col-optin .ghl-form { font-family: var(--ma-sans); }
 
+/* GHL's Form Builder paints the form on its own white card via INLINE
+   styles (.form-builder--wrap, background-color:#FFFFFF, verified live
+   2026-08-09) — which made the paper-white labels invisible. !important
+   author rules beat inline styles: the card goes transparent so the form
+   sits directly on the navy opt-in card, whatever the builder setting. */
+.ma-col-optin .form-builder--wrap,
+.ma-col-optin .form-builder--wrap-full {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
 .ma-col-optin label,
 .ma-col-optin .form-label {
   display: block;
