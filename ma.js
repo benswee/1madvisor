@@ -33,7 +33,7 @@ var MA_BASE = '/training/';
 var MA_SOON_URL = null;
 
 /* Stamped by regen.py in the deployed copy; 'dev' when run from source. */
-var MA_JS_VERSION = 'dev';
+var MA_JS_VERSION = 'bcf4cef7';
 
 
 /* ---------- 2. THE REGISTRY ---------- */
