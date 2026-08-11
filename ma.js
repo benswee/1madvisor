@@ -25,7 +25,7 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
-var MA_JS_VERSION = '28346802';
+var MA_JS_VERSION = 'b3e8684f';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -34,8 +34,8 @@ var MA_STAGES = [
   { lesson: 'Prospecting', teacher: 'Gord', section: 'Prospecting',
     optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market',
     parts: [
-      { slug: 'prospecting-family-market', label: 'The Family Market', soon: true },
-      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', soon: true }
+      { slug: 'prospecting-family-market', label: 'The Family Market' },
+      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market' }
   ]},
   { lesson: 'Client Conferences', teacher: 'Ace', section: 'Running Conferences',
     optin: 'Live Class: Run A Client Conference That Fills Your Pipeline',
