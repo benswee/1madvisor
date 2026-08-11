@@ -519,22 +519,36 @@
 .ma-res a:last-child { border-bottom: 0; padding-bottom: 0; }
 .ma-res a:hover { color: var(--ma-gold); padding-left: 6px; }
 
-/* Prev / next — generated automatically from the stage registry. */
+/* Prev / next — generated from the registry, rendered in the pager slot
+   that every lesson's content carries directly under its video. */
 .ma-pager { display: flex; gap: 12px; }
+.ma-pager--top { margin: 16px 0 6px; }
 .ma-pager a {
   flex: 1 1 0; min-width: 0;
-  padding: 14px 18px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 18px;
   border: 1px solid var(--ma-gold);
   border-radius: 50px;
   font-family: var(--ma-sans);
-  font-size: 13px; font-weight: 700; letter-spacing: .4px;
   color: var(--ma-gold);
-  text-decoration: none; text-align: center;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  text-decoration: none;
   transition: background .2s, color .2s;
+}
+.ma-pager-arrow {
+  flex: 0 0 auto;
+  font-size: 24px; line-height: 1; font-weight: 400;
+}
+.ma-pager-label {
+  min-width: 0;
+  font-size: 13px; font-weight: 700; letter-spacing: .4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .ma-pager a:hover { background: var(--ma-gold); color: var(--ma-ink); }
 .ma-pager a.is-empty { visibility: hidden; }
+
+/* The generic block's legacy bottom pager slot — superseded by the
+   under-video slot above; hidden so old pages need no re-paste. */
+.ma-main > .ma-pager { display: none; }
 
 
 /* ─────────────────────────────────────────────
