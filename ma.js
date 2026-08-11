@@ -33,7 +33,7 @@ var MA_BASE = '/training/';
 var MA_SOON_URL = null;
 
 /* Stamped by regen.py in the deployed copy; 'dev' when run from source. */
-var MA_JS_VERSION = 'bcf4cef7';
+var MA_JS_VERSION = '4c07b266';
 
 
 /* ---------- 2. THE REGISTRY ---------- */
@@ -42,6 +42,8 @@ var MA_JS_VERSION = 'bcf4cef7';
      slug    → URL segment, must match the GHL page slug exactly
      url     → explicit path override; used instead of MA_BASE + slug for
                both link generation and detecting the current page
+     section → the paid curriculum's Section for this lesson (stored for
+               future display; not rendered yet)
      label   → shown in the index, roadmap and (as fallback) the page H1
      teacher → the "Assigned To" name from the sheet; shown everywhere
      video   → YouTube ID ('aB3xY9kLmNo') OR a full embed URL (Vimeo…).
@@ -60,28 +62,27 @@ var MA_STAGES = [
   { slug: 'start', label: 'Start Here', url: '/training' },   /* hub page lives at the bare prefix */
 
   { group: 'Marketing — Getting Clients' },
-  { slug: 'prospecting',        label: 'Prospecting',                          teacher: 'Gord',
-    optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market' },
-  { slug: 'client-conferences', label: 'Client Conferences',                   teacher: 'Ace', soon: true },
-  { slug: 'networking',         label: 'Strategic Networking',                 teacher: 'Clement', soon: true },
-  { slug: 'accountants',        label: 'Working With Client Accountants',      teacher: 'Tim', soon: true },
+  { slug: 'prospecting',        label: 'Prospecting',                               teacher: 'Gord',          section: 'Prospecting',
+      optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market' },
+  { slug: 'client-conferences', label: 'Client Conferences',                        teacher: 'Ace',           section: 'Running Conferences',  soon: true },
+  { slug: 'star-speaker',       label: 'Becoming a Star Speaker',                   teacher: 'Tim',           section: 'Running Conferences',  soon: true },
+  { slug: 'networking',         label: 'Strategic Networking',                      teacher: 'Clement',       section: 'Strategic Networking', soon: true },
 
   { group: 'Sales — Closing Bigger Cases' },
-  { slug: 'discovery',          label: 'The Discovery Process',                teacher: 'Tim', soon: true },
-  { slug: 'rrsp-trap',          label: 'Fixing The RRSP Trap',                 teacher: 'Tim', soon: true },
-  { slug: 'irp',                label: 'Insured Retirement Plan (IRP)',        teacher: 'Tim', soon: true },
-  { slug: 'personal-ifa',       label: 'Personal IFA',                         teacher: 'Tim', soon: true },
-  { slug: 'corp-insurance',     label: 'Corporate Insurance Sales',            teacher: 'Thomas', soon: true },
+  { slug: 'discovery',          label: 'The Discovery Process',                     teacher: 'Ace & Mayank',  section: 'Discovery Process',    soon: true },
+  { slug: 'aum-engine',         label: 'Building a Predictable AUM Engine',         teacher: 'Harry',         section: 'Investment',           soon: true },
+  { slug: 'rrsp-meltdown',      label: 'RRSP/RRIF Interest Meltdown',               teacher: 'Amanda',        section: 'Investment',           soon: true },
+  { slug: 'personal-irp',       label: 'Personal Insured Retirement Plan',          teacher: 'Carmen',        section: 'Insurance',            soon: true },
+  { slug: 'personal-estate',    label: 'Personal Estate Insurance',                 teacher: 'Tim',           section: 'Insurance',            soon: true },
+  { slug: 'corporate-irp',      label: 'Corporate Insured Retirement Plan',         teacher: 'Thomas',        section: 'Insurance',            soon: true },
+  { slug: 'corporate-estate',   label: 'Corporate Estate Insurance',                teacher: 'Tim',           section: 'Insurance',            soon: true },
+  { slug: 'case-study',         label: 'Advanced Case Study',                       teacher: 'Carmen',        section: 'Case Study',           soon: true },
+  { slug: 'objection-handling', label: 'Objection Handling',                        teacher: 'Thomas & Tim',  section: 'Objection Handling',   soon: true },
 
-  { group: 'Investments — Building AUM' },
-  { slug: 'aum-engine',         label: 'Building A Predictable AUM Engine',    teacher: 'Harry', soon: true },
-  { slug: 'growth-framework',   label: 'The 3-Step Investment Growth Framework', teacher: 'Harry', soon: true },
-
-  { group: 'Practice Growth — Mindset & Team' },
-  { slug: 'mindset',            label: 'Mindset',                              teacher: 'Tim', soon: true },
-  { slug: 'top-20',             label: 'The Top-20 Wealth Blueprint',          teacher: 'Tim', soon: true },
-  { slug: 'delegation',         label: 'Delegation',                           teacher: 'Gord', soon: true },
-  { slug: 'scaling',            label: 'Scaling Beyond You',                   teacher: 'Harry', soon: true }
+  { group: 'Practice Growth — Building Beyond You' },
+  { slug: 'advisor-referrals',  label: 'Residual Income Through Advisor Referrals', teacher: 'Ling',          section: 'Advisor Network',      soon: true },
+  { slug: 'team-building',      label: 'Building a Team',                           teacher: 'Jed',           section: 'Team Building',        soon: true },
+  { slug: 'delegation',         label: 'Effective Delegation',                      teacher: 'Gord',          section: 'Delegation & Leverage', soon: true }
 ];
 
 
