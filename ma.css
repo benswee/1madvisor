@@ -312,6 +312,49 @@
 }
 
 .ma-nav a:hover { background: var(--ma-gold-10); }
+
+/* ── Expandable lesson groups (one video per page) ──
+   A multi-part lesson renders as a heading row + nested part links.
+   Collapsed by default; the current page's lesson ships open. */
+.ma-nav-item-group { margin-bottom: 2px; }
+.ma-nav-item-group.all-soon > .ma-nav-lesson { opacity: .55; }
+.ma-nav-lesson {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-user-select: none; user-select: none;
+}
+.ma-nav-lesson:hover { background: var(--ma-gold-10); }
+.ma-nav-lesson .ma-nav-label { flex: 1 1 auto; }
+.ma-caret {
+  flex: 0 0 auto;
+  font-size: 10px; color: var(--ma-gold);
+  transition: transform .2s;
+}
+.ma-nav-item-group.open > .ma-nav-lesson .ma-caret { transform: rotate(90deg); }
+
+.ma-nav-parts {
+  display: none;
+  margin: 2px 0 8px 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--ma-rule);
+}
+.ma-nav-item-group.open > .ma-nav-parts { display: block; }
+.ma-nav-parts a,
+.ma-nav-parts .ma-nav-item {
+  display: block;
+  padding: 8px 10px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+  font-size: 13.5px; font-weight: 600; line-height: 1.35;
+  color: var(--ma-body);
+  text-decoration: none;
+  text-align: left;
+}
+.ma-nav-parts a:hover { background: var(--ma-gold-10); color: var(--ma-gold); }
+.ma-nav-parts a.is-active { background: var(--ma-gold); color: var(--ma-ink); font-weight: 700; }
+.ma-nav-parts .ma-nav-item.is-soon { opacity: .5; cursor: default; }
 .ma-nav a:hover .ma-nav-label { color: var(--ma-gold); }
 
 .ma-nav a.is-active { background: var(--ma-gold); }
