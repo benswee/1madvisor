@@ -25,7 +25,7 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
-var MA_JS_VERSION = 'c284a06f';
+var MA_JS_VERSION = 'b391fb68';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -357,6 +357,30 @@ var MA_CONTENT = {
     host.setAttribute('data-ma-rendered', '1');
   }
 
+  /* ---------- META PIXEL: per-lesson ViewContent ----------
+     Fires only on lesson pages, and only if a pixel is present — the
+     guard means this is completely inert until the base pixel code is
+     pasted into the site-level head field. Sending the slug, part name
+     and category makes every lesson its own audience-buildable signal
+     without tagging a single page by hand. */
+  function trackPageView() {
+    if (typeof fbq === 'undefined') return;
+    if (window.MA_TRACKED) return;
+    var ctx = findPart(slugFromPath());
+    if (!ctx) return;                       /* home / non-lesson pages */
+    window.MA_TRACKED = true;
+    try {
+      fbq('track', 'ViewContent', {
+        content_ids:      [ctx.part.slug],
+        content_name:     ctx.part.label,
+        content_category: ctx.group || 'Training',
+        content_type:     'product',
+        lesson:           ctx.lesson.lesson,
+        coach:            ctx.lesson.teacher || ''
+      });
+    } catch (e) { /* never let tracking break a page */ }
+  }
+
   /* ---------- FOOTER VERSION LINE ---------- */
   function renderVersion() {
     var ft = document.querySelector('.ma-footer');
@@ -391,6 +415,7 @@ var MA_CONTENT = {
     for (var m = 0; m < ladders.length; m++) renderLadder(ladders[m]);
     renderMeta();
     renderVersion();
+    trackPageView();
     var accs = document.querySelectorAll('.ma-nav-acc');
     for (var k = 0; k < accs.length; k++) {
       if (accs[k].getAttribute('data-ma-bound') === '1') continue;
