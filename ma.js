@@ -25,7 +25,7 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
-var MA_JS_VERSION = 'b391fb68';
+var MA_JS_VERSION = '75649688';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -84,7 +84,7 @@ var MA_STAGES = [
       { slug: 'personal-estate',     label: 'Personal Estate Insurance', soon: true },
       { slug: 'personal-estate-ifa', label: 'The IFA Version', soon: true }
   ]},
-  { lesson: 'Corporate Insured Retirement Plan', teacher: 'Thomas', section: 'Insurance',
+  { lesson: 'Corporate Insured Retirement Plan', section: 'Insurance',   /* coach TBD */
     optin: 'Live Class: The Corporate IRP Conversation',
     parts: [
       { slug: 'corporate-irp',     label: 'The Corporate IRP', soon: true },
@@ -99,7 +99,7 @@ var MA_STAGES = [
   { lesson: 'Advanced Case Study', teacher: 'Carmen', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
     parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true } ]},
-  { lesson: 'Objection Handling', teacher: 'Thomas & Tim', section: 'Objection Handling',
+  { lesson: 'Objection Handling', teacher: 'Tim', section: 'Objection Handling',
     optin: 'Live Class: Objection Handling Role Play With The Coaches',
     parts: [
       { slug: 'objection-mid-affluent', label: 'Middle-to-Affluent Market', soon: true },
@@ -116,6 +116,33 @@ var MA_STAGES = [
   { lesson: 'Effective Delegation', teacher: 'Gord', section: 'Delegation & Leverage',
     optin: 'Live Class: Delegation That Actually Sticks',
     parts: [ { slug: 'delegation', label: 'Effective Delegation', soon: true } ]}
+];
+
+
+/* ═══ MENTORS ═══
+   Credentials for the four board mentors are from the vault roster note
+   (verified, public on 1mclub.ca). The other coaches have NO bio on file —
+   they render with name + what they teach only. NEVER invent credentials
+   for a real person; leave `bio` absent until Ben supplies it. */
+var MA_MENTORS = [
+  { name: 'Tim Lau', creds: 'CFP, CLU, CEA · 14 Consecutive Years Top of the Table',
+    role: 'President, GT Wealth & Way Financial',
+    bio: 'Twenty years at the top of high-net-worth planning — estate, corporate tax, trusts and wills — and coaches over 500 advisors a year.' },
+  { name: 'Ace Liew', creds: '2 Yrs TOT · 3 Yrs MDRT · CEA',
+    role: 'Director, Seed Wealth',
+    bio: 'Premier strategist for Canada\'s medical elite, using advanced corporate frameworks and trust strategies to protect capital from tax erosion.' },
+  { name: 'Harry Lee', creds: '$1.5B+ in Client Wealth',
+    role: 'Wealth Development Director',
+    bio: 'Over 20 years in life insurance, having coached more than 1,000 agents to build segregated-fund businesses and sustainable passive income.' },
+  { name: 'Clement Lai', creds: 'MDRT since 2006',
+    role: 'President, UFinancial Group Inc.',
+    bio: 'Coached over 200 insurance advisors and has specialised for a decade in high-net-worth individuals and corporations with sophisticated structures.' },
+  { name: 'Gord' },
+  { name: 'Carmen' },
+  { name: 'Amanda' },
+  { name: 'Mayank' },
+  { name: 'Ling' },
+  { name: 'Jed' }
 ];
 
 
@@ -381,6 +408,69 @@ var MA_CONTENT = {
     } catch (e) { /* never let tracking break a page */ }
   }
 
+  /* ---------- MENTOR CARDS ----------
+     Coaches with no bio on file render as a compact name card listing the
+     topics they teach — honest and useful, rather than a fabricated bio. */
+  function renderMentors(el) {
+    if (el.getAttribute('data-ma-rendered') === '1') return;
+    if (typeof MA_MENTORS === 'undefined') return;
+
+    /* what each coach teaches, straight from the curriculum */
+    var teaches = {};
+    for (var i = 0; i < MA_STAGES.length; i++) {
+      var e = MA_STAGES[i];
+      if (!e.parts || !e.teacher) continue;
+      var names = e.teacher.split('&');
+      for (var n = 0; n < names.length; n++) {
+        var k = names[n].trim();
+        (teaches[k] = teaches[k] || []).push(e.lesson);
+      }
+    }
+
+    var html = '';
+    for (var m = 0; m < MA_MENTORS.length; m++) {
+      var p = MA_MENTORS[m];
+      var lessons = teaches[p.name.split(' ')[0]] || teaches[p.name] || [];
+      html += '<div class="ma-mentor' + (p.bio ? '' : ' is-brief') + '">'
+            + '<h3 class="ma-mentor-name">' + esc(p.name) + '</h3>'
+            + (p.creds ? '<p class="ma-mentor-creds">' + esc(p.creds) + '</p>' : '')
+            + (p.role  ? '<p class="ma-mentor-role">'  + esc(p.role)  + '</p>' : '')
+            + (p.bio   ? '<p class="ma-mentor-bio">'   + esc(p.bio)   + '</p>' : '')
+            + (lessons.length
+                ? '<p class="ma-mentor-teaches"><span>Teaches</span> ' + esc(lessons.join(' · ')) + '</p>'
+                : '')
+            + '</div>';
+    }
+    el.innerHTML = html;
+    el.setAttribute('data-ma-rendered', '1');
+  }
+
+  /* ---------- FULL COURSE INDEX ---------- */
+  function renderIndex(el) {
+    if (el.getAttribute('data-ma-rendered') === '1') return;
+    var html = '', group = null;
+    for (var i = 0; i < MA_STAGES.length; i++) {
+      var e = MA_STAGES[i];
+      if (e.group) { group = e.group; html += '<h3 class="ma-cidx-cat">' + esc(e.group) + '</h3>'; continue; }
+      if (!e.parts || e.parts[0].slug === 'start') continue;
+
+      html += '<div class="ma-cidx-lesson">'
+            + '<div class="ma-cidx-head">'
+            + '<span class="ma-cidx-title">' + esc(e.lesson) + '</span>'
+            + (e.teacher ? '<span class="ma-cidx-coach">' + esc(e.teacher) + '</span>' : '')
+            + '</div><div class="ma-cidx-parts">';
+      for (var j = 0; j < e.parts.length; j++) {
+        var p = e.parts[j], href = hrefFor(p);
+        var label = esc(p.label) + (p.soon ? ' <em class="ma-soon">Soon</em>' : '');
+        html += href ? '<a href="' + href + '">' + label + '</a>'
+                     : '<span class="is-soon">' + label + '</span>';
+      }
+      html += '</div></div>';
+    }
+    el.innerHTML = html;
+    el.setAttribute('data-ma-rendered', '1');
+  }
+
   /* ---------- FOOTER VERSION LINE ---------- */
   function renderVersion() {
     var ft = document.querySelector('.ma-footer');
@@ -413,6 +503,10 @@ var MA_CONTENT = {
     for (var j = 0; j < pagers.length; j++) renderPager(pagers[j]);
     var ladders = document.querySelectorAll('[data-ma-ladder]');
     for (var m = 0; m < ladders.length; m++) renderLadder(ladders[m]);
+    var mentors = document.querySelectorAll('[data-ma-mentors]');
+    for (var q = 0; q < mentors.length; q++) renderMentors(mentors[q]);
+    var cidx = document.querySelectorAll('[data-ma-course-index]');
+    for (var w = 0; w < cidx.length; w++) renderIndex(cidx[w]);
     renderMeta();
     renderVersion();
     trackPageView();

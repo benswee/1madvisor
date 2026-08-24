@@ -690,6 +690,102 @@
 }
 
 
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   COURSE INDEX PAGE — mentor cards + full curriculum listing
+   ═══════════════════════════════════════════════════════════════════ */
+
+.ma-mentor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.ma-mentor {
+  background: var(--ma-panel);
+  border: 1px solid var(--ma-rule);
+  border-radius: 12px;
+  padding: 26px 28px;
+  font-family: var(--ma-sans);
+}
+/* coaches without a bio on file: compact, still complete-looking */
+.ma-mentor.is-brief { background: rgba(44,64,88,.5); padding: 20px 24px; }
+.ma-mentor-name {
+  font-size: 24px; font-weight: 900; letter-spacing: -.24px;
+  color: var(--ma-gold); margin: 0;
+}
+.ma-mentor.is-brief .ma-mentor-name { font-size: 19px; }
+.ma-mentor-creds {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--ma-paper);
+  margin: 8px 0 0;
+}
+.ma-mentor-role {
+  font-family: var(--ma-text);
+  font-size: 14px; color: var(--ma-body); margin: 6px 0 0;
+}
+.ma-mentor-bio {
+  font-family: var(--ma-text);
+  font-size: 15px; line-height: 1.65; color: var(--ma-body);
+  margin: 14px 0 0;
+}
+.ma-mentor-teaches {
+  font-family: var(--ma-text);
+  font-size: 13px; line-height: 1.55; color: var(--ma-muted);
+  margin: 14px 0 0; padding-top: 12px;
+  border-top: 1px solid var(--ma-rule);
+}
+.ma-mentor-teaches span {
+  font-family: var(--ma-sans);
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--ma-gold);
+  margin-right: 6px;
+}
+
+.ma-cidx { font-family: var(--ma-sans); }
+.ma-cidx-cat {
+  font-size: 13px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--ma-gold);
+  margin: 40px 0 16px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--ma-rule);
+}
+.ma-cidx-cat:first-child { margin-top: 0; }
+.ma-cidx-lesson {
+  background: var(--ma-panel);
+  border: 1px solid var(--ma-rule);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 12px;
+}
+.ma-cidx-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.ma-cidx-title {
+  font-size: 18px; font-weight: 800; letter-spacing: -.18px;
+  color: var(--ma-paper);
+}
+.ma-cidx-coach {
+  font-family: var(--ma-text);
+  font-size: 13px; color: var(--ma-gold);
+}
+.ma-cidx-parts {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 12px;
+}
+.ma-cidx-parts a,
+.ma-cidx-parts .is-soon {
+  font-family: var(--ma-text);
+  font-size: 13.5px;
+  padding: 7px 14px;
+  border-radius: 50px;
+  border: 1px solid var(--ma-rule);
+  color: var(--ma-body);
+  text-decoration: none;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.ma-cidx-parts a:hover {
+  background: var(--ma-gold); border-color: var(--ma-gold); color: var(--ma-ink);
+}
+.ma-cidx-parts .is-soon { opacity: .45; }
+
+
 /* ═════════════════════════════════════════════
    MOBILE — single breakpoint at 768px.
    Matches the existing 1M Club and tech-apply builds. Do not add a second.
@@ -749,7 +845,12 @@
 
   .ma-grid-3,
   .ma-tst-grid,
-  .ma-ladder   { grid-template-columns: 1fr !important; gap: 16px; }
+  .ma-ladder,
+  .ma-mentor-grid { grid-template-columns: 1fr !important; gap: 16px; }
+  .ma-mentor       { padding: 20px; }
+  .ma-mentor-name  { font-size: 20px; }
+  .ma-cidx-lesson  { padding: 16px; }
+  .ma-cidx-title   { font-size: 16px; }
 
   .ma-card     { padding: 24px 20px; }
   .ma-card h3  { font-size: 19px; }
