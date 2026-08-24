@@ -25,7 +25,7 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
-var MA_JS_VERSION = '81925b8a';
+var MA_JS_VERSION = '5ff54c6c';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -366,13 +366,27 @@ var MA_CONTENT = {
 
     var vid = document.querySelector('[data-ma-video]');
     if (vid && ctx.part.video && vid.getAttribute('data-ma-rendered') !== '1') {
-      var src = /^https?:\/\//.test(ctx.part.video)
-        ? ctx.part.video
-        : 'https://www.youtube.com/embed/' + encodeURIComponent(ctx.part.video) + '?rel=0';
+      var raw = ctx.part.video;
+      var isUrl = /^https?:\/\//.test(raw);
+      /* A direct media file (GHL media library, any CDN) needs a <video>
+         element — an iframe would download it or render it unstyled.
+         Anything else is treated as an embed: a bare YouTube ID, or a
+         full embed URL from YouTube/Vimeo/Wistia. */
+      var isFile = isUrl && /\.(mp4|m4v|mov|webm|ogg)(\?|#|$)/i.test(raw);
+
       vid.classList.remove('ma-video--soon');
-      vid.innerHTML = '<iframe src="' + esc(src) + '" title="' + esc(ctx.part.label) + '"'
-        + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"'
-        + ' allowfullscreen></iframe>';
+
+      if (isFile) {
+        vid.innerHTML = '<video src="' + esc(raw) + '" controls preload="metadata"'
+          + (ctx.part.poster ? ' poster="' + esc(ctx.part.poster) + '"' : '')
+          + ' playsinline title="' + esc(ctx.part.label) + '"></video>';
+      } else {
+        var src = isUrl ? raw
+          : 'https://www.youtube.com/embed/' + encodeURIComponent(raw) + '?rel=0';
+        vid.innerHTML = '<iframe src="' + esc(src) + '" title="' + esc(ctx.part.label) + '"'
+          + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"'
+          + ' allowfullscreen></iframe>';
+      }
       vid.setAttribute('data-ma-rendered', '1');
     }
   }

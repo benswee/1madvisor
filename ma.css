@@ -413,6 +413,9 @@
   position: absolute; inset: 0;
   width: 100%; height: 100%; border: 0;
 }
+/* direct-file videos: letterbox rather than crop, and keep the native
+   controls visible against a dark poster frame */
+.ma-video video { object-fit: contain; background: #000; }
 
 /* Placeholder for stages whose video isn't shot yet. */
 .ma-video--soon {
