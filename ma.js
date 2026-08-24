@@ -25,7 +25,7 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
-var MA_JS_VERSION = '75649688';
+var MA_JS_VERSION = '81925b8a';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -123,7 +123,10 @@ var MA_STAGES = [
    Credentials for the four board mentors are from the vault roster note
    (verified, public on 1mclub.ca). The other coaches have NO bio on file —
    they render with name + what they teach only. NEVER invent credentials
-   for a real person; leave `bio` absent until Ben supplies it. */
+   for a real person; leave `bio` absent until Ben supplies it.
+   `photo:` is optional — omit it and the card draws an initials avatar in
+   the brand palette, which reads as deliberate rather than broken. Add a
+   URL later and it becomes a real portrait with no page edit. */
 var MA_MENTORS = [
   { name: 'Tim Lau', creds: 'CFP, CLU, CEA · 14 Consecutive Years Top of the Table',
     role: 'President, GT Wealth & Way Financial',
@@ -427,15 +430,28 @@ var MA_CONTENT = {
       }
     }
 
+    function initials(name) {
+      return name.split(/\s+/).filter(Boolean).slice(0, 2)
+                 .map(function (w) { return w.charAt(0).toUpperCase(); }).join('');
+    }
+
     var html = '';
     for (var m = 0; m < MA_MENTORS.length; m++) {
       var p = MA_MENTORS[m];
       var lessons = teaches[p.name.split(' ')[0]] || teaches[p.name] || [];
+
+      var portrait = p.photo
+        ? '<img class="ma-avatar" src="' + esc(p.photo) + '" alt="' + esc(p.name) + '">'
+        : '<div class="ma-avatar is-placeholder" aria-hidden="true">' + esc(initials(p.name)) + '</div>';
+
       html += '<div class="ma-mentor' + (p.bio ? '' : ' is-brief') + '">'
+            + '<div class="ma-mentor-top">' + portrait
+            + '<div class="ma-mentor-id">'
             + '<h3 class="ma-mentor-name">' + esc(p.name) + '</h3>'
             + (p.creds ? '<p class="ma-mentor-creds">' + esc(p.creds) + '</p>' : '')
             + (p.role  ? '<p class="ma-mentor-role">'  + esc(p.role)  + '</p>' : '')
-            + (p.bio   ? '<p class="ma-mentor-bio">'   + esc(p.bio)   + '</p>' : '')
+            + '</div></div>'
+            + (p.bio ? '<p class="ma-mentor-bio">' + esc(p.bio) + '</p>' : '')
             + (lessons.length
                 ? '<p class="ma-mentor-teaches"><span>Teaches</span> ' + esc(lessons.join(' · ')) + '</p>'
                 : '')

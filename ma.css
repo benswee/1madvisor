@@ -706,13 +706,38 @@
 }
 /* coaches without a bio on file: compact, still complete-looking */
 .ma-mentor.is-brief { background: rgba(44,64,88,.5); padding: 20px 24px; }
+
+/* portrait + identity block */
+.ma-mentor-top { display: flex; align-items: center; gap: 18px; }
+.ma-mentor-id  { min-width: 0; }
+
+.ma-avatar {
+  flex: 0 0 auto;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--ma-gold-edge);
+  background: var(--ma-navy);
+}
+/* placeholder portrait: initials in the brand palette, so a missing photo
+   reads as design rather than a broken image. Swap in a real `photo:` URL
+   in the registry and this is replaced automatically. */
+.ma-avatar.is-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ma-sans);
+  font-size: 24px; font-weight: 900; letter-spacing: .5px;
+  color: var(--ma-gold);
+  background: linear-gradient(160deg, var(--ma-panel-edge) 0%, var(--ma-navy) 100%);
+}
+.ma-mentor.is-brief .ma-avatar { width: 56px; height: 56px; font-size: 19px; }
+
 .ma-mentor-name {
   font-size: 24px; font-weight: 900; letter-spacing: -.24px;
   color: var(--ma-gold); margin: 0;
 }
 .ma-mentor.is-brief .ma-mentor-name { font-size: 19px; }
 .ma-mentor-creds {
-  font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px;
   text-transform: uppercase; color: var(--ma-paper);
   margin: 8px 0 0;
 }
@@ -848,7 +873,10 @@
   .ma-ladder,
   .ma-mentor-grid { grid-template-columns: 1fr !important; gap: 16px; }
   .ma-mentor       { padding: 20px; }
-  .ma-mentor-name  { font-size: 20px; }
+  .ma-mentor-name  { font-size: 18px; }
+  .ma-mentor-top   { gap: 14px; }
+  .ma-avatar       { width: 56px; height: 56px; font-size: 19px; }
+  .ma-mentor.is-brief .ma-avatar { width: 48px; height: 48px; font-size: 16px; }
   .ma-cidx-lesson  { padding: 16px; }
   .ma-cidx-title   { font-size: 16px; }
 
