@@ -25,7 +25,11 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
-var MA_JS_VERSION = '5ff54c6c';
+
+/* Where "Request A Seat" buttons send people. The course name rides along
+   as ?course=… so the apply form knows what they picked. */
+var MA_APPLY_URL = '/training/apply';
+var MA_JS_VERSION = '11578519';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -495,9 +499,29 @@ var MA_CONTENT = {
         html += href ? '<a href="' + href + '">' + label + '</a>'
                      : '<span class="is-soon">' + label + '</span>';
       }
-      html += '</div></div>';
+      html += '</div>';
+      if (e.open) {
+        html += '<div class="ma-cidx-enrol">'
+              + '<span class="ma-chip-open">Enrolling Now</span>'
+              + '<a class="ma-cidx-cta" href="' + MA_APPLY_URL
+              + '?course=' + encodeURIComponent(e.lesson) + '">Request A Seat →</a>'
+              + '</div>';
+      }
+      html += '</div>';
     }
     el.innerHTML = html;
+    el.setAttribute('data-ma-rendered', '1');
+  }
+
+  /* ---------- APPLY PAGE: show the picked course ---------- */
+  function renderApplyCourse() {
+    var el = document.querySelector('[data-ma-apply-course]');
+    if (!el || el.getAttribute('data-ma-rendered') === '1') return;
+    var m = /[?&]course=([^&]+)/.exec(location.search);
+    if (!m) return;
+    var name = decodeURIComponent(m[1].replace(/\+/g, ' '));
+    el.innerHTML = 'Requesting: <strong>' + esc(name) + '</strong>';
+    el.style.display = '';
     el.setAttribute('data-ma-rendered', '1');
   }
 
@@ -538,6 +562,7 @@ var MA_CONTENT = {
     var cidx = document.querySelectorAll('[data-ma-course-index]');
     for (var w = 0; w < cidx.length; w++) renderIndex(cidx[w]);
     renderMeta();
+    renderApplyCourse();
     renderVersion();
     trackPageView();
     var accs = document.querySelectorAll('.ma-nav-acc');
