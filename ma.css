@@ -851,6 +851,25 @@
 }
 .ma-apply-course strong { color: var(--ma-gold); font-weight: 800; }
 
+/* ── event registration page ── */
+.ma-event-date {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 9px 20px;
+  border: 1px solid var(--ma-gold-edge);
+  border-radius: 50px;
+  font-family: var(--ma-sans);
+  font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--ma-gold);
+}
+.ma-event-note {
+  font-family: var(--ma-text);
+  font-size: 13px; color: var(--ma-muted);
+  margin: 18px auto 0; max-width: 460px;
+}
+.ma-on-gold .ma-lede strong { color: var(--ma-ink); font-weight: 800; }
+
 
 /* ═════════════════════════════════════════════
    MOBILE — single breakpoint at 768px.
