@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '6b5bb0a4';
+var MA_JS_VERSION = '1e70ec6b';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -132,16 +132,16 @@ var MA_STAGES = [
    the brand palette, which reads as deliberate rather than broken. Add a
    URL later and it becomes a real portrait with no page edit. */
 var MA_MENTORS = [
-  { name: 'Tim Lau', creds: 'CFP, CLU, CEA · 14 Consecutive Years Top of the Table',
+  { name: 'Tim Lau', photo: 'https://benswee.github.io/1madvisor/mentors/tim.jpg', creds: 'CFP, CLU, CEA · 14 Consecutive Years Top of the Table',
     role: 'President, GT Wealth & Way Financial',
     bio: 'Twenty years at the top of high-net-worth planning — estate, corporate tax, trusts and wills — and coaches over 500 advisors a year.' },
-  { name: 'Ace Liew', creds: '2 Yrs TOT · 3 Yrs MDRT · CEA',
+  { name: 'Ace Liew', photo: 'https://benswee.github.io/1madvisor/mentors/ace.jpg', creds: '2 Yrs TOT · 3 Yrs MDRT · CEA',
     role: 'Director, Seed Wealth',
     bio: 'Premier strategist for Canada\'s medical elite, using advanced corporate frameworks and trust strategies to protect capital from tax erosion.' },
-  { name: 'Harry Lee', creds: '$1.5B+ in Client Wealth',
+  { name: 'Harry Lee', photo: 'https://benswee.github.io/1madvisor/mentors/harry.jpg', creds: '$1.5B+ in Client Wealth',
     role: 'Wealth Development Director',
     bio: 'Over 20 years in life insurance, having coached more than 1,000 agents to build segregated-fund businesses and sustainable passive income.' },
-  { name: 'Clement Lai', creds: 'MDRT since 2006',
+  { name: 'Clement Lai', photo: 'https://benswee.github.io/1madvisor/mentors/clement.jpg', creds: 'MDRT since 2006',
     role: 'President, UFinancial Group Inc.',
     bio: 'Coached over 200 insurance advisors and has specialised for a decade in high-net-worth individuals and corporations with sophisticated structures.' },
   { name: 'Gord' },

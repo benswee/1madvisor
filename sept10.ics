@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+PRODID:-//1M Advisor//Trial Session//EN
+BEGIN:VEVENT
+UID:sept10-trial-session@1madvisors.com
+DTSTAMP:20260828T120000Z
+DTSTART:20260911T020000Z
+DTEND:20260911T033000Z
+SUMMARY:$1M Advisor — Trial Session
+DESCRIPTION:Prospecting. Closing. Scaling your team. Taught by advisors already at Top of the Table.\n\nCameras on, please — this is a working session, not a broadcast.\n\nJoin: https://1madvisors.com/training/september
+LOCATION:https://1madvisors.com/training/september
+URL:https://1madvisors.com/training/september
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:$1M Advisor Trial Session is tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:$1M Advisor Trial Session starts in 1 hour
+END:VALARM
+END:VEVENT
+END:VCALENDAR
