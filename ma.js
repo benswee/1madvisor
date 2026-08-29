@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '11578519';
+var MA_JS_VERSION = '6b5bb0a4';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -436,6 +436,19 @@ var MA_CONTENT = {
     if (el.getAttribute('data-ma-rendered') === '1') return;
     if (typeof MA_MENTORS === 'undefined') return;
 
+    /* data-ma-mentors="featured" shows only coaches with a bio on file.
+       Used where a short, complete board reads better than a long one with
+       placeholders — the event page. Drops back to the full list on its own
+       as bios land, so this never needs revisiting. */
+    var roster = MA_MENTORS;
+    if (el.getAttribute('data-ma-mentors') === 'featured') {
+      roster = [];
+      for (var f = 0; f < MA_MENTORS.length; f++) {
+        if (MA_MENTORS[f].bio) roster.push(MA_MENTORS[f]);
+      }
+      if (!roster.length) roster = MA_MENTORS;   /* fail open, never blank */
+    }
+
     /* what each coach teaches, straight from the curriculum */
     var teaches = {};
     for (var i = 0; i < MA_STAGES.length; i++) {
@@ -454,8 +467,8 @@ var MA_CONTENT = {
     }
 
     var html = '';
-    for (var m = 0; m < MA_MENTORS.length; m++) {
-      var p = MA_MENTORS[m];
+    for (var m = 0; m < roster.length; m++) {
+      var p = roster[m];
       var lessons = teaches[p.name.split(' ')[0]] || teaches[p.name] || [];
 
       var portrait = p.photo
