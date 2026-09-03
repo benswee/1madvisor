@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'a6e1e4d1';
+var MA_JS_VERSION = '9af60ce0';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -144,10 +144,11 @@ var MA_MENTORS = [
   { name: 'Clement Lai', featured: true, photo: 'https://benswee.github.io/1madvisor/mentors/clement.jpg', creds: 'MDRT since 2006',
     role: 'President, UFinancial Group Inc.',
     bio: 'Coached over 200 insurance advisors and has specialised for a decade in high-net-worth individuals and corporations with sophisticated structures.' },
-  /* Photo pending Ben's confirmation — the firm's CMS alt-tags the same face
-     under two different names, so it is not safe to publish yet. Name, creds
-     and role are from panfinancial.com, which Ben identified as his firm. */
+  /* Portrait and details from panfinancial.com, his firm; identity confirmed
+     by Ben 2026-08-28 (the site's CMS alt-tags the same face under two names,
+     so it was held back until he verified it). */
   { name: 'Gord Berger', featured: true,
+    photo: 'https://benswee.github.io/1madvisor/mentors/gord.jpg',
     creds: '50+ Years · 50 Consecutive Years Top of the Table',
     role: 'Founding Partner & Managing Partner, PanFinancial' },
   { name: 'Carmen' },
