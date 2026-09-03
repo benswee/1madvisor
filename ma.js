@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '1e70ec6b';
+var MA_JS_VERSION = '41b66d8e';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -132,22 +132,22 @@ var MA_STAGES = [
    the brand palette, which reads as deliberate rather than broken. Add a
    URL later and it becomes a real portrait with no page edit. */
 var MA_MENTORS = [
-  { name: 'Tim Lau', photo: 'https://benswee.github.io/1madvisor/mentors/tim.jpg', creds: 'CFP, CLU, CEA · 14 Consecutive Years Top of the Table',
+  { name: 'Tim Lau', featured: true, photo: 'https://benswee.github.io/1madvisor/mentors/tim.jpg', creds: 'CFP, CLU, CEA · 14 Consecutive Years Top of the Table',
     role: 'President, GT Wealth & Way Financial',
     bio: 'Twenty years at the top of high-net-worth planning — estate, corporate tax, trusts and wills — and coaches over 500 advisors a year.' },
-  { name: 'Ace Liew', photo: 'https://benswee.github.io/1madvisor/mentors/ace.jpg', creds: '2 Yrs TOT · 3 Yrs MDRT · CEA',
+  { name: 'Ace Liew', featured: true, photo: 'https://benswee.github.io/1madvisor/mentors/ace.jpg', creds: '2 Yrs TOT · 3 Yrs MDRT · CEA',
     role: 'Director, Seed Wealth',
     bio: 'Premier strategist for Canada\'s medical elite, using advanced corporate frameworks and trust strategies to protect capital from tax erosion.' },
-  { name: 'Harry Lee', photo: 'https://benswee.github.io/1madvisor/mentors/harry.jpg', creds: '$1.5B+ in Client Wealth',
+  { name: 'Harry Lee', featured: true, photo: 'https://benswee.github.io/1madvisor/mentors/harry.jpg', creds: '$1.5B+ in Client Wealth',
     role: 'Wealth Development Director',
     bio: 'Over 20 years in life insurance, having coached more than 1,000 agents to build segregated-fund businesses and sustainable passive income.' },
-  { name: 'Clement Lai', photo: 'https://benswee.github.io/1madvisor/mentors/clement.jpg', creds: 'MDRT since 2006',
+  { name: 'Clement Lai', featured: true, photo: 'https://benswee.github.io/1madvisor/mentors/clement.jpg', creds: 'MDRT since 2006',
     role: 'President, UFinancial Group Inc.',
     bio: 'Coached over 200 insurance advisors and has specialised for a decade in high-net-worth individuals and corporations with sophisticated structures.' },
-  { name: 'Gord' },
+  { name: 'Gord', featured: true },
   { name: 'Carmen' },
-  { name: 'Amanda' },
-  { name: 'Mayank' },
+  { name: 'Amanda', featured: true },
+  { name: 'Mayank', featured: true },
   { name: 'Ling' },
   { name: 'Jed' }
 ];
@@ -436,15 +436,21 @@ var MA_CONTENT = {
     if (el.getAttribute('data-ma-rendered') === '1') return;
     if (typeof MA_MENTORS === 'undefined') return;
 
-    /* data-ma-mentors="featured" shows only coaches with a bio on file.
-       Used where a short, complete board reads better than a long one with
-       placeholders — the event page. Drops back to the full list on its own
-       as bios land, so this never needs revisiting. */
+    /* data-ma-mentors="featured" shows the board chosen for the event page.
+       Selection is EXPLICIT (`featured: true`) rather than inferred from having
+       a bio — a coach can be worth showing before their bio is written, and the
+       previous bio-inference silently hid them. Falls back to bio-having, then
+       to everyone, so this can never render blank. */
     var roster = MA_MENTORS;
     if (el.getAttribute('data-ma-mentors') === 'featured') {
       roster = [];
       for (var f = 0; f < MA_MENTORS.length; f++) {
-        if (MA_MENTORS[f].bio) roster.push(MA_MENTORS[f]);
+        if (MA_MENTORS[f].featured) roster.push(MA_MENTORS[f]);
+      }
+      if (!roster.length) {                      /* nobody flagged yet */
+        for (var g = 0; g < MA_MENTORS.length; g++) {
+          if (MA_MENTORS[g].bio) roster.push(MA_MENTORS[g]);
+        }
       }
       if (!roster.length) roster = MA_MENTORS;   /* fail open, never blank */
     }

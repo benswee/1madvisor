@@ -870,17 +870,42 @@
 .ma-apply-course strong { color: var(--ma-gold); font-weight: 800; }
 
 /* ── event registration page ── */
+/* The date is the second thing an event page is scanned for, after the
+   promise — a 12px uppercase pill under a 64px H1 read as a whisper. Now a
+   display element: pill dropped (border + radius + wide tracking all fight
+   size), gold, weight 900, anchored by a rule. Still subordinate to the H1. */
 .ma-event-date {
   display: inline-block;
-  margin: 0 0 20px;
-  padding: 9px 20px;
-  border: 1px solid var(--ma-gold-edge);
-  border-radius: 50px;
+  margin: 0 0 24px;
+  padding: 0 0 14px;
+  border-bottom: 2px solid var(--ma-gold-edge);
   font-family: var(--ma-sans);
-  font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
-  text-transform: uppercase;
+  font-size: 32px; font-weight: 900; letter-spacing: -.4px;
+  line-height: 1.15;
   color: var(--ma-gold);
 }
+/* Time sits under the big date: smaller, paper-white, both zones spelled out.
+   PT and ET rather than PDT/EDT — correct year-round and avoids DST pedantry. */
+/* Time sits under the big date. Both zones spelled out — "11am-1pm PST/EST"
+   would send every Eastern registrant three hours late. PT/ET rather than
+   PDT/EDT: correct year-round, no DST pedantry. Flex so the zones stack
+   cleanly on a phone instead of orphaning "ET · Online" on its own line. */
+.ma-event-time {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; align-items: baseline;
+  gap: 4px 16px;
+  font-family: var(--ma-sans);
+  font-size: 19px; font-weight: 700; letter-spacing: .2px;
+  color: var(--ma-paper);
+  margin: -12px 0 26px;
+}
+.ma-event-time > span { position: relative; }
+.ma-event-time > span + span::before {
+  content: "·"; position: absolute; left: -11px;
+  color: var(--ma-gold); font-weight: 700;
+}
+.ma-event-time .ma-loc { color: var(--ma-body); font-weight: 500; }
+
 .ma-event-note {
   font-family: var(--ma-text);
   font-size: 13px; color: var(--ma-muted);
@@ -892,85 +917,6 @@
 /* ═════════════════════════════════════════════
    MOBILE — single breakpoint at 768px.
    Matches the existing 1M Club and tech-apply builds. Do not add a second.
-   ═════════════════════════════════════════════ */
-@media (max-width: 768px) {
-
-  /* Reorder: content → opt-in → index.
-     GHL stacks columns in DOM order, which would put a 13-item index
-     above the video. Selector list widened to match GHL's row naming. */
-  .ma-row-main .row,
-  .ma-row-main .c-row,
-  .ma-row-main [class*="row-"] { display: flex; flex-direction: column; }
-  /* Ben's call (2026-08-08): lesson picker FIRST on mobile — it is the
-     hub's primary navigation and collapses to one tappable row. Then the
-     content, form last. */
-  .ma-col-nav        { order: 1; }
-  .ma-col-main       { order: 2; }
-  .ma-col-optin      { order: 3; }
-
-  /* Breathing room for the stacked cards — without this the card borders
-     run nearly edge-to-edge on a phone. */
-  .ma-row-main .inner { padding-left: 12px; padding-right: 12px; }
-
-  .ma-row-main .inner { gap: 20px; }
-  .ma-row-main .ma-col-main { padding: 14px; }
-
-  /* Sticky off — a sticky rail on a phone just eats the screen. */
-  .ma-row-main .ma-col-nav,
-  .ma-row-main .ma-col-optin { position: static; }
-
-  /* Index collapses to an accordion. */
-  .ma-nav-acc > summary { display: block; }
-  .ma-nav-acc[open] > summary { margin-bottom: 12px; }
-  .ma-row-main .ma-col-nav { padding: 14px; }
-  .ma-nav-brand { display: none; }
-
-  .ma-h1        { font-size: 32px; letter-spacing: -.5px; }
-  .ma-accent-rule { width: 64px; height: 3px; margin-top: 14px; }
-  .ma-lesson    { font-size: 16px; }
-  .ma-lesson h3 { font-size: 19px; }
-  .ma-cta       { padding: 17px 22px; font-size: 14px; }
-  .ma-optin-head{ font-size: 19px; }
-  .ma-pager     { flex-direction: column; }
-
-
-  /* ── home page mobile (merged here: GHL's CSS pipeline rewrites or
-     drops a SECOND max-width block, verified 2026-08-08 — everything
-     mobile must live in this ONE block) ── */
-
-  .ma-hero-h1  { font-size: 34px; letter-spacing: -.6px; }
-  .ma-hero-sub { font-size: 16px; margin-top: 18px; }
-  .ma-h2       { font-size: 28px; letter-spacing: -.5px; }
-  .ma-lede     { font-size: 16px; }
-
-  .ma-btn-row  { flex-direction: column; gap: 12px; }
-  .ma-btn      { width: 100%; padding: 17px 24px; font-size: 14px; }
-
-  .ma-grid-3,
-  .ma-tst-grid,
-  .ma-ladder,
-  .ma-mentor-grid { grid-template-columns: 1fr !important; gap: 16px; }
-  .ma-mentor       { padding: 20px; }
-  .ma-mentor-name  { font-size: 18px; }
-  .ma-mentor-top   { gap: 14px; }
-  .ma-avatar       { width: 56px; height: 56px; font-size: 19px; }
-  .ma-mentor.is-brief .ma-avatar { width: 48px; height: 48px; font-size: 16px; }
-  .ma-cidx-lesson  { padding: 16px; }
-  .ma-cidx-title   { font-size: 16px; }
-
-  .ma-card     { padding: 24px 20px; }
-  .ma-card h3  { font-size: 19px; }
-
-  /* Vertical clips are tall — cap them so the section stays scrollable. */
-  .ma-tst-grid--vertical .ma-tst-vid { aspect-ratio: 3 / 4; }
-
-  .ma-strip    { font-size: 12px; }
-  .ma-strip .ma-sep { margin: 0 7px; }
-
-  .ma-header        { flex-direction: column; gap: 10px; }
-  .ma-header-nav    { gap: 18px; }
-  .ma-header-nav a  { font-size: 11px; letter-spacing: .6px; }
-}
 
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -1208,5 +1154,95 @@
 .ma-on-gold .ma-strip { color: var(--ma-ink); }
 .ma-on-gold .ma-strip .ma-sep { color: #6B3F00; }
 
+/* ══════════════════════════════════════════════════════════════════════
+   MOBILE — ONE block, and it MUST stay LAST in the file.
+   Two constraints pull against each other and both are load-bearing:
+   (1) GHL rewrites or drops a SECOND @media block, so all mobile rules live
+       in this single block;
+   (2) these overrides share specificity with their base rules, so a base rule
+       written AFTER this block silently wins and the override is dead.
+   This block previously sat mid-file and 14 rules were dead — including the
+   hero H1, which rendered 64px on a phone. Add new mobile rules INSIDE here,
+   and never append a base rule below it.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Reorder: content → opt-in → index.
+     GHL stacks columns in DOM order, which would put a 13-item index
+     above the video. Selector list widened to match GHL's row naming. */
+  .ma-row-main .row,
+  .ma-row-main .c-row,
+  .ma-row-main [class*="row-"] { display: flex; flex-direction: column; }
+  /* Ben's call (2026-08-08): lesson picker FIRST on mobile — it is the
+     hub's primary navigation and collapses to one tappable row. Then the
+     content, form last. */
+  .ma-col-nav        { order: 1; }
+  .ma-col-main       { order: 2; }
+  .ma-col-optin      { order: 3; }
+
+  /* Breathing room for the stacked cards — without this the card borders
+     run nearly edge-to-edge on a phone. */
+  .ma-row-main .inner { padding-left: 12px; padding-right: 12px; }
+
+  .ma-row-main .inner { gap: 20px; }
+  .ma-row-main .ma-col-main { padding: 14px; }
+
+  /* Sticky off — a sticky rail on a phone just eats the screen. */
+  .ma-row-main .ma-col-nav,
+  .ma-row-main .ma-col-optin { position: static; }
+
+  /* Index collapses to an accordion. */
+  .ma-nav-acc > summary { display: block; }
+  .ma-nav-acc[open] > summary { margin-bottom: 12px; }
+  .ma-row-main .ma-col-nav { padding: 14px; }
+  .ma-nav-brand { display: none; }
+
+  .ma-h1        { font-size: 32px; letter-spacing: -.5px; }
+  .ma-accent-rule { width: 64px; height: 3px; margin-top: 14px; }
+  .ma-lesson    { font-size: 16px; }
+  .ma-lesson h3 { font-size: 19px; }
+  .ma-cta       { padding: 17px 22px; font-size: 14px; }
+  .ma-optin-head{ font-size: 19px; }
+  .ma-pager     { flex-direction: column; }
 
 
+  /* ── home page mobile (merged here: GHL's CSS pipeline rewrites or
+     drops a SECOND max-width block, verified 2026-08-08 — everything
+     mobile must live in this ONE block) ── */
+
+  .ma-event-date { font-size: 21px; padding-bottom: 10px; margin-bottom: 18px; }
+  .ma-event-time { font-size: 16px; margin: -6px 0 22px; flex-direction: column; align-items: center; gap: 3px; }
+  .ma-event-time > span + span::before { display: none; }
+  .ma-hero-h1  { font-size: 34px; letter-spacing: -.6px; }
+  .ma-hero-sub { font-size: 16px; margin-top: 18px; }
+  .ma-h2       { font-size: 28px; letter-spacing: -.5px; }
+  .ma-lede     { font-size: 16px; }
+
+  .ma-btn-row  { flex-direction: column; gap: 12px; }
+  .ma-btn      { width: 100%; padding: 17px 24px; font-size: 14px; }
+
+  .ma-grid-3,
+  .ma-tst-grid,
+  .ma-ladder,
+  .ma-mentor-grid { grid-template-columns: 1fr !important; gap: 16px; }
+  .ma-mentor       { padding: 20px; }
+  .ma-mentor-name  { font-size: 18px; }
+  .ma-mentor-top   { gap: 14px; }
+  .ma-avatar       { width: 56px; height: 56px; font-size: 19px; }
+  .ma-mentor.is-brief .ma-avatar { width: 48px; height: 48px; font-size: 16px; }
+  .ma-cidx-lesson  { padding: 16px; }
+  .ma-cidx-title   { font-size: 16px; }
+
+  .ma-card     { padding: 24px 20px; }
+  .ma-card h3  { font-size: 19px; }
+
+  /* Vertical clips are tall — cap them so the section stays scrollable. */
+  .ma-tst-grid--vertical .ma-tst-vid { aspect-ratio: 3 / 4; }
+
+  .ma-strip    { font-size: 12px; }
+  .ma-strip .ma-sep { margin: 0 7px; }
+
+  .ma-header        { flex-direction: column; gap: 10px; }
+  .ma-header-nav    { gap: 18px; }
+  .ma-header-nav a  { font-size: 11px; letter-spacing: .6px; }
+}
