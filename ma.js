@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'c56a2d51';
+var MA_JS_VERSION = 'b18f32e0';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -39,7 +39,7 @@ var MA_STAGES = [
     optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market',
     parts: [
       { slug: 'prospecting-family-market', label: 'The Family Market' },
-      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', open: true, course: 'High-Net-Worth Prospecting', classes: 2, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a9ae7735bdf5b5b2bda' }
+      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', open: true, course: 'The HNW Prospecting System', classes: 2, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a9ae7735bdf5b5b2bda' }
   ]},
   { lesson: 'Client Conferences', teacher: 'Ace', section: 'Running Conferences',
     optin: 'Live Class: Run A Client Conference That Fills Your Pipeline',
@@ -65,21 +65,21 @@ var MA_STAGES = [
   { lesson: 'CPA & Client Best Interest', teacher: 'Tim', section: 'Accountants',
     optin: 'Live Class: Turning Accountants From Blockers Into Referral Partners',
     parts: [
-      { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'CPA and Client Best Interest', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790' }
+      { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'Client Best Interest and CPA Referrals', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790' }
   ]},
 
   { group: 'Sales — Closing Bigger Cases' },
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
-      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true, open: true, course: 'The Theory Behind Effective Discovery', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1' },
-      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', soon: true, open: true, course: 'Discovery Questioning', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992' }
+      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true, open: true, course: 'Why You\'re Pitching Too Soon', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1' },
+      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', soon: true, open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992' }
   ]},
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
-      { slug: 'aum-engine',   label: 'The AUM Engine', soon: true, open: true, course: 'Building a Predictable AUM Engine', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5' },
-      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy & Ongoing Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2' },
+      { slug: 'aum-engine',   label: 'The AUM Engine', soon: true, open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5' },
+      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy and the Ongoing Client Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2' },
       { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true },
       { slug: 'aum-loans',    label: 'Investment Loans', soon: true }
   ]},
@@ -89,7 +89,7 @@ var MA_STAGES = [
   { lesson: 'Personal Insured Retirement Plan', teacher: 'Carmen', section: 'Insurance',
     optin: 'Live Class: Presenting The Personal IRP With Confidence',
     parts: [
-      { slug: 'personal-irp',     label: 'The Personal IRP', soon: true, open: true, course: 'Personal Insured Retirement Plan', classes: 1, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a871e2f32ce566eaa76' },
+      { slug: 'personal-irp',     label: 'The Personal IRP', soon: true, open: true, course: 'The Personal IRP Presentation', classes: 1, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a871e2f32ce566eaa76' },
       { slug: 'personal-irp-ifa', label: 'The IFA Version', soon: true, open: true, course: 'Personal Insured Retirement Plan — IFA', classes: 1, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8aabe7735bdf5b5b2e37' }
   ]},
   { lesson: 'Personal Estate Insurance', teacher: 'Tim', section: 'Insurance',
@@ -112,7 +112,7 @@ var MA_STAGES = [
   ]},
   { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
-    parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'Advanced Case Study', classes: 2, fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8ac0e7735bdf5b5b3116' } ]},
+    parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'The Complex HNW Case: Discovery to Signed Policy', classes: 2, fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8ac0e7735bdf5b5b3116' } ]},
   { lesson: 'Objection Handling', teacher: 'Tim', section: 'Objection Handling',
     optin: 'Live Class: Objection Handling Role Play With The Coaches',
     parts: [
