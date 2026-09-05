@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '367b1f74';
+var MA_JS_VERSION = '33f2a364';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -62,14 +62,14 @@ var MA_STAGES = [
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
-      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true, open: true, course: 'The Theory Behind Effective Discovery', classes: 1, fee: '$500', buy: '' },
+      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true, open: true, course: 'The Theory Behind Effective Discovery', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1' },
       { slug: 'discovery-questions', label: 'The Actual Discovery Questions', soon: true, open: true, course: 'Discovery Questioning', classes: 2, fee: '$1,000', buy: '' }
   ]},
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
       { slug: 'aum-engine',   label: 'The AUM Engine', soon: true, open: true, course: 'Building a Predictable AUM Engine', classes: 2, fee: '$1,000', buy: '' },
-      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy & Ongoing Process', classes: 1, fee: '$500', buy: '' },
+      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy & Ongoing Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2' },
       { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true },
       { slug: 'aum-loans',    label: 'Investment Loans', soon: true }
   ]},

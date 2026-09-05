@@ -1182,6 +1182,108 @@
 .ma-on-gold .ma-strip { color: var(--ma-ink); }
 .ma-on-gold .ma-strip .ma-sep { color: #6B3F00; }
 
+
+/* ══════════════════════════════════════════════════════════════════════
+   GHL STORE — product list, product detail, cart button
+   Verified against the live DOM 2026-09-03: these pages render INLINE with
+   no iframe, so page CSS reaches every element. That is the opposite of the
+   survey embed, which is cross-origin and unreachable — see GHL Build Pattern.
+   Selectors are GHL's own generated classes; they are stable but not ours, so
+   keep every rule additive and never rely on their internal layout.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* GHL store pages ship an unstyled body — Times, black, transparent. */
+.c-store-product-list, .c-store-product-detail {
+  background: linear-gradient(180deg, var(--ma-navy) 0%, var(--ma-navy-deep) 100%);
+  font-family: var(--ma-text);
+  color: var(--ma-body);
+}
+
+/* ── product list ─────────────────────────────────────────────────── */
+.product-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+.hl-product-list-item {
+  display: block !important;
+  background: var(--ma-panel);
+  border: 1px solid var(--ma-panel-edge);
+  border-radius: 14px;
+  padding: 22px 20px;
+  text-decoration: none;
+  transition: border-color .18s ease, transform .18s ease;
+}
+.hl-product-list-item:hover {
+  border-color: var(--ma-gold-edge);
+  transform: translateY(-2px);
+}
+.hl-product-list-product-name,
+.hl-product-detail-product-name {
+  font-family: var(--ma-sans) !important;
+  font-weight: 800 !important;
+  letter-spacing: -.2px;
+  color: var(--ma-paper) !important;
+}
+.hl-product-list-product-name { font-size: 17px !important; margin: 0 0 10px; }
+/* GHL truncates list names to one line; course names are long and the price
+   is meaningless against the wrong course, so show the whole thing. */
+.hl-product-list-product-name.truncate-text {
+  overflow: visible; text-overflow: clip; white-space: normal;
+}
+.hl-product-list-product-price,
+.hl-product-detail-product-price {
+  font-family: var(--ma-sans) !important;
+  font-weight: 900 !important;
+  color: var(--ma-gold) !important;
+  margin: 0;
+}
+.hl-product-list-product-price { font-size: 20px !important; }
+/* Hide ONLY GHL's stock placeholder — matched on its filename, so a real
+   uploaded image appears automatically without another CSS change. */
+.hl-product-list-product-image[src*="default-product-image"],
+.hl-product-image[src*="default-product-image"] { display: none !important; }
+.hl-product-list-item .image-wrapper:empty { display: none; }
+
+/* ── product detail ───────────────────────────────────────────────── */
+.product-detail-container {
+  background: var(--ma-panel);
+  border: 1px solid var(--ma-panel-edge);
+  border-radius: 16px;
+  padding: 28px;
+}
+.hl-product-detail-product-name { font-size: 30px !important; line-height: 1.15; }
+.hl-product-detail-product-price { font-size: 26px !important; }
+
+.hl-quantity-input, .hl-quantity-input-container, .quantity-container {
+  background: var(--ma-mid) !important;
+  border: 1px solid var(--ma-rule) !important;
+  border-radius: 10px;
+  color: var(--ma-paper) !important;
+}
+.quantity-icon, .quantity-icon-button { color: var(--ma-gold) !important; }
+
+/* The add-to-cart button ships GHL blue (#188BF6) — the loudest thing on a
+   navy brand page. Match the site CTA instead. */
+.c-store-product-detail .primary-btn,
+.c-store-product-list .primary-btn,
+button.primary-btn {
+  background: var(--ma-rust) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 50px !important;
+  font-family: var(--ma-sans) !important;
+  font-weight: 800 !important;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  padding: 15px 30px !important;
+}
+.c-store-product-detail .primary-btn:hover, button.primary-btn:hover { filter: brightness(1.06); }
+
+/* ── cart control in the store nav ────────────────────────────────── */
+.nav-cart-button, .items-cart { color: var(--ma-gold) !important; }
+
 /* ══════════════════════════════════════════════════════════════════════
    MOBILE — ONE block, and it MUST stay LAST in the file.
    Two constraints pull against each other and both are load-bearing:
@@ -1260,6 +1362,9 @@
   .ma-mentor.is-brief .ma-avatar { width: 48px; height: 48px; font-size: 16px; }
   .ma-cidx-lesson  { padding: 16px; }
   .ma-cidx-title   { font-size: 16px; }
+  .product-list-container { grid-template-columns: 1fr !important; gap: 14px; }
+  .hl-product-detail-product-name { font-size: 23px !important; }
+  .product-detail-container { padding: 20px; }
   .ma-cidx-buy     { flex-direction: column; align-items: flex-start; gap: 8px; }
   .ma-cidx-buy .ma-cidx-cta { width: 100%; text-align: center; }
 
