@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '50960f3e';
+var MA_JS_VERSION = 'c56a2d51';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -56,6 +56,16 @@ var MA_STAGES = [
     parts: [
       { slug: 'networking-preparation', label: 'Networking Preparation', soon: true },
       { slug: 'networking-follow-up',   label: 'Lead Follow-Up & Relationships', soon: true }
+  ]},
+
+  /* Restored 2026-09-03. The original 15-lesson structure carried
+     "Accountants / Tim"; it was dropped in the v2 rebuild, which left the
+     $10,000 CPA course with no lesson to hang its enrolment row on.
+     No free video is planned yet, so the part stays `soon`. */
+  { lesson: 'CPA & Client Best Interest', teacher: 'Tim', section: 'Accountants',
+    optin: 'Live Class: Turning Accountants From Blockers Into Referral Partners',
+    parts: [
+      { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'CPA and Client Best Interest', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790' }
   ]},
 
   { group: 'Sales — Closing Bigger Cases' },
