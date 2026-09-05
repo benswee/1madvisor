@@ -832,10 +832,38 @@
 .ma-cidx-parts .is-soon { opacity: .45; }
 
 /* enrolment row on open courses */
+/* Enrolment rows — one per purchasable PART, since classes are sold per part
+   and a lesson can carry more than one (Discovery, AUM, Personal IRP each split
+   into two separately priced classes). Stacked rows, not one inline strip. */
 .ma-cidx-enrol {
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  display: flex; flex-direction: column; gap: 10px;
   margin-top: 16px; padding-top: 14px;
   border-top: 1px solid var(--ma-rule);
+}
+.ma-cidx-buy {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.ma-cidx-buy-id {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  min-width: 0;
+}
+.ma-cidx-buy-name {
+  font-family: var(--ma-sans);
+  font-size: 15px; font-weight: 800; letter-spacing: -.1px;
+  color: var(--ma-paper);
+}
+.ma-cidx-meta {
+  font-family: var(--ma-sans);
+  font-size: 13px; font-weight: 700; letter-spacing: .2px;
+  color: var(--ma-gold);
+}
+/* An inquiry CTA is a weaker ask than a checkout — make it read that way so a
+   priced class with no payment link yet is visibly a different action. */
+.ma-cidx-cta.is-inquiry {
+  background: transparent;
+  border: 1px solid var(--ma-gold-edge);
+  color: var(--ma-gold);
 }
 .ma-chip-open {
   font-size: 10px; font-weight: 800; letter-spacing: 1.4px;
@@ -1232,6 +1260,8 @@
   .ma-mentor.is-brief .ma-avatar { width: 48px; height: 48px; font-size: 16px; }
   .ma-cidx-lesson  { padding: 16px; }
   .ma-cidx-title   { font-size: 16px; }
+  .ma-cidx-buy     { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .ma-cidx-buy .ma-cidx-cta { width: 100%; text-align: center; }
 
   .ma-card     { padding: 24px 20px; }
   .ma-card h3  { font-size: 19px; }

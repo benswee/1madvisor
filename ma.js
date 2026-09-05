@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '41164904';
+var MA_JS_VERSION = '367b1f74';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -39,7 +39,7 @@ var MA_STAGES = [
     optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market',
     parts: [
       { slug: 'prospecting-family-market', label: 'The Family Market' },
-      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market' }
+      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', open: true, course: 'High-Net-Worth Prospecting', classes: 2, fee: '$2,000', buy: '' }
   ]},
   { lesson: 'Client Conferences', teacher: 'Ace', section: 'Running Conferences',
     optin: 'Live Class: Run A Client Conference That Fills Your Pipeline',
@@ -62,14 +62,14 @@ var MA_STAGES = [
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
-      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true },
-      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', soon: true }
+      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true, open: true, course: 'The Theory Behind Effective Discovery', classes: 1, fee: '$500', buy: '' },
+      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', soon: true, open: true, course: 'Discovery Questioning', classes: 2, fee: '$1,000', buy: '' }
   ]},
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
-      { slug: 'aum-engine',   label: 'The AUM Engine', soon: true },
-      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true },
+      { slug: 'aum-engine',   label: 'The AUM Engine', soon: true, open: true, course: 'Building a Predictable AUM Engine', classes: 2, fee: '$1,000', buy: '' },
+      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy & Ongoing Process', classes: 1, fee: '$500', buy: '' },
       { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true },
       { slug: 'aum-loans',    label: 'Investment Loans', soon: true }
   ]},
@@ -79,8 +79,8 @@ var MA_STAGES = [
   { lesson: 'Personal Insured Retirement Plan', teacher: 'Carmen', section: 'Insurance',
     optin: 'Live Class: Presenting The Personal IRP With Confidence',
     parts: [
-      { slug: 'personal-irp',     label: 'The Personal IRP', soon: true },
-      { slug: 'personal-irp-ifa', label: 'The IFA Version', soon: true }
+      { slug: 'personal-irp',     label: 'The Personal IRP', soon: true, open: true, course: 'Personal Insured Retirement Plan', classes: 1, fee: '$1,000', buy: '' },
+      { slug: 'personal-irp-ifa', label: 'The IFA Version', soon: true, open: true, course: 'Personal Insured Retirement Plan — IFA', classes: 1, fee: '$2,000', buy: '' }
   ]},
   { lesson: 'Personal Estate Insurance', teacher: 'Tim', section: 'Insurance',
     optin: 'Live Class: Personal Estate Insurance With Tim',
@@ -102,7 +102,7 @@ var MA_STAGES = [
   ]},
   { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
-    parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true } ]},
+    parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'Advanced Case Study', classes: 2, fee: '$10,000', buy: '' } ]},
   { lesson: 'Objection Handling', teacher: 'Tim', section: 'Objection Handling',
     optin: 'Live Class: Objection Handling Role Play With The Coaches',
     parts: [
@@ -525,12 +525,38 @@ var MA_CONTENT = {
                      : '<span class="is-soon">' + label + '</span>';
       }
       html += '</div>';
-      if (e.open) {
-        html += '<div class="ma-cidx-enrol">'
-              + '<span class="ma-chip-open">Enrolling Now</span>'
-              + '<a class="ma-cidx-cta" href="' + MA_APPLY_URL
-              + '?course=' + encodeURIComponent(e.lesson) + '">Request A Seat →</a>'
-              + '</div>';
+
+      /* Live classes are sold per PART, not per lesson — Ben sells
+         `prospecting-hnw` on its own and splits Discovery, AUM and Personal IRP
+         into separately priced pieces. So the enrolment row is built from the
+         open parts, one line each, with its own price and checkout.
+         A part with no `buy` URL falls back to the inquiry page: never render a
+         Buy button that goes nowhere. */
+      var openParts = [];
+      for (var k = 0; k < e.parts.length; k++) {
+        if (e.parts[k].open) openParts.push(e.parts[k]);
+      }
+      if (openParts.length) {
+        html += '<div class="ma-cidx-enrol">';
+        for (var q = 0; q < openParts.length; q++) {
+          var op = openParts[q];
+          var name = op.course || op.label;
+          var meta = [];
+          if (op.fee) meta.push(esc(op.fee));
+          if (op.classes) meta.push(op.classes + (op.classes === 1 ? ' class' : ' classes'));
+          html += '<div class="ma-cidx-buy">'
+                + '<div class="ma-cidx-buy-id">'
+                + '<span class="ma-chip-open">Enrolling Now</span>'
+                + '<span class="ma-cidx-buy-name">' + esc(name) + '</span>'
+                + (meta.length ? '<span class="ma-cidx-meta">' + meta.join(' &middot; ') + '</span>' : '')
+                + '</div>'
+                + (op.buy
+                    ? '<a class="ma-cidx-cta" href="' + esc(op.buy) + '">Enrol →</a>'
+                    : '<a class="ma-cidx-cta is-inquiry" href="' + MA_APPLY_URL
+                      + '?course=' + encodeURIComponent(name) + '">Request A Seat →</a>')
+                + '</div>';
+        }
+        html += '</div>';
       }
       html += '</div>';
     }
