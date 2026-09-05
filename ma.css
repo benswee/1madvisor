@@ -1192,11 +1192,43 @@
    keep every rule additive and never rely on their internal layout.
    ══════════════════════════════════════════════════════════════════════ */
 
-/* GHL store pages ship an unstyled body — Times, black, transparent. */
-.c-store-product-list, .c-store-product-detail {
-  background: linear-gradient(180deg, var(--ma-navy) 0%, var(--ma-navy-deep) 100%);
+/* GHL store pages ship an unstyled body — Times, black, transparent — and the
+   store element sits several wrappers deep inside a generated `.c-section`.
+   Putting the gradient on the store element alone paints only its own box and
+   leaves the rest of the page white (that was the first attempt).
+   Lift it to body + every section, scoped with `body:has(...)` so it can only
+   ever apply on a store page and never leaks to the rest of the site. */
+body:has(.c-store-product-list),
+body:has(.c-store-product-detail) {
+  background: var(--ma-navy-deep) !important;
   font-family: var(--ma-text);
   color: var(--ma-body);
+}
+body:has(.c-store-product-list) .c-section,
+body:has(.c-store-product-detail) .c-section {
+  background: linear-gradient(180deg, var(--ma-navy) 0%, var(--ma-navy-deep) 100%) !important;
+}
+.c-store-product-list, .c-store-product-detail {
+  font-family: var(--ma-text);
+  color: var(--ma-body);
+}
+
+/* Store nav ("Business Name" + cart). The name itself is a GHL store SETTING,
+   not something CSS can correct — only its appearance is ours. */
+body:has(.c-store-product-list) .c-nav-menu-v2,
+body:has(.c-store-product-detail) .c-nav-menu-v2 {
+  background: transparent !important;
+}
+body:has(.c-store-product-list) .c-nav-menu-v2 *,
+body:has(.c-store-product-detail) .c-nav-menu-v2 * {
+  color: var(--ma-paper) !important;
+  font-family: var(--ma-sans) !important;
+}
+body:has(.c-store-product-list) .nav-cart-button,
+body:has(.c-store-product-detail) .nav-cart-button,
+body:has(.c-store-product-list) .nav-cart-button *,
+body:has(.c-store-product-detail) .nav-cart-button * {
+  color: var(--ma-gold) !important;
 }
 
 /* ── product list ─────────────────────────────────────────────────── */
@@ -1213,6 +1245,7 @@
   border-radius: 14px;
   padding: 22px 20px;
   text-decoration: none;
+  color: var(--ma-paper) !important;   /* it is an <a>; default is link blue */
   transition: border-color .18s ease, transform .18s ease;
 }
 .hl-product-list-item:hover {
