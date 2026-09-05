@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '9af60ce0';
+var MA_JS_VERSION = '41164904';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -100,7 +100,7 @@ var MA_STAGES = [
       { slug: 'corporate-estate',     label: 'Corporate Estate Insurance', soon: true },
       { slug: 'corporate-estate-ifa', label: 'The IFA Version', soon: true }
   ]},
-  { lesson: 'Advanced Case Study', teacher: 'Carmen', section: 'Case Study',
+  { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
     parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true } ]},
   { lesson: 'Objection Handling', teacher: 'Tim', section: 'Objection Handling',
