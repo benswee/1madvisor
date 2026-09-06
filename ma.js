@@ -29,23 +29,19 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '69253bf4';
+var MA_JS_VERSION = 'ec7a5670';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
 
   { group: 'Marketing — Getting Clients' },
 
-  ,
   { lesson: 'Strategic Networking', teacher: 'Clement', section: 'Strategic Networking',
     optin: 'Live Class: Networking With Intention — With Clement',
     parts: [
       { slug: 'networking-preparation', label: 'Networking Preparation', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdffbe29b3baf97de94df.mp4' },
       { slug: 'networking-follow-up',   label: 'Lead Follow-Up & Relationships', soon: true }
   ]},
-
-  ,
-
 
   /* New 2026-09-05. NOT `advisor-referrals`, which is Ling's different topic.
      `referrals-01-referable.mp4` (Gord Berger) IS uploaded but stays UNPUBLISHED —
@@ -58,15 +54,12 @@ var MA_STAGES = [
       { slug: 'referrals-you-make-me-look-good', label: 'You Make Me Look Good', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0077614828d36ab8b64.mp4' }
   ]},
 
-  ,
   { lesson: 'Prospecting', teacher: 'Gord', section: 'Prospecting',
     optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market',
     parts: [
       { slug: 'prospecting-family-market', label: 'The Family Market' },
       { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', open: true, course: 'The HNW Prospecting System', classes: 2, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a9ae7735bdf5b5b2bda' }
   ]},
-
-  ,
 
   /* Restored 2026-09-03. The original 15-lesson structure carried
      "Accountants / Tim"; it was dropped in the v2 rebuild, which left the
@@ -78,12 +71,10 @@ var MA_STAGES = [
       { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'Client Best Interest and CPA Referrals', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790' }
   ]},
 
-  ,
   { lesson: 'Becoming a Star Speaker', teacher: 'Tim', section: 'Running Conferences',
     optin: 'Live Class: Becoming The Speaker Rooms Remember',
     parts: [ { slug: 'star-speaker', label: 'Becoming a Star Speaker', soon: true } ]},
 
-  ,
   /* hidden 2026-09-05 — the complete lesson was Naz's footage and she is out for good; no path without an Ace re-record.
      Data kept intact: delete `hidden` to bring it back. */
   { lesson: 'Client Conferences', hidden: true, teacher: 'Ace', section: 'Running Conferences',
@@ -96,7 +87,6 @@ var MA_STAGES = [
 
   { group: 'Sales — Closing Bigger Cases' },
 
-  ,
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
@@ -105,7 +95,6 @@ var MA_STAGES = [
       { slug: 'discovery-the-system-and-the-advice-memo', label: 'The System & the Advice Memo', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9f3.mp4' }
   ]},
 
-  ,
   /* New 2026-09-05. */
   { lesson: 'Advising Clients Online', teacher: 'Tim', section: 'First Appointments',
     optin: 'Live Class: Running A First Appointment That Earns The Second',
@@ -113,7 +102,6 @@ var MA_STAGES = [
       { slug: 'online-the-six-stages-of-a-first-appointment', label: 'The Six Stages of a First Appointment', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0227614828d36ab8d6f.mp4' }
   ]},
 
-  ,
   { lesson: 'Personal Insured Retirement Plan', teacher: 'Carmen', section: 'Insurance',
     optin: 'Live Class: Presenting The Personal IRP With Confidence',
     parts: [
@@ -121,12 +109,10 @@ var MA_STAGES = [
       { slug: 'personal-irp-ifa', label: 'The IFA Version', soon: true, open: true, course: 'Personal Insured Retirement Plan — IFA', classes: 1, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8aabe7735bdf5b5b2e37' }
   ]},
 
-  ,
   { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
     parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'The Complex HNW Case: Discovery to Signed Policy', classes: 2, fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8ac0e7735bdf5b5b3116' } ]},
 
-  ,
   { lesson: 'Objection Handling', teacher: 'Tim', section: 'Objection Handling',
     optin: 'Live Class: Objection Handling Role Play With The Coaches',
     parts: [
@@ -134,7 +120,6 @@ var MA_STAGES = [
       { slug: 'objection-hnw',          label: 'High-Net-Worth', soon: true }
   ]},
 
-  ,
   { lesson: 'Personal Estate Insurance', teacher: 'Tim', section: 'Insurance',
     optin: 'Live Class: Personal Estate Insurance With Tim',
     parts: [
@@ -142,7 +127,6 @@ var MA_STAGES = [
       { slug: 'personal-estate-ifa', label: 'The IFA Version', soon: true }
   ]},
 
-  ,
   { lesson: 'Corporate Estate Insurance', teacher: 'Tim', section: 'Insurance',
     optin: 'Live Class: Corporate Estate Cases With Tim',
     parts: [
@@ -150,7 +134,6 @@ var MA_STAGES = [
       { slug: 'corporate-estate-ifa', label: 'The IFA Version', soon: true }
   ]},
 
-  ,
   /* hidden 2026-09-05 — no coach at all since Thomas was removed — nobody is assigned to record it.
      Data kept intact: delete `hidden` to bring it back. */
   { lesson: 'Corporate Insured Retirement Plan', hidden: true, section: 'Insurance',   /* coach TBD */
@@ -162,7 +145,6 @@ var MA_STAGES = [
 
   { group: 'Investments — Building AUM' },
 
-  ,
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
@@ -173,7 +155,6 @@ var MA_STAGES = [
       { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true }
   ]},
 
-  ,
   /* New 2026-09-05. Seven lessons against the single `aum-loans` stub that used
      to sit under the AUM lesson — folding them in would have taken that lesson
      to twelve parts, so leverage gets its own. The stub is gone. */
@@ -189,8 +170,7 @@ var MA_STAGES = [
       { slug: 'leverage-getting-it-approved', label: 'Getting It Approved', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc5c.mp4' }
   ]},
 
-  ,
-/* New 2026-09-05. NOT `rrsp-meltdown`, which is Amanda's RRSP/RRIF interest
+  /* New 2026-09-05. NOT `rrsp-meltdown`, which is Amanda's RRSP/RRIF interest
      meltdown — a different topic that only looks like a match. */
   { lesson: 'RRSP Season & the Client Book', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Working An RRSP Season Across A Book You Cannot Meet One By One',
@@ -199,14 +179,12 @@ var MA_STAGES = [
       { slug: 'rrsp-servicing-a-book-you-cant-meet-one-by-one', label: 'Servicing a Book You Cannot Meet One by One', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d66.mp4' }
   ]},
 
-  ,
   { lesson: 'RRSP/RRIF Interest Meltdown', teacher: 'Amanda', section: 'Investment',
     optin: 'Live Class: The RRSP/RRIF Interest Meltdown Strategy',
     parts: [ { slug: 'rrsp-meltdown', label: 'RRSP/RRIF Interest Meltdown', soon: true } ]},
 
   { group: 'Practice Growth — Building Beyond You' },
 
-  ,
   /* New 2026-09-05. */
   { lesson: 'The Top-20 Client System', teacher: 'Tim', section: 'Top-20 System',
     optin: 'Live Class: The Top-20 Call That Reopens A Cold Book',
@@ -217,17 +195,14 @@ var MA_STAGES = [
       { slug: 'top20-the-first-two-sentences', label: 'The First Two Sentences', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c9a.mp4' }
   ]},
 
-  ,
   { lesson: 'Residual Income Through Advisor Referrals', teacher: 'Ling', section: 'Advisor Network',
     optin: 'Live Class: Residual Income From Advisor Referrals',
     parts: [ { slug: 'advisor-referrals', label: 'Residual Income Through Advisor Referrals', soon: true } ]},
 
-  ,
   { lesson: 'Building a Team', teacher: 'Jed', section: 'Team Building',
     optin: 'Live Class: Building A Team That Produces',
     parts: [ { slug: 'team-building', label: 'Building a Team', soon: true } ]},
 
-  ,
   { lesson: 'Effective Delegation', teacher: 'Gord', section: 'Delegation & Leverage',
     optin: 'Live Class: Delegation That Actually Sticks',
     parts: [ { slug: 'delegation', label: 'Effective Delegation', soon: true } ]}

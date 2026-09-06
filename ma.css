@@ -1389,7 +1389,28 @@ body:has(.c-store-product-detail) .c-product-details * {
    small hit targets where brightness matters more than brand colour.
    Lifting the track one surface step (mid -> panel) does as much work as
    brightening the glyph, since contrast is a relationship, not a colour. */
-#hl-global-cart-drawer svg { color: var(--ma-paper) !important; }
+/* These are OUTLINE icons — GHL's bundle ships them `fill="none"`, so the colour
+   lives entirely on `stroke`. The earlier rule only reached `svg [stroke]`
+   (descendants); GHL sets it on the <svg> element itself, so nothing matched and
+   the trash and +/- stayed near-black on navy. Cover both, and never force a
+   fill on an outline icon or it renders as a solid blob. */
+#hl-global-cart-drawer svg,
+#hl-global-cart-drawer svg * { color: var(--ma-paper) !important; }
+#hl-global-cart-drawer svg[stroke]:not([stroke="none"]),
+#hl-global-cart-drawer svg [stroke]:not([stroke="none"]) {
+  stroke: var(--ma-paper) !important;
+  stroke-width: 2.2px;
+}
+#hl-global-cart-drawer svg [fill]:not([fill="none"]) { fill: var(--ma-paper) !important; }
+/* belt and braces for icons drawn with currentColor */
+#hl-global-cart-drawer [class*="icon"],
+#hl-global-cart-drawer button { color: var(--ma-paper) !important; }
+/* the remove control reads as a black box — give it a visible, quiet border */
+#hl-global-cart-drawer button:not([class*="view-cart"]):not([class*="checkout"]) {
+  border: 1px solid var(--ma-gold-edge) !important;
+  background-color: transparent !important;
+  border-radius: 10px;
+}
 #hl-global-cart-drawer svg [fill]:not([fill="none"]) { fill: var(--ma-paper) !important; }
 #hl-global-cart-drawer svg [stroke]:not([stroke="none"]) { stroke: var(--ma-paper) !important; }
 #hl-global-cart-drawer svg path { fill: currentColor; }
@@ -1427,10 +1448,7 @@ body:has(.c-store-product-detail) .c-product-details * {
 #hl-global-cart-drawer [class*="cart-item"] { border-bottom: 1px solid var(--ma-rule); }
 
 /* the remove/trash control is a bordered white box by default */
-#hl-global-cart-drawer button:not([class*="view-cart"]):not([class*="checkout"]) {
-  background-color: transparent !important;
-  border-color: var(--ma-rule) !important;
-}
+/* superseded by the icon-contrast block above */
 /* VIEW CART / checkout inside the drawer */
 #hl-global-cart-drawer [class*="view-cart"],
 #hl-global-cart-drawer [class*="checkout"] {
