@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'e7d84fa5';
+var MA_JS_VERSION = 'e1c87f48';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -41,7 +41,9 @@ var MA_STAGES = [
       { slug: 'prospecting-family-market', label: 'The Family Market' },
       { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', open: true, course: 'The HNW Prospecting System', classes: 2, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a9ae7735bdf5b5b2bda' }
   ]},
-  { lesson: 'Client Conferences', teacher: 'Ace', section: 'Running Conferences',
+  /* hidden 2026-09-05 — the complete lesson was Naz's footage and she is out for good; no path without an Ace re-record.
+     Data kept intact: delete `hidden` to bring it back. */
+  { lesson: 'Client Conferences', hidden: true, teacher: 'Ace', section: 'Running Conferences',
     optin: 'Live Class: Run A Client Conference That Fills Your Pipeline',
     parts: [
       { slug: 'conferences-staging',   label: 'Staging & Guest Acquisition', soon: true },
@@ -133,7 +135,9 @@ var MA_STAGES = [
       { slug: 'personal-estate',     label: 'Personal Estate Insurance', soon: true },
       { slug: 'personal-estate-ifa', label: 'The IFA Version', soon: true }
   ]},
-  { lesson: 'Corporate Insured Retirement Plan', section: 'Insurance',   /* coach TBD */
+  /* hidden 2026-09-05 — no coach at all since Thomas was removed — nobody is assigned to record it.
+     Data kept intact: delete `hidden` to bring it back. */
+  { lesson: 'Corporate Insured Retirement Plan', hidden: true, section: 'Insurance',   /* coach TBD */
     optin: 'Live Class: The Corporate IRP Conversation',
     parts: [
       { slug: 'corporate-irp',     label: 'The Corporate IRP', soon: true },
@@ -312,7 +316,7 @@ var MA_CONTENT = {
     for (var i = 0; i < MA_STAGES.length; i++) {
       var e = MA_STAGES[i];
       if (e.group) { html += '<p class="ma-nav-group">' + esc(e.group) + '</p>'; continue; }
-      if (!e.parts) continue;
+      if (!e.parts || e.hidden) continue;
 
       var teacher = e.teacher ? '<span class="ma-nav-teacher">' + esc(e.teacher) + '</span>' : '';
       var allSoon = e.parts.every(function (p) { return p.soon && !p.url; });
@@ -382,7 +386,7 @@ var MA_CONTENT = {
     for (var i = 0; i < MA_STAGES.length; i++) {
       var e = MA_STAGES[i];
       if (e.group) { html += '<p class="ma-ladder-group">' + esc(e.group) + '</p>'; continue; }
-      if (!e.parts || e.parts[0].slug === 'start') continue;
+      if (!e.parts || e.hidden || e.parts[0].slug === 'start') continue;
       n++;
       var live = e.parts.filter(function (p) { return !p.soon; });
       var target = live.length ? hrefFor(live[0]) : null;
@@ -570,7 +574,7 @@ var MA_CONTENT = {
     for (var i = 0; i < MA_STAGES.length; i++) {
       var e = MA_STAGES[i];
       if (e.group) { group = e.group; html += '<h3 class="ma-cidx-cat">' + esc(e.group) + '</h3>'; continue; }
-      if (!e.parts || e.parts[0].slug === 'start') continue;
+      if (!e.parts || e.hidden || e.parts[0].slug === 'start') continue;
 
       html += '<div class="ma-cidx-lesson">'
             + '<div class="ma-cidx-head">'
