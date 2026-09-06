@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'ec7a5670';
+var MA_JS_VERSION = 'd3075353';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -237,7 +237,7 @@ var MA_MENTORS = [
     photo: 'https://benswee.github.io/1madvisor/mentors/gord.jpg',
     creds: '50+ Years · 50 Consecutive Years Top of the Table',
     role: 'Founding Partner & Managing Partner, PanFinancial' },
-  { name: 'Carmen' },
+  { name: 'Carmen', featured: true },
   { name: 'Amanda', featured: true },
   { name: 'Mayank', featured: true },
   { name: 'Ling' },
@@ -259,10 +259,9 @@ var MA_CONTENT = {
   "networking-follow-up": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The fortune is in the week after. A stack of business cards becomes a pipeline only through disciplined, generous follow-up that builds the relationship before it asks for anything.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>The follow-up cadence that turns a card into a relationship</li>\n      <li>Giving value first — introductions, ideas, invitations</li>\n      <li>Moving a networking contact toward a real first meeting</li>\n      <li>Keeping a network warm without it consuming your calendar</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "discovery-theory": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>Case size is decided in discovery, not at the close. Clients reveal the real picture — the corporation, the second property, the family complexity — only when the conversation earns it. That's a method, and it can be learned.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Why rushed discovery produces small cases from big clients</li>\n      <li>The trust mechanics behind questions that open people up</li>\n      <li>Structuring the conversation so control never feels like interrogation</li>\n      <li>How much you need to know before any recommendation is safe</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "discovery-questions": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The theory matters, but on the day you need the actual words. This is the working question set — what to ask, in what order, and what each answer tells you about the case behind the client.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>The exact questions, sequenced from opening to full picture</li>\n      <li>Different tracks for individuals versus business owners</li>\n      <li>Follow-ups that go one level deeper than the surface answer</li>\n      <li>Capturing what you learn so the whole case stays visible</li>\n    </ul>\n    <p><strong>Advisors who ask better questions write bigger cases. It really is that direct.</strong></p>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
-  "aum-engine": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>Commission income restarts at zero every January. A book of assets under management pays you again for work you did once — and building it is a system you can run alongside your insurance practice.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Why recurring trailer income changes the economics of your practice</li>\n      <li>The realistic path to $10K+ per month of recurring revenue</li>\n      <li>Positioning investments with insurance clients you already serve</li>\n      <li>The crawl-walk-run sequence the next three parts teach</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
+  "aum-engine": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>Commission income restarts at zero every January. A book of assets under management pays you again for work you did once — and building it is a system you can run alongside your insurance practice.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Why recurring trailer income changes the economics of your practice</li>\n      <li>The realistic path to $10K+ per month of recurring revenue</li>\n      <li>Positioning investments with insurance clients you already serve</li>\n      <li>Where the AUM actually comes from, and the review rhythm that keeps it</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "aum-pac": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The crawl stage: pre-authorized contributions. Small monthly amounts, set up once, growing quietly — the habit that builds your AUM base and deepens every client relationship it touches.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Making the PAC conversation natural in any client meeting</li>\n      <li>Amounts that clients sustain without feeling pinched</li>\n      <li>The review rhythm that grows contributions over time</li>\n      <li>Why PAC clients become your best transfer candidates later</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "aum-lump-sum": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The walk stage: moving existing assets under your management. The money already exists — in RRSPs, TFSAs and non-registered accounts elsewhere — and the conversation for earning it is more natural than most advisors think.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Opening the transfer conversation without trashing the other advisor</li>\n      <li>The consolidation case from the client's side of the table</li>\n      <li>Tax triggers to flag on non-registered transfers before they bite</li>\n      <li>Handling the incumbent-advisor objection cleanly</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
-  "aum-loans": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The run stage: investment leverage, for the right client. Borrowing to invest can accelerate wealth meaningfully — and it is exactly as serious as it sounds, which is why presenting it honestly is the entire skill.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Who leverage genuinely suits — and who it never should</li>\n      <li>Presenting upside and downside so consent is real</li>\n      <li>Suitability and compliance boundaries you don't cross</li>\n      <li>Preparing clients for the downturn before it happens</li>\n    </ul>\n    <p><strong>Leverage done right expands a practice. Done casually, it ends one.</strong></p>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "rrsp-meltdown": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>A large RRSP can be a tax bomb with a fuse — accounts that trigger more tax on death than they ever saved in life. The interest-meltdown strategy drains that liability deliberately, on the client's terms instead of the CRA's.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>How a $2.5M RRSP can produce a seven-figure tax bill</li>\n      <li>The meltdown mechanics: deductible interest offsetting taxable withdrawals</li>\n      <li>Which clients fit — and the ones who absolutely don't</li>\n      <li>Turning this single illustration into a prospecting conversation</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "personal-irp": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The Insured Retirement Plan uses permanent life insurance as a tax-advantaged wealth vehicle — protection now, and a tax-efficient retirement income stream later. It's a cornerstone concept for affluent personal clients.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Explaining an IRP so a client actually understands it</li>\n      <li>The ideal candidate profile — income, age, and horizon</li>\n      <li>Answering “why not just invest the difference?” honestly</li>\n      <li>The illustration that makes the case without overselling it</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "personal-irp-ifa": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>The Immediate Financing Arrangement version: the client gets the coverage and keeps their capital working. Borrowing against the policy makes the IRP viable for clients whose money already has a job.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>How the IFA structure works, in plain language</li>\n      <li>Presenting the borrowing without it sounding exotic</li>\n      <li>Qualification: who lenders actually approve</li>\n      <li>The disclosure conversation that protects everyone</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
@@ -453,11 +452,35 @@ var MA_CONTENT = {
 
     var title = document.querySelector('[data-ma-title]');
     if (title && !title.textContent.trim()) title.textContent = ctx.part.label;
+    /* Every lesson page shipped with the template's <title> ("Start Here — …"),
+       so tabs, bookmarks and search results all said Start Here. Set it from
+       the same match that fills the H1. */
+    if (ctx.part.slug !== 'start') {
+      document.title = ctx.part.label + ' — $1M Advisor Training';
+    }
 
     var optin = document.querySelector('[data-ma-optin]');
     if (optin && ctx.lesson.optin && optin.getAttribute('data-ma-rendered') !== '1') {
       optin.textContent = ctx.lesson.optin;
       optin.setAttribute('data-ma-rendered', '1');
+    }
+
+    /* The store was unreachable from any lesson page: a $2,000 class could be
+       on sale for the exact topic the visitor is watching, with no way to buy
+       it. When the part is open with a checkout URL, put the enrol row in the
+       right rail above the inquiry form. Rendered once, guarded like the rest. */
+    var rail = document.getElementById('optin');
+    if (rail && ctx.part.open && ctx.part.buy && !rail.querySelector('.ma-rail-buy')) {
+      var meta = [];
+      if (ctx.part.fee) meta.push(esc(ctx.part.fee));
+      if (ctx.part.classes) meta.push(ctx.part.classes + (ctx.part.classes === 1 ? ' class' : ' classes'));
+      var box = document.createElement('div');
+      box.className = 'ma-rail-buy';
+      box.innerHTML = '<span class="ma-chip-open">Enrolling Now</span>'
+        + '<p class="ma-rail-buy-name">' + esc(ctx.part.course || ctx.part.label) + '</p>'
+        + (meta.length ? '<p class="ma-rail-buy-meta">' + meta.join(' &middot; ') + '</p>' : '')
+        + '<a class="ma-btn ma-rail-buy-cta" href="' + esc(ctx.part.buy) + '">Enrol &rarr;</a>';
+      rail.appendChild(box);
     }
 
     var vid = document.querySelector('[data-ma-video]');
@@ -551,7 +574,7 @@ var MA_CONTENT = {
     var teaches = {};
     for (var i = 0; i < MA_STAGES.length; i++) {
       var e = MA_STAGES[i];
-      if (!e.parts || !e.teacher) continue;
+      if (!e.parts || !e.teacher || e.hidden) continue;   /* hidden lessons stay off the cards */
       var names = e.teacher.split('&');
       for (var n = 0; n < names.length; n++) {
         var k = names[n].trim();
@@ -606,7 +629,7 @@ var MA_CONTENT = {
             + '</div><div class="ma-cidx-parts">';
       for (var j = 0; j < e.parts.length; j++) {
         var p = e.parts[j], href = hrefFor(p);
-        var label = esc(p.label) + (p.soon ? ' <em class="ma-soon">Soon</em>' : '');
+        var label = esc(p.label) + ((p.soon && !p.open) ? ' <em class="ma-soon">Soon</em>' : '');
         html += href ? '<a href="' + href + '">' + label + '</a>'
                      : '<span class="is-soon">' + label + '</span>';
       }
