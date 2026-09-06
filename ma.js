@@ -29,7 +29,25 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = '1ac17c2c';
+
+/* ── Right rail on lesson pages ──────────────────────────────────────
+   ma.js owns the rail: content AND styles, so it renders correctly on every
+   lesson page regardless of which stylesheet that page was last pasted with.
+   MA_NEXT_SESSION: the card every lesson links to. Set to null when the date
+   has passed and the card disappears everywhere. MA_RAIL_FORM: false hides
+   the GHL inquiry form + consent line (Ben, 2026-09-06: "the form could be
+   just directly linked to the next live session"). Flip to true to bring it
+   back — nothing is deleted from the pages. */
+var MA_NEXT_SESSION = {
+  eyebrow: 'Next Live Session',
+  title:   'Attract HNW Clients. Close Larger Cases. Scale.',
+  when:    'Thursday, September 10 · 11am PT / 2pm ET',
+  cta:     'Save My Seat',
+  url:     '/training/september'
+};
+var MA_RAIL_FORM   = false;
+var MA_ALL_CLASSES = '/store-product-list';
+var MA_JS_VERSION = 'ef6bb6a5';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -485,18 +503,67 @@ var MA_CONTENT = {
        on sale for the exact topic the visitor is watching, with no way to buy
        it. When the part is open with a checkout URL, put the enrol row in the
        right rail above the inquiry form. Rendered once, guarded like the rest. */
+    /* ── the right rail ── */
     var rail = document.getElementById('optin');
-    if (rail && ctx.part.open && ctx.part.buy && !rail.querySelector('.ma-rail-buy')) {
-      var meta = [];
-      if (ctx.part.fee) meta.push(esc(ctx.part.fee));
-      if (ctx.part.classes) meta.push(ctx.part.classes + (ctx.part.classes === 1 ? ' class' : ' classes'));
-      var box = document.createElement('div');
-      box.className = 'ma-rail-buy';
-      box.innerHTML = '<span class="ma-chip-open">Enrolling Now</span>'
-        + '<p class="ma-rail-buy-name">' + esc(ctx.part.course || ctx.part.label) + '</p>'
-        + (meta.length ? '<p class="ma-rail-buy-meta">' + meta.join(' &middot; ') + '</p>' : '')
-        + '<a class="ma-btn ma-rail-buy-cta" href="' + esc(ctx.part.buy) + '">Enrol &rarr;</a>';
-      rail.appendChild(box);
+    if (rail && rail.getAttribute('data-ma-rail') !== '1') {
+      rail.setAttribute('data-ma-rail', '1');
+
+      /* the sub-line promised a form and a "ladder" that no longer exist */
+      var sub = rail.querySelector('.ma-optin-sub');
+      if (sub) sub.textContent = 'Taught live by MDRT, COT and TOT mentors.';
+
+      var html = '';
+      if (ctx.part.open && ctx.part.buy) {
+        /* the paid class for THIS topic */
+        var meta = [];
+        if (ctx.part.fee) meta.push(esc(ctx.part.fee));
+        if (ctx.part.classes) meta.push(ctx.part.classes + (ctx.part.classes === 1 ? ' class' : ' classes'));
+        html += '<div class="ma-rail-buy">'
+          + '<span class="ma-chip-open">Enrolling Now</span>'
+          + '<p class="ma-rail-buy-name">' + esc(ctx.part.course || ctx.part.label) + '</p>'
+          + (meta.length ? '<p class="ma-rail-buy-meta">' + meta.join(' &middot; ') + '</p>' : '')
+          + '<a class="ma-btn ma-rail-cta" href="' + esc(ctx.part.buy) + '">Enrol &rarr;</a>'
+          + '</div>';
+      } else {
+        /* no class on sale for this topic: send them to everything that is */
+        html += '<div class="ma-rail-buy ma-rail-buy--all">'
+          + '<p class="ma-rail-buy-name">Live classes with the mentors</p>'
+          + '<p class="ma-rail-buy-meta">Small groups &middot; role play &middot; taught by the coach</p>'
+          + '<a class="ma-btn ma-rail-cta" href="' + esc(MA_ALL_CLASSES) + '">See All Live Classes &rarr;</a>'
+          + '</div>';
+      }
+      if (MA_NEXT_SESSION && MA_NEXT_SESSION.url) {
+        html += '<div class="ma-rail-next">'
+          + '<p class="ma-rail-next-eyebrow">' + esc(MA_NEXT_SESSION.eyebrow) + '</p>'
+          + '<p class="ma-rail-next-title">' + esc(MA_NEXT_SESSION.title) + '</p>'
+          + '<p class="ma-rail-next-when">' + esc(MA_NEXT_SESSION.when) + '</p>'
+          + '<a class="ma-btn ma-btn--ghost ma-rail-cta" href="' + esc(MA_NEXT_SESSION.url) + '">' + esc(MA_NEXT_SESSION.cta) + ' &rarr;</a>'
+          + '</div>';
+      }
+      var wrap = document.createElement('div');
+      wrap.className = 'ma-rail';
+      wrap.innerHTML = html;
+      rail.appendChild(wrap);
+
+      /* styles travel WITH the registry so a stale page stylesheet cannot
+         render this as black-on-navy (which is exactly what happened) */
+      if (!document.getElementById('ma-rail-style')) {
+        var st = document.createElement('style');
+        st.id = 'ma-rail-style';
+        st.textContent =
+          '.ma-rail{margin-top:18px}'
+        + '.ma-rail-buy,.ma-rail-next{padding:16px 16px 18px;border-radius:12px;margin:0 0 14px}'
+        + '.ma-rail-buy{border:1px solid var(--ma-gold-edge,rgba(236,160,33,.38));background:var(--ma-gold-10,rgba(236,160,33,.10))}'
+        + '.ma-rail-next{border:1px solid var(--ma-panel-edge,#344A64);background:var(--ma-mid,#203044)}'
+        + '.ma-rail .ma-chip-open{display:inline-block;margin-bottom:8px}'
+        + '.ma-rail-buy-name,.ma-rail-next-title{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:16px;font-weight:800;line-height:1.25;color:var(--ma-paper,#F0EFEF);margin:8px 0 4px;letter-spacing:-.1px}'
+        + '.ma-rail-buy-meta,.ma-rail-next-when{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:13px;font-weight:700;color:var(--ma-gold,#ECA021);margin:0 0 12px;letter-spacing:.2px}'
+        + '.ma-rail-next-eyebrow{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--ma-gold,#ECA021);margin:0}'
+        + '.ma-rail-cta{display:block;text-align:center;width:100%;box-sizing:border-box}'
+        + (MA_RAIL_FORM ? '' :
+           '.ma-col-optin .form-builder--wrap,.ma-col-optin .form-builder--wrap-full,.ma-col-optin form,.ma-col-optin .ma-consent{display:none!important}');
+        document.head.appendChild(st);
+      }
     }
 
     var vid = document.querySelector('[data-ma-video]');
