@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'a41b7cc4';
+var MA_JS_VERSION = 'c0bfc31e';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -56,7 +56,7 @@ var MA_STAGES = [
   { lesson: 'Strategic Networking', teacher: 'Clement', section: 'Strategic Networking',
     optin: 'Live Class: Networking With Intention — With Clement',
     parts: [
-      { slug: 'networking-preparation', soon: true, label: 'Networking Preparation', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdffbe29b3baf97de94df.mp4' },
+      { slug: 'networking-preparation', label: 'Networking Preparation', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdffbe29b3baf97de94df.mp4' },
       { slug: 'networking-follow-up',   label: 'Lead Follow-Up & Relationships', soon: true }
   ]},
 
@@ -79,7 +79,7 @@ var MA_STAGES = [
     optin: 'Live Class: Becoming The Advisor People Introduce Without Being Asked',
     parts: [
       { slug: 'referrals-referable', label: 'Being Referable', soon: true },
-      { slug: 'referrals-you-make-me-look-good', soon: true, label: 'You Make Me Look Good', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0077614828d36ab8b64.mp4' }
+      { slug: 'referrals-you-make-me-look-good', label: 'You Make Me Look Good', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0077614828d36ab8b64.mp4' }
   ]},
   { group: 'Sales — Closing Bigger Cases' },
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
@@ -104,21 +104,21 @@ var MA_STAGES = [
   { lesson: 'Leverage & Investment Loans', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Presenting Leverage So The Client Understands The Risk',
     parts: [
-      { slug: 'leverage-the-two-risks-clients-raise', soon: true, label: 'The Two Risks Clients Raise', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03eff1a50b7322c4dce.mp4' },
-      { slug: 'leverage-never-open-with-the-spreadsheet', soon: true, label: 'Never Open With the Spreadsheet', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc58.mp4' },
-      { slug: 'leverage-who-it-suits', soon: true, label: 'Who It Suits', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd33.mp4' },
-      { slug: 'leverage-what-qualifies-for-the-deduction', soon: true, label: 'What Qualifies for the Deduction', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd2f.mp4' },
-      { slug: 'leverage-heloc-and-the-smith-manoeuvre', soon: true, label: 'HELOC & the Smith Manoeuvre', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd21.mp4' },
-      { slug: 'leverage-guarantees-and-resets', soon: true, label: 'Guarantees & Resets', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0487614828d36ab902b.mp4' },
-      { slug: 'leverage-getting-it-approved', soon: true, label: 'Getting It Approved', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc5c.mp4' }
+      { slug: 'leverage-the-two-risks-clients-raise', label: 'The Two Risks Clients Raise', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03eff1a50b7322c4dce.mp4' },
+      { slug: 'leverage-never-open-with-the-spreadsheet', label: 'Never Open With the Spreadsheet', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc58.mp4' },
+      { slug: 'leverage-who-it-suits', label: 'Who It Suits', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd33.mp4' },
+      { slug: 'leverage-what-qualifies-for-the-deduction', label: 'What Qualifies for the Deduction', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd2f.mp4' },
+      { slug: 'leverage-heloc-and-the-smith-manoeuvre', label: 'HELOC & the Smith Manoeuvre', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd21.mp4' },
+      { slug: 'leverage-guarantees-and-resets', label: 'Guarantees & Resets', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0487614828d36ab902b.mp4' },
+      { slug: 'leverage-getting-it-approved', label: 'Getting It Approved', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc5c.mp4' }
   ]},
 /* New 2026-09-05. NOT `rrsp-meltdown`, which is Amanda's RRSP/RRIF interest
      meltdown — a different topic that only looks like a match. */
   { lesson: 'RRSP Season & the Client Book', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Working An RRSP Season Across A Book You Cannot Meet One By One',
     parts: [
-      { slug: 'rrsp-the-refund-is-the-product', soon: true, label: 'The Refund Is the Product', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d70.mp4' },
-      { slug: 'rrsp-servicing-a-book-you-cant-meet-one-by-one', soon: true, label: 'Servicing a Book You Cannot Meet One by One', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d66.mp4' }
+      { slug: 'rrsp-the-refund-is-the-product', label: 'The Refund Is the Product', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d70.mp4' },
+      { slug: 'rrsp-servicing-a-book-you-cant-meet-one-by-one', label: 'Servicing a Book You Cannot Meet One by One', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d66.mp4' }
   ]},
   { lesson: 'RRSP/RRIF Interest Meltdown', teacher: 'Amanda', section: 'Investment',
     optin: 'Live Class: The RRSP/RRIF Interest Meltdown Strategy',
@@ -153,7 +153,7 @@ var MA_STAGES = [
   { lesson: 'Advising Clients Online', teacher: 'Tim', section: 'First Appointments',
     optin: 'Live Class: Running A First Appointment That Earns The Second',
     parts: [
-      { slug: 'online-the-six-stages-of-a-first-appointment', soon: true, label: 'The Six Stages of a First Appointment', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0227614828d36ab8d6f.mp4' }
+      { slug: 'online-the-six-stages-of-a-first-appointment', label: 'The Six Stages of a First Appointment', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0227614828d36ab8d6f.mp4' }
   ]},
   { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
@@ -169,10 +169,10 @@ var MA_STAGES = [
   { lesson: 'The Top-20 Client System', teacher: 'Tim', section: 'Top-20 System',
     optin: 'Live Class: The Top-20 Call That Reopens A Cold Book',
     parts: [
-      { slug: 'top20-clients-prospects-suspects', soon: true, label: 'Clients, Prospects & Suspects', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02be29b3baf97de9978.mp4' },
-      { slug: 'top20-why-its-worth-a-whole-day', soon: true, label: 'Why It Is Worth a Whole Day', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02b7614828d36ab8de7.mp4' },
-      { slug: 'top20-call-or-text-both', soon: true, label: 'Call or Text? Both', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c96.mp4' },
-      { slug: 'top20-the-first-two-sentences', soon: true, label: 'The First Two Sentences', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c9a.mp4' }
+      { slug: 'top20-clients-prospects-suspects', label: 'Clients, Prospects & Suspects', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02be29b3baf97de9978.mp4' },
+      { slug: 'top20-why-its-worth-a-whole-day', label: 'Why It Is Worth a Whole Day', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02b7614828d36ab8de7.mp4' },
+      { slug: 'top20-call-or-text-both', label: 'Call or Text? Both', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c96.mp4' },
+      { slug: 'top20-the-first-two-sentences', label: 'The First Two Sentences', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c9a.mp4' }
   ]},
   { lesson: 'Residual Income Through Advisor Referrals', teacher: 'Ling', section: 'Advisor Network',
     optin: 'Live Class: Residual Income From Advisor Referrals',
