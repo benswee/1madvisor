@@ -624,6 +624,25 @@
   overflow: hidden;
 }
 
+/* Enrol row injected into the right rail on lesson pages whose class is on
+   sale (renderMeta). Sits above the inquiry form: the paid path and the free
+   inquiry are two different asks and should look like it. */
+.ma-rail-buy {
+  margin: 18px 0 22px; padding: 16px 16px 18px;
+  border: 1px solid var(--ma-gold-edge); border-radius: 12px;
+  background: var(--ma-gold-10);
+}
+.ma-rail-buy .ma-chip-open { margin-bottom: 8px; }
+.ma-rail-buy-name {
+  font-family: var(--ma-sans); font-size: 16px; font-weight: 800;
+  color: var(--ma-paper); margin: 8px 0 4px; letter-spacing: -.1px;
+}
+.ma-rail-buy-meta {
+  font-family: var(--ma-sans); font-size: 13px; font-weight: 700;
+  color: var(--ma-gold); margin: 0 0 12px; letter-spacing: .2px;
+}
+.ma-rail-buy-cta { display: block; text-align: center; width: 100%; }
+
 .ma-col-optin .form-builder--wrap, .ma-apply-col .form-builder--wrap,
 .ma-col-optin .form-builder--wrap-full, .ma-apply-col .form-builder--wrap-full {
   background: transparent !important;
@@ -1200,14 +1219,16 @@
    ever apply on a store page and never leaks to the rest of the site. */
 body:has(.c-store-product-list),
 body:has(.c-store-product-detail),
-body:has(.c-store-cart) {
+body:has(.c-store-cart),
+body:has(.c-store-checkout) {
   background: var(--ma-navy-deep) !important;
   font-family: var(--ma-text);
   color: var(--ma-body);
 }
 body:has(.c-store-product-list) .c-section,
 body:has(.c-store-product-detail) .c-section,
-body:has(.c-store-cart) .c-section {
+body:has(.c-store-cart) .c-section,
+body:has(.c-store-checkout) .c-section {
   background: linear-gradient(180deg, var(--ma-navy) 0%, var(--ma-navy-deep) 100%) !important;
 }
 .c-store-product-list, .c-store-product-detail {
@@ -1219,12 +1240,14 @@ body:has(.c-store-cart) .c-section {
    not something CSS can correct — only its appearance is ours. */
 body:has(.c-store-product-list) .c-nav-menu-v2,
 body:has(.c-store-product-detail) .c-nav-menu-v2,
-body:has(.c-store-cart) .c-nav-menu-v2 {
+body:has(.c-store-cart) .c-nav-menu-v2,
+body:has(.c-store-checkout) .c-nav-menu-v2 {
   background: transparent !important;
 }
 body:has(.c-store-product-list) .c-nav-menu-v2 *,
 body:has(.c-store-product-detail) .c-nav-menu-v2 *,
-body:has(.c-store-cart) .c-nav-menu-v2 * {
+body:has(.c-store-cart) .c-nav-menu-v2 *,
+body:has(.c-store-checkout) .c-nav-menu-v2 * {
   color: var(--ma-paper) !important;
   font-family: var(--ma-sans) !important;
 }
@@ -1488,6 +1511,19 @@ button.primary-btn:hover { filter: brightness(1.06); }
 
 /* ── cart control in the store nav ────────────────────────────────── */
 .nav-cart-button, .items-cart { color: var(--ma-gold) !important; }
+
+/* ── pay buttons: cart page (.hl-checkout-btn) and checkout page ──────
+   Restored after being lost in the drawer rewrite. Both ship GHL blue at the
+   two most important clicks in the funnel. */
+.hl-checkout-btn, .checkout-btn,
+.c-store-checkout .primary-btn, .c-store-checkout button[type="submit"] {
+  background: var(--ma-rust) !important; color: #fff !important; border: 0 !important;
+  border-radius: 50px !important; width: 100% !important; padding: 16px 30px !important;
+  font-family: var(--ma-sans) !important; font-weight: 800 !important; font-size: 15px !important;
+  letter-spacing: .4px; text-transform: uppercase; margin-top: 20px;
+}
+.hl-checkout-btn *, .checkout-btn *, .checkout-btn-text { color: #fff !important; }
+.hl-checkout-btn:hover, .checkout-btn:hover { filter: brightness(1.06); }
 
 /* ══════════════════════════════════════════════════════════════════════
    MOBILE — ONE block, and it MUST stay LAST in the file.

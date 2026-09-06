@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'd3075353';
+var MA_JS_VERSION = '1ac17c2c';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -391,6 +391,22 @@ var MA_CONTENT = {
     for (var n = 0; n < built.length; n++) if (built[n].part.slug === cur) i = n;
     var prev = i > 0 ? built[i - 1] : null;
     var next = (i > -1 && i < built.length - 1) ? built[i + 1] : null;
+    /* "The page between lessons loads slow." Each lesson is a separate GHL page,
+       so Next means a full navigation: ~1.2MB of GHL's own bundle again, then
+       ma.js renders. ma.js itself is 17KB gzipped and ~0.2s — not the cost.
+       What we CAN do is fetch the neighbouring pages' HTML in idle time, so the
+       click paints from cache. rel=prefetch is a hint: it never blocks the
+       current page and does nothing on data-saver connections. */
+    if (!document.querySelector('link[data-ma-prefetch]')) {
+      [prev, next].forEach(function (n) {
+        if (!n) return;
+        var href = hrefFor(n.part);
+        if (!href) return;
+        var l = document.createElement('link');
+        l.rel = 'prefetch'; l.href = href; l.setAttribute('data-ma-prefetch', '1');
+        document.head.appendChild(l);
+      });
+    }
     el.innerHTML =
       (prev ? '<a href="' + hrefFor(prev.part) + '"><span class="ma-pager-arrow">←</span>'
             + '<span class="ma-pager-label">' + esc(prev.part.label) + '</span></a>'
