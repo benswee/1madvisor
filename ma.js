@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'e1c87f48';
+var MA_JS_VERSION = 'a41b7cc4';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -86,15 +86,15 @@ var MA_STAGES = [
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
       { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', open: true, course: 'Why You\'re Pitching Too Soon', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9fc.mp4' },
-      { slug: 'discovery-questions', soon: true, label: 'The Actual Discovery Questions', open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce013e29b3baf97de96b9.mp4' },
-      { slug: 'discovery-the-system-and-the-advice-memo', soon: true, label: 'The System & the Advice Memo', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9f3.mp4' }
+      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce013e29b3baf97de96b9.mp4' },
+      { slug: 'discovery-the-system-and-the-advice-memo', label: 'The System & the Advice Memo', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9f3.mp4' }
   ]},
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
-      { slug: 'aum-engine', soon: true,   label: 'The AUM Engine', open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c4792.mp4' },
-      { slug: 'aum-where-the-aum-comes-from', soon: true, label: 'Where the AUM Comes From', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c479b.mp4' },
-      { slug: 'aum-the-review-that-keeps-the-money', soon: true, label: 'The Review That Keeps the Money', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe87614828d36ab8963.mp4' },
+      { slug: 'aum-engine',   label: 'The AUM Engine', open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c4792.mp4' },
+      { slug: 'aum-where-the-aum-comes-from', label: 'Where the AUM Comes From', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c479b.mp4' },
+      { slug: 'aum-the-review-that-keeps-the-money', label: 'The Review That Keeps the Money', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe87614828d36ab8963.mp4' },
       { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy and the Ongoing Client Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2' },
       { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true }
   ]},
