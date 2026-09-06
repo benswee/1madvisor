@@ -29,7 +29,7 @@ var MA_SOON_URL = null;
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
 var MA_APPLY_URL = '/training/apply';
-var MA_JS_VERSION = 'b18f32e0';
+var MA_JS_VERSION = '0a9b360e';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -54,7 +54,7 @@ var MA_STAGES = [
   { lesson: 'Strategic Networking', teacher: 'Clement', section: 'Strategic Networking',
     optin: 'Live Class: Networking With Intention — With Clement',
     parts: [
-      { slug: 'networking-preparation', label: 'Networking Preparation', soon: true },
+      { slug: 'networking-preparation', label: 'Networking Preparation', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdffbe29b3baf97de94df.mp4' },
       { slug: 'networking-follow-up',   label: 'Lead Follow-Up & Relationships', soon: true }
   ]},
 
@@ -68,20 +68,55 @@ var MA_STAGES = [
       { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'Client Best Interest and CPA Referrals', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790' }
   ]},
 
+
+  /* New 2026-09-05. NOT `advisor-referrals`, which is Ling's different topic.
+     `referrals-01-referable.mp4` (Gord Berger) IS uploaded but stays UNPUBLISHED —
+     it needs written publication consent, deferred by Ben. Do not add a video to
+     the part below without that consent. */
+  { lesson: 'Referrals', teacher: 'Harry', section: 'Referrals',
+    optin: 'Live Class: Becoming The Advisor People Introduce Without Being Asked',
+    parts: [
+      { slug: 'referrals-referable', label: 'Being Referable', soon: true },
+      { slug: 'referrals-you-make-me-look-good', label: 'You Make Me Look Good', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0077614828d36ab8b64.mp4' }
+  ]},
   { group: 'Sales — Closing Bigger Cases' },
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
-      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', soon: true, open: true, course: 'Why You\'re Pitching Too Soon', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1' },
-      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', soon: true, open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992' }
+      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', open: true, course: 'Why You\'re Pitching Too Soon', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9fc.mp4' },
+      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce013e29b3baf97de96b9.mp4' },
+      { slug: 'discovery-the-system-and-the-advice-memo', label: 'The System & the Advice Memo', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9f3.mp4' }
   ]},
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
-      { slug: 'aum-engine',   label: 'The AUM Engine', soon: true, open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5' },
+      { slug: 'aum-engine',   label: 'The AUM Engine', open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c4792.mp4' },
+      { slug: 'aum-where-the-aum-comes-from', label: 'Where the AUM Comes From', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c479b.mp4' },
+      { slug: 'aum-the-review-that-keeps-the-money', label: 'The Review That Keeps the Money', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe87614828d36ab8963.mp4' },
       { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy and the Ongoing Client Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2' },
-      { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true },
-      { slug: 'aum-loans',    label: 'Investment Loans', soon: true }
+      { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true }
+  ]},
+  /* New 2026-09-05. Seven lessons against the single `aum-loans` stub that used
+     to sit under the AUM lesson — folding them in would have taken that lesson
+     to twelve parts, so leverage gets its own. The stub is gone. */
+  { lesson: 'Leverage & Investment Loans', teacher: 'Harry', section: 'Investment',
+    optin: 'Live Class: Presenting Leverage So The Client Understands The Risk',
+    parts: [
+      { slug: 'leverage-the-two-risks-clients-raise', label: 'The Two Risks Clients Raise', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03eff1a50b7322c4dce.mp4' },
+      { slug: 'leverage-never-open-with-the-spreadsheet', label: 'Never Open With the Spreadsheet', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc58.mp4' },
+      { slug: 'leverage-who-it-suits', label: 'Who It Suits', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd33.mp4' },
+      { slug: 'leverage-what-qualifies-for-the-deduction', label: 'What Qualifies for the Deduction', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd2f.mp4' },
+      { slug: 'leverage-heloc-and-the-smith-manoeuvre', label: 'HELOC & the Smith Manoeuvre', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9a2eb1d780afbd21.mp4' },
+      { slug: 'leverage-guarantees-and-resets', label: 'Guarantees & Resets', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0487614828d36ab902b.mp4' },
+      { slug: 'leverage-getting-it-approved', label: 'Getting It Approved', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc5c.mp4' }
+  ]},
+/* New 2026-09-05. NOT `rrsp-meltdown`, which is Amanda's RRSP/RRIF interest
+     meltdown — a different topic that only looks like a match. */
+  { lesson: 'RRSP Season & the Client Book', teacher: 'Harry', section: 'Investment',
+    optin: 'Live Class: Working An RRSP Season Across A Book You Cannot Meet One By One',
+    parts: [
+      { slug: 'rrsp-the-refund-is-the-product', label: 'The Refund Is the Product', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d70.mp4' },
+      { slug: 'rrsp-servicing-a-book-you-cant-meet-one-by-one', label: 'Servicing a Book You Cannot Meet One by One', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d66.mp4' }
   ]},
   { lesson: 'RRSP/RRIF Interest Meltdown', teacher: 'Amanda', section: 'Investment',
     optin: 'Live Class: The RRSP/RRIF Interest Meltdown Strategy',
@@ -110,6 +145,12 @@ var MA_STAGES = [
       { slug: 'corporate-estate',     label: 'Corporate Estate Insurance', soon: true },
       { slug: 'corporate-estate-ifa', label: 'The IFA Version', soon: true }
   ]},
+  /* New 2026-09-05. */
+  { lesson: 'Advising Clients Online', teacher: 'Tim', section: 'First Appointments',
+    optin: 'Live Class: Running A First Appointment That Earns The Second',
+    parts: [
+      { slug: 'online-the-six-stages-of-a-first-appointment', label: 'The Six Stages of a First Appointment', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0227614828d36ab8d6f.mp4' }
+  ]},
   { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
     parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'The Complex HNW Case: Discovery to Signed Policy', classes: 2, fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8ac0e7735bdf5b5b3116' } ]},
@@ -119,8 +160,16 @@ var MA_STAGES = [
       { slug: 'objection-mid-affluent', label: 'Middle-to-Affluent Market', soon: true },
       { slug: 'objection-hnw',          label: 'High-Net-Worth', soon: true }
   ]},
-
   { group: 'Practice Growth — Building Beyond You' },
+  /* New 2026-09-05. */
+  { lesson: 'The Top-20 Client System', teacher: 'Tim', section: 'Top-20 System',
+    optin: 'Live Class: The Top-20 Call That Reopens A Cold Book',
+    parts: [
+      { slug: 'top20-clients-prospects-suspects', label: 'Clients, Prospects & Suspects', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02be29b3baf97de9978.mp4' },
+      { slug: 'top20-why-its-worth-a-whole-day', label: 'Why It Is Worth a Whole Day', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02b7614828d36ab8de7.mp4' },
+      { slug: 'top20-call-or-text-both', label: 'Call or Text? Both', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c96.mp4' },
+      { slug: 'top20-the-first-two-sentences', label: 'The First Two Sentences', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce02bff1a50b7322c4c9a.mp4' }
+  ]},
   { lesson: 'Residual Income Through Advisor Referrals', teacher: 'Ling', section: 'Advisor Network',
     optin: 'Live Class: Residual Income From Advisor Referrals',
     parts: [ { slug: 'advisor-referrals', label: 'Residual Income Through Advisor Referrals', soon: true } ]},

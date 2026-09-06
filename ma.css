@@ -1347,44 +1347,94 @@ body:has(.c-store-product-detail) .c-product-details * {
 .quantity-container { margin-bottom: 20px; }
 
 /* ── cart drawer (slides out after Add to Cart) ─────────────────────
-   GHL ships it WHITE, and the blanket paper-white text rule on
-   .c-product-details leaks into it — which is why the product title rendered
-   as near-invisible grey-on-white. Fixing the drawer is the right repair, not
-   narrowing the text rule: the drawer should be navy like everything else. */
-.drawer__content {
-  background: var(--ma-navy) !important;
-  color: var(--ma-paper) !important;
+   Verified against HighLevel's own live storefront and its shipped bundle:
+   the drawer is plain light DOM — NOT a shadow root, NOT an iframe — so page
+   CSS reaches it. Three ordinary cascade problems get in the way instead:
+
+   1. A store page renders 3-5 `.drawer` instances (mobile nav, search, cart).
+      Bare `.drawer__content` hits every one, so scope to the cart's own stable
+      id, `#hl-global-cart-drawer`, which GHL hard-codes in the component.
+   2. The drawer is `<Teleport to="body">`, so it sits at body level, outside
+      the store section — any selector scoped under a section never matches.
+   3. `max-width` and `background-color` are written as INLINE styles, so those
+      two properties need !important. Everything else does not.
+
+   GHL does not support custom code and can rename classes without notice;
+   `#hl-global-cart-drawer` is the most stable hook available. */
+.drawer__content:has(#hl-global-cart-drawer) {
+  background-color: var(--ma-navy) !important;
   border-left: 1px solid var(--ma-panel-edge);
 }
-.drawer__content * { color: var(--ma-paper); }
-.drawer__overlay { background: rgba(10, 20, 32, .62) !important; }
-.drawer__content .hl-product-detail-product-price,
-.drawer__content [class*="price"] { color: var(--ma-gold) !important; }
+.drawer:has(#hl-global-cart-drawer) .drawer__overlay {
+  background: rgba(10, 20, 32, .62) !important;
+}
+/* blanket first, gold overrides after — order decides the winner here */
+#hl-global-cart-drawer,
+#hl-global-cart-drawer * { color: var(--ma-paper) !important; }
+
+#hl-global-cart-drawer [class*="price"],
+#hl-global-cart-drawer [class*="amount"],
+#hl-global-cart-drawer [class*="total"] { color: var(--ma-gold) !important; }
+
 /* "Continue Shopping" ships as a default blue link */
-.drawer__content a { color: var(--ma-gold) !important; text-decoration: none; }
-.drawer__content a:hover { text-decoration: underline; }
-.drawer__content button:not(.primary-btn):not(.hl-checkout-btn) {
+#hl-global-cart-drawer a,
+#hl-global-cart-drawer a * { color: var(--ma-gold) !important; text-decoration: none; }
+#hl-global-cart-drawer a:hover { text-decoration: underline; }
+
+/* Quantity steppers — raise contrast on the + / - controls.
+   The populated drawer could not be inspected (its framework ignores synthetic
+   clicks), so this covers every form the control can take: an <svg> using fill,
+   one using stroke, a text character, and an icon-font glyph. Paper white
+   rather than gold: gold on navy is legible but sits mid-range, and these are
+   small hit targets where brightness matters more than brand colour.
+   Lifting the track one surface step (mid -> panel) does as much work as
+   brightening the glyph, since contrast is a relationship, not a colour. */
+#hl-global-cart-drawer svg { color: var(--ma-paper) !important; }
+#hl-global-cart-drawer svg [fill]:not([fill="none"]) { fill: var(--ma-paper) !important; }
+#hl-global-cart-drawer svg [stroke]:not([stroke="none"]) { stroke: var(--ma-paper) !important; }
+#hl-global-cart-drawer svg path { fill: currentColor; }
+
+#hl-global-cart-drawer [class*="quantity"] button,
+#hl-global-cart-drawer [class*="qty"] button,
+#hl-global-cart-drawer .quantity-icon,
+#hl-global-cart-drawer .quantity-icon-button,
+#hl-global-cart-drawer [class*="quantity-icon"] {
+  color: var(--ma-paper) !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+  line-height: 1;
+}
+#hl-global-cart-drawer [class*="quantity"] button svg,
+#hl-global-cart-drawer [class*="qty"] button svg { stroke-width: 2.4px; }
+
+/* lift the stepper track so the glyphs sit on a lighter surface */
+#hl-global-cart-drawer [class*="quantity-input"],
+#hl-global-cart-drawer [class*="quantity-container"],
+#hl-global-cart-drawer [class*="qty-container"] {
+  background-color: var(--ma-panel) !important;
+  border-color: var(--ma-panel-edge) !important;
+}
+
+/* same treatment on the product page stepper, which shares the component */
+.quantity-icon, .quantity-icon-button, [class*="quantity-icon"] {
+  color: var(--ma-paper) !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+}
+.quantity-icon svg, .quantity-icon-button svg { stroke-width: 2.4px; }
+#hl-global-cart-drawer .lines > *,
+#hl-global-cart-drawer [class*="cart-item"] { border-bottom: 1px solid var(--ma-rule); }
+
+/* the remove/trash control is a bordered white box by default */
+#hl-global-cart-drawer button:not([class*="view-cart"]):not([class*="checkout"]) {
+  background-color: transparent !important;
   border-color: var(--ma-rule) !important;
 }
-
-.hl-quantity-input, .hl-quantity-input-container, .quantity-container {
-  background: var(--ma-mid) !important;
-  border: 1px solid var(--ma-rule) !important;
-  border-radius: 10px;
-  color: var(--ma-paper) !important;
-}
-.quantity-icon, .quantity-icon-button { color: var(--ma-gold) !important; }
-
-/* The add-to-cart button ships GHL blue (#188BF6) — the loudest thing on a
-   navy brand page. Match the site CTA instead. */
-/* Give the CTA real width — GHL ships it with 0 horizontal padding, so it
-   collapses to its text on a page with nothing else in the column. */
-.c-store-product-detail .primary-btn,
-.c-store-product-list .primary-btn,
-button.primary-btn {
-  width: 100% !important;
-  max-width: 340px;
-  background: var(--ma-rust) !important;
+/* VIEW CART / checkout inside the drawer */
+#hl-global-cart-drawer [class*="view-cart"],
+#hl-global-cart-drawer [class*="checkout"] {
+  background-color: var(--ma-rust) !important;
   color: #fff !important;
   border: 0 !important;
   border-radius: 50px !important;
@@ -1392,81 +1442,9 @@ button.primary-btn {
   font-weight: 800 !important;
   letter-spacing: .4px;
   text-transform: uppercase;
-  padding: 15px 30px !important;
 }
-.c-store-product-detail .primary-btn:hover, button.primary-btn:hover { filter: brightness(1.06); }
-
-
-/* ── cart ─────────────────────────────────────────────────────────────
-   Verified hooks only. The cart could not be populated for inspection (the
-   framework ignores a synthetic add-to-cart click), so LINE-ITEM INTERNALS
-   ARE UNVERIFIED — they are covered by a scoped blanket colour rather than
-   guessed class names, so nothing can render black-on-navy. Worth a look
-   with a real item in the cart. */
-.hl-cart-container {
-  background: var(--ma-panel);
-  border: 1px solid var(--ma-panel-edge);
-  border-radius: 16px;
-  padding: 28px;
-  max-width: 760px;
-  margin: 0 auto;
-}
-.hl-cart-heading {
-  font-family: var(--ma-sans) !important;
-  font-weight: 900 !important;
-  font-size: 26px !important;
-  letter-spacing: -.4px;
-  color: var(--ma-paper) !important;
-  margin: 0 0 20px;
-}
-/* everything inside the cart, including markup we have not seen */
-body:has(.c-store-cart) .hl-cart-container,
-body:has(.c-store-cart) .hl-cart-container * {
-  color: var(--ma-paper);
-  font-family: var(--ma-text);
-}
-.lines > * {
-  border-bottom: 1px solid var(--ma-rule);
-  padding: 14px 0;
-}
-.lines > *:last-child { border-bottom: 0; }
-
-.cart-subtotal, .cart-total {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 16px;
-  font-family: var(--ma-sans) !important;
-  padding: 10px 0;
-}
-.cart-subtotal { color: var(--ma-body) !important; font-weight: 600; }
-.cart-total {
-  font-weight: 900 !important; font-size: 20px;
-  color: var(--ma-paper) !important;
-  border-top: 1px solid var(--ma-rule);
-  margin-top: 6px; padding-top: 16px;
-}
-body:has(.c-store-cart) .cart-total * { color: var(--ma-gold) !important; }
-
-/* The checkout button is `.hl-checkout-btn`, NOT `.primary-btn` — the rule
-   above does not reach it, so it was still shipping GHL blue at the single
-   most important click in the funnel. */
-.hl-checkout-btn {
-  background: var(--ma-rust) !important;
-  color: #fff !important;
-  border: 0 !important;
-  border-radius: 50px !important;
-  width: 100% !important;
-  padding: 16px 30px !important;
-  margin-top: 20px;
-}
-.hl-checkout-btn:hover { filter: brightness(1.06); }
-.hl-checkout-btn, .checkout-btn-text {
-  font-family: var(--ma-sans) !important;
-  font-weight: 800 !important;
-  font-size: 15px !important;
-  letter-spacing: .4px;
-  text-transform: uppercase;
-  color: #fff !important;
-}
+#hl-global-cart-drawer [class*="view-cart"] * ,
+#hl-global-cart-drawer [class*="checkout"] * { color: #fff !important; }
 
 /* ── cart control in the store nav ────────────────────────────────── */
 .nav-cart-button, .items-cart { color: var(--ma-gold) !important; }
