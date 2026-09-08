@@ -45,9 +45,34 @@ var MA_NEXT_SESSION = {
   cta:     'Save My Seat',
   url:     '/training/september'
 };
+/* ═══ SEPT 10 AGENDA — from the WAY Financial poster Ben supplied 2026-09-07
+   (WAY_RBC_DI_Webinar_Sept10_2026 Poster.pdf). Rendered into [data-ma-agenda]
+   on /training/september; styles ship with the registry, so the page needs
+   one host element and no CSS paste. Names, roles, minutes and topic lines
+   are the poster's own wording — do not embellish them. The Zoom join link
+   is deliberately NOT here: registration is gated and reviewed, the link goes
+   out by email. Set MA_AGENDA = null after the session. ═══ */
+var MA_AGENDA = {
+  eyebrow: 'Segregated Funds · Disability Insurance',
+  title:   'Two Hidden Competitive Edges You <em>Cannot Afford</em> to Miss',   /* trusted HTML */
+  topics:  ['The Trillion-Dollar Opportunity in Segregated Funds',
+            'The Untapped Disability Insurance Opportunity with RBC Insurance'],
+  tagline: 'Are you positioned to capture the wave?',
+  meta:    ['Thursday, September 10, 2026', '11:00am – 1:00pm PT · 2:00pm – 4:00pm ET', 'Online · 2 hours'],
+  series:  'Advisor Development Series · virtual session with WAY Financial',
+  slots: [
+    { name: 'Benjamin Swee', role: 'Director, $1M Advisor Club Mentorship',      min: 5,  lead: 'Opening & welcome.' },
+    { name: 'Harry Lee',     role: '$1M Advisor Club Mentorship',                min: 40, lead: 'The Trillion-Dollar Opportunity in Segregated Funds.' },
+    { name: 'Nathan Dong',   role: 'Life & Living Benefits, RBC Insurance',      min: 35, lead: 'Huge market demand on disability insurance', rest: ' that your market doesn’t know about.' },
+    { name: 'Ling Lim',      role: 'Insurance Director, WAY Financial',          min: 5,  lead: 'Why WAY Financial’s partnership with RBC Insurance', rest: ' is a unique hidden opportunity for your business.' },
+    { name: 'Tim Lau',       role: 'CEA, CLU, CFP, TOT · High Net Worth Planner', min: 20, lead: 'It’s not about perfect advice.', rest: ' It’s about comparison.' },
+    { name: 'Benjamin Swee', role: 'Director, $1M Advisor Club Mentorship',      min: 15, lead: 'Closing remarks & next steps.', rest: ' Which courses are right for advisors — and are there promotional discounts?' }
+  ]
+};
+
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '0c59ed3d';
+var MA_JS_VERSION = 'e141272d';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -258,7 +283,7 @@ var MA_MENTORS = [
   { name: 'Carmen', featured: true },
   { name: 'Amanda', featured: true },
   { name: 'Mayank', featured: true },
-  { name: 'Ling' },
+  { name: 'Ling Lim', role: 'Insurance Director, WAY Financial' },   /* role: WAY poster, 2026-09-07 */
   { name: 'Jed' }
 ];
 
@@ -811,6 +836,74 @@ var MA_CONTENT = {
     }
   }
 
+  /* ---------- SEPT 10 AGENDA ----------
+     One host element on the event page; everything else, including the
+     stylesheet, comes from MA_AGENDA above. */
+  function renderAgenda(el) {
+    if (el.getAttribute('data-ma-rendered') === '1') return;
+    if (typeof MA_AGENDA === 'undefined' || !MA_AGENDA) { el.innerHTML = ''; return; }
+    var A = MA_AGENDA;
+    function initials(name) {
+      return name.split(/\s+/).filter(Boolean).slice(0, 2)
+                 .map(function (w) { return w.charAt(0).toUpperCase(); }).join('');
+    }
+    var h = '<div class="ma-agenda">'
+      + (A.eyebrow ? '<p class="ma-eyebrow-c">' + esc(A.eyebrow) + '</p>' : '')
+      + '<h2 class="ma-h2">' + A.title + '</h2>'
+      + '<ol class="ma-agenda-topics">';
+    for (var t = 0; t < (A.topics || []).length; t++)
+      h += '<li><span class="ma-agenda-n">' + (t + 1) + '</span>' + esc(A.topics[t]) + '</li>';
+    h += '</ol>'
+      + (A.tagline ? '<p class="ma-agenda-tag">' + esc(A.tagline) + '</p>' : '')
+      + '<p class="ma-agenda-meta">';
+    for (var m = 0; m < (A.meta || []).length; m++) h += '<span>' + esc(A.meta[m]) + '</span>';
+    h += '</p>'
+      + '<p class="ma-eyebrow-c ma-agenda-sub">Agenda &amp; Speakers</p>'
+      + '<ol class="ma-agenda-list">';
+    for (var i = 0; i < (A.slots || []).length; i++) {
+      var sl = A.slots[i];
+      h += '<li class="ma-agenda-slot">'
+         + '<div class="ma-agenda-av" aria-hidden="true">' + esc(initials(sl.name)) + '</div>'
+         + '<div class="ma-agenda-body">'
+         + '<p class="ma-agenda-name">' + esc(sl.name)
+         + (sl.min ? '<span class="ma-agenda-min">' + sl.min + ' min</span>' : '') + '</p>'
+         + (sl.role ? '<p class="ma-agenda-role">' + esc(sl.role) + '</p>' : '')
+         + '<p class="ma-agenda-topic"><strong>' + esc(sl.lead || '') + '</strong>' + esc(sl.rest || '') + '</p>'
+         + '</div></li>';
+    }
+    h += '</ol>'
+      + (A.series ? '<p class="ma-agenda-series">' + esc(A.series) + '</p>' : '')
+      + '</div>';
+    el.innerHTML = h;
+
+    if (!document.getElementById('ma-agenda-style')) {
+      var st = document.createElement('style');
+      st.id = 'ma-agenda-style';
+      st.textContent =
+          '.ma-agenda{max-width:860px;margin:0 auto;text-align:center}'
+        + '.ma-agenda-topics{list-style:none;margin:28px auto 0;padding:0;max-width:640px;text-align:left}'
+        + '.ma-agenda-topics li{display:flex;align-items:flex-start;gap:14px;font-family:var(--ma-sans,Montserrat,sans-serif);font-size:17px;font-weight:600;line-height:1.45;color:#fff;margin:0 0 12px}'
+        + '.ma-agenda-n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--ma-gold,#ECA021);color:var(--ma-navy-deep,#1E2D3F);font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}'
+        + '.ma-agenda-tag{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:18px;font-style:italic;font-weight:600;color:var(--ma-gold,#ECA021);margin:22px 0 0}'
+        + '.ma-agenda-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 28px;margin:26px 0 0;font-family:var(--ma-sans,Montserrat,sans-serif);font-size:15px;font-weight:700;color:#fff;letter-spacing:.2px}'
+        + '.ma-agenda-sub{margin:52px 0 0}'
+        + '.ma-agenda-list{list-style:none;margin:22px 0 0;padding:0;text-align:left}'
+        + '.ma-agenda-slot{display:flex;gap:18px;align-items:flex-start;background:var(--ma-panel,#2C4058);border-left:4px solid var(--ma-gold,#ECA021);border-radius:10px;padding:18px 22px;margin:0 0 12px}'
+        + '.ma-agenda-slot:nth-child(even){border-left-color:var(--ma-rust,#E05C26)}'
+        + '.ma-agenda-av{flex:0 0 44px;height:44px;border-radius:50%;background:var(--ma-navy-deep,#1E2D3F);color:var(--ma-gold,#ECA021);font-family:var(--ma-sans,Montserrat,sans-serif);font-size:14px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.5px}'
+        + '.ma-agenda-body{flex:1 1 auto;min-width:0}'
+        + '.ma-agenda-name{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--ma-sans,Montserrat,sans-serif);font-size:18px;font-weight:800;color:#fff;margin:0}'
+        + '.ma-agenda-min{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;background:var(--ma-gold,#ECA021);color:var(--ma-navy-deep,#1E2D3F);border-radius:999px;padding:5px 12px;white-space:nowrap}'
+        + '.ma-agenda-role{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:13px;font-weight:600;color:rgba(255,255,255,.72);margin:3px 0 0}'
+        + '.ma-agenda-topic{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:15px;line-height:1.5;color:#fff;margin:10px 0 0}'
+        + '.ma-agenda-topic strong{font-weight:800}'
+        + '.ma-agenda-series{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.6);margin:26px 0 0}'
+        + '@media(max-width:640px){.ma-agenda-slot{gap:14px;padding:16px}.ma-agenda-av{flex-basis:38px;height:38px;font-size:12px}.ma-agenda-name{font-size:16px}.ma-agenda-topics li{font-size:15px}}';
+      document.head.appendChild(st);
+    }
+    el.setAttribute('data-ma-rendered', '1');
+  }
+
   function init() {
     renderContent();               /* before meta: video hook lives inside */
     var navs = document.querySelectorAll('.ma-nav');
@@ -821,6 +914,8 @@ var MA_CONTENT = {
     for (var m = 0; m < ladders.length; m++) renderLadder(ladders[m]);
     var mentors = document.querySelectorAll('[data-ma-mentors]');
     for (var q = 0; q < mentors.length; q++) renderMentors(mentors[q]);
+    var agendas = document.querySelectorAll('[data-ma-agenda]');
+    for (var g = 0; g < agendas.length; g++) renderAgenda(agendas[g]);
     var cidx = document.querySelectorAll('[data-ma-course-index]');
     for (var w = 0; w < cidx.length; w++) renderIndex(cidx[w]);
     renderMeta();
