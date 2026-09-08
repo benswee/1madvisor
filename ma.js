@@ -72,7 +72,7 @@ var MA_AGENDA = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = 'e141272d';
+var MA_JS_VERSION = 'b5e0ffe4';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -880,7 +880,8 @@ var MA_CONTENT = {
       var st = document.createElement('style');
       st.id = 'ma-agenda-style';
       st.textContent =
-          '.ma-agenda{max-width:860px;margin:0 auto;text-align:center}'
+          '.ma-agenda{max-width:900px;margin:0 auto;text-align:center;background:var(--ma-deep-1,#1B2938);border:1px solid rgba(74,111,138,.28);border-radius:16px;padding:52px 44px;box-sizing:border-box}'
+        + '.ma-agenda .ma-h2{color:var(--ma-paper,#F0EFEF)}'
         + '.ma-agenda-topics{list-style:none;margin:28px auto 0;padding:0;max-width:640px;text-align:left}'
         + '.ma-agenda-topics li{display:flex;align-items:flex-start;gap:14px;font-family:var(--ma-sans,Montserrat,sans-serif);font-size:17px;font-weight:600;line-height:1.45;color:#fff;margin:0 0 12px}'
         + '.ma-agenda-n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--ma-gold,#ECA021);color:var(--ma-navy-deep,#1E2D3F);font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}'
@@ -898,7 +899,7 @@ var MA_CONTENT = {
         + '.ma-agenda-topic{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:15px;line-height:1.5;color:#fff;margin:10px 0 0}'
         + '.ma-agenda-topic strong{font-weight:800}'
         + '.ma-agenda-series{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.6);margin:26px 0 0}'
-        + '@media(max-width:640px){.ma-agenda-slot{gap:14px;padding:16px}.ma-agenda-av{flex-basis:38px;height:38px;font-size:12px}.ma-agenda-name{font-size:16px}.ma-agenda-topics li{font-size:15px}}';
+        + '@media(max-width:640px){.ma-agenda{padding:32px 20px}.ma-agenda-slot{gap:14px;padding:16px}.ma-agenda-av{flex-basis:38px;height:38px;font-size:12px}.ma-agenda-name{font-size:16px}.ma-agenda-topics li{font-size:15px}}';
       document.head.appendChild(st);
     }
     el.setAttribute('data-ma-rendered', '1');
