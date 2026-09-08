@@ -40,7 +40,7 @@ var MA_APPLY_URL = '/training/apply';
    back — nothing is deleted from the pages. */
 var MA_NEXT_SESSION = {
   eyebrow: 'Next Live Session',
-  title:   'Attract HNW Clients. Close Larger Cases. Scale.',
+  title:   'Widen What You Offer. Grow Your Book. Scale.',
   when:    'Thursday, September 10 · 11am PT / 2pm ET',
   cta:     'Save My Seat',
   url:     '/training/september'
@@ -72,7 +72,7 @@ var MA_AGENDA = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '9a594961';
+var MA_JS_VERSION = 'e6c3e625';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
