@@ -72,7 +72,7 @@ var MA_AGENDA = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = 'e88386fb';
+var MA_JS_VERSION = '25615410';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -93,7 +93,10 @@ var MA_STAGES = [
   { lesson: 'Referrals', teacher: 'Harry', section: 'Referrals',
     optin: 'Live Class: Becoming The Advisor People Introduce Without Being Asked',
     parts: [
-      { slug: 'referrals-referable', label: 'Being Referable', soon: true },
+      /* Gord Berger's publication consent given 2026-09-09 (Ben). Video and copy are
+         wired; `soon` comes off the moment /training/referrals-referable exists in GHL. */
+      { slug: 'referrals-referable', label: 'Being Referable', by: 'Gord Berger', soon: true,
+        video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0077614828d36ab8b5c.mp4' },
       { slug: 'referrals-you-make-me-look-good', label: 'You Make Me Look Good', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0077614828d36ab8b64.mp4' }
   ]},
 
@@ -321,6 +324,7 @@ var MA_CONTENT = {
   "team-building": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>A team is how production stops depending on your personal hours. Built well, it also becomes residual income — overrides and shared production from people you developed.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>When you're actually ready for a first team member</li>\n      <li>Recruiting people who produce instead of consuming your time</li>\n      <li>Compensation structures that keep the team and protect you</li>\n      <li>The leadership habits that keep producers from leaving</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "delegation": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>Every practice hits the ceiling of its founder's calendar. Delegation is how you get your hours back without dropping the standard of care your clients expect — and it's a skill, not a personality trait.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>What to hand off first — and what never to hand off</li>\n      <li>Documenting a task so someone else can own it</li>\n      <li>Delegating outcomes instead of chores</li>\n      <li>The weekly rhythm that keeps a delegated practice tight</li>\n    </ul>\n    <p><strong>You don't scale by working more. You scale by needing to be in fewer places.</strong></p>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   /* 2026-09-06: copy for the 18 uploaded lessons, written from the video transcripts. */
+  "referrals-referable": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>Being referable is not a personality. It is a set of habits Gord Berger carries on the back of his business card, and the first one is the whole lesson: if you promise something, do it. Start something, finish it. Commit to a time, be on time.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>The golf-course story: why his junior said Friday, why Gord said two weeks Friday, and what the client thought of them each time</li>\n      <li>Under-promise and over-perform as a scheduling rule, not a slogan — deliver early and the client is overjoyed, deliver on the day they asked and you are referable</li>\n      <li>Disclosure as service: what forty years took him from ten pages to forty and back to thirty, and the five spreadsheets every prospect sees before signing</li>\n      <li>The referral ask itself — \"have I earned the right for you to tell your friends?\" — why it is deliberately a leading question, and what to do with the answer when a client names a gap</li>\n    </ul>\n    <p><strong>Fix the gap, call back, then ask again. That sequence is what turns a satisfied client into a referring one.</strong></p>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "referrals-you-make-me-look-good": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>A referral is a favour your client does for themselves. They put their name on you, and what they want back is to look good. Harry's answer is not more service or a longer presentation. It is three words.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Why clients believe you on emotion but refer you on logic, and why the logic takes time to prove</li>\n      <li>Keep it simple, keep it short, keep it exciting: the three rules Harry's mentor gave him</li>\n      <li>Why a two-hour meeting that covers everything makes you harder to refer, not easier</li>\n      <li>The feedback loop: what the referrer needs to hear afterwards, and why it produces the next introduction</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "discovery-the-system-and-the-advice-memo": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>Discovery is a fixed route, not a conversation you improvise. The coach runs the same order every time: corporate, personal, investments, insurance, then the will. By the end the client knows every question had a purpose, which is exactly when the sensitive ones get answered.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>The five-stop order, and why corporate comes first and the family comes last</li>\n      <li>The estate questions that reveal how much wealth a family really has: wills, corporate wills, probate, family trusts, parents in Canada</li>\n      <li>Why you never let a client fill in the fact-find themselves, and never ask them to rank their goals</li>\n      <li>Closing the meeting on a booked next appointment, and why a 15-minute call beats a fancy online form</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
   "online-the-six-stages-of-a-first-appointment": "<div class=\"ma-video ma-video--soon\" data-ma-video><span>Video Coming Soon</span></div>\n  <div class=\"ma-pager ma-pager--top\"></div>\n  <div class=\"ma-lesson\" style=\"margin-top:20px;\">\n    <p>A first appointment online has no handshake, no office and no second chance. Tim runs it in six stages, in order, and the discovery in stage six only works because the first five earned it.</p>\n    <h3>What you'll learn</h3>\n    <ul>\n      <li>Stages one and two: warmth with authority, then proof you prepared, before a single question</li>\n      <li>Stages three and four: showing you know their industry, then getting the real goal rather than the data</li>\n      <li>Stage five: bringing up your credentials and the institutions behind you without it sounding like a pitch</li>\n      <li>Stage six: the one question that books the second meeting before discovery even starts</li>\n    </ul>\n  </div>\n  <div class=\"ma-res\" style=\"margin-top:28px;\">\n    <p class=\"ma-res-label\">Relevant Resources</p>\n    <a href=\"https://1mclub.ca/\">The $1M Club — meet the board of TOT mentors</a>\n  </div>",
@@ -523,8 +527,12 @@ var MA_CONTENT = {
 
     var byline = document.querySelector('[data-ma-byline]');
     if (byline && byline.getAttribute('data-ma-rendered') !== '1') {
-      byline.innerHTML = ctx.lesson.teacher
-        ? 'Taught by <strong>' + esc(ctx.lesson.teacher) + '</strong>' : '';
+      /* `by` on a PART overrides the lesson's coach — the Referrals lesson is
+         Harry's, but "Being Referable" is Gord Berger's recording. Without this
+         the page credits the wrong mentor. */
+      var coach = ctx.part.by || ctx.lesson.teacher;
+      byline.innerHTML = coach
+        ? 'Taught by <strong>' + esc(coach) + '</strong>' : '';
       byline.setAttribute('data-ma-rendered', '1');
     }
 
@@ -703,8 +711,12 @@ var MA_CONTENT = {
       var e = MA_STAGES[i];
       if (!e.parts || !e.teacher || e.hidden) continue;   /* hidden lessons stay off the cards */
       var names = e.teacher.split('&');
+      /* a part with its own `by` credits that mentor for this lesson too */
+      for (var q = 0; q < e.parts.length; q++)
+        if (e.parts[q].by && !e.parts[q].hidden) names.push(e.parts[q].by);
       for (var n = 0; n < names.length; n++) {
         var k = names[n].trim();
+        if (teaches[k] && teaches[k].indexOf(e.lesson) !== -1) continue;
         (teaches[k] = teaches[k] || []).push(e.lesson);
       }
     }
