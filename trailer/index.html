@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>$1M Advisor — Trailer (loop)</title>
+<style>
+  :root { --gold:#ECA021; --navy:#1B2938; }
+  * { box-sizing:border-box; }
+  html,body { height:100%; margin:0; background:#0B141F; color:#fff;
+              font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  .wrap { height:100%; display:flex; flex-direction:column; }
+  .stage { flex:1 1 auto; display:flex; align-items:center; justify-content:center;
+           padding:18px; min-height:0; }
+  video { width:100%; height:100%; max-height:100%; object-fit:contain;
+          background:#000; border-radius:10px; outline:none; }
+  .bar { flex:0 0 auto; display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center;
+         justify-content:center; padding:12px 18px 20px; }
+  button { font:inherit; font-size:13px; font-weight:700; letter-spacing:.3px;
+           color:#fff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+           border-radius:999px; padding:9px 18px; cursor:pointer; }
+  button:hover { background:rgba(255,255,255,.15); }
+  button[aria-pressed="true"] { background:var(--gold); border-color:var(--gold); color:var(--navy); }
+  .hint { font-size:12px; color:rgba(255,255,255,.45); }
+  /* Press F or double-click the video for true full screen. */
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <video id="v" src="1m-advisor-trailer.mp4" poster="poster.jpg"
+           loop autoplay muted playsinline controls></video>
+  </div>
+  <div class="bar">
+    <button id="sound" aria-pressed="false">🔇 Unmute</button>
+    <button id="cut" aria-pressed="true">♪ Music bed: on</button>
+    <button id="fs">⛶ Full screen</button>
+    <span class="hint">Loops automatically · F or double-click for full screen</span>
+  </div>
+</div>
+<script>
+  var v = document.getElementById('v'),
+      sound = document.getElementById('sound'),
+      cut = document.getElementById('cut'),
+      fs = document.getElementById('fs'),
+      MUSIC = '1m-advisor-trailer.mp4',
+      SILENT = '1m-advisor-trailer-nomusic.mp4';
+
+  /* Autoplay is only allowed muted, so it starts muted and the operator unmutes
+     with one click — which counts as the gesture browsers want. */
+  sound.onclick = function () {
+    v.muted = !v.muted;
+    sound.setAttribute('aria-pressed', String(!v.muted));
+    sound.textContent = v.muted ? '🔇 Unmute' : '🔊 Sound on';
+    if (v.paused) v.play();
+  };
+
+  cut.onclick = function () {
+    var toMusic = v.getAttribute('src') !== MUSIC, t = v.currentTime, wasMuted = v.muted;
+    v.setAttribute('src', toMusic ? MUSIC : SILENT);
+    v.load(); v.muted = wasMuted; v.currentTime = t; v.play();
+    cut.setAttribute('aria-pressed', String(toMusic));
+    cut.textContent = toMusic ? '♪ Music bed: on' : '♪ Music bed: off';
+  };
+
+  function goFull() {
+    var el = document.documentElement;
+    if (document.fullscreenElement) document.exitFullscreen();
+    else (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+  }
+  fs.onclick = goFull;
+  v.ondblclick = goFull;
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'f' || e.key === 'F') goFull();
+    if (e.key === ' ') { e.preventDefault(); v.paused ? v.play() : v.pause(); }
+  });
+
+  /* Belt and braces: `loop` handles it, but a stalled buffer at the tail can
+     leave it parked on the last frame. */
+  v.addEventListener('ended', function () { v.currentTime = 0; v.play(); });
+</script>
+</body>
+</html>
