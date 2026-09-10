@@ -76,9 +76,14 @@
     if (e.key === ' ') { e.preventDefault(); v.paused ? v.play() : v.pause(); }
   });
 
-  /* Belt and braces: `loop` handles it, but a stalled buffer at the tail can
-     leave it parked on the last frame. */
-  v.addEventListener('ended', function () { v.currentTime = 0; v.play(); });
+  /* Do NOT add an `ended` handler that seeks to 0 and calls play(): with loop
+     set, that races the browser's own restart and leaves the video parked,
+     paused, on frame 0 — measured 2026-09-09. The `loop` attribute is enough.
+     This guard only covers a decoder stall mid-play, and never seeks. */
+  v.addEventListener('pause', function () {
+    if (!v.ended && v.currentTime < 0.5 && !v.dataset.userPaused) v.play();
+  });
+  v.addEventListener('click', function () { v.dataset.userPaused = '1'; });
 </script>
 </body>
 </html>
