@@ -72,7 +72,7 @@ var MA_AGENDA = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '25615410';
+var MA_JS_VERSION = 'de7da23a';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -392,6 +392,57 @@ var MA_CONTENT = {
   }
 
   /* ---------- LEFT RAIL: nested, expandable ---------- */
+  /* ---------- DISPLAY ORDER ----------
+     MA_STAGES is authored in CURRICULUM order and stays that way. Visitors
+     browsing the site should meet what they can actually watch first, so every
+     renderer that lists lessons walks this instead of MA_STAGES directly:
+     groups keep their order and their live lessons, and any lesson with nothing
+     to show sinks into one "Coming Soon" group at the bottom.
+
+     Sorting at RENDER time, not in the data, matters twice over: a lesson leaves
+     the bucket by itself the moment a part gets a video, and nobody has to
+     re-order the array by hand — which is what put 22 holes in the registry.
+
+     opts.sellable keeps a paid-but-unrecorded lesson at the top on the catalogue
+     page, where sinking it would sink its checkout with it. */
+  function orderedStages(opts) {
+    opts = opts || {};
+    var head = [], groups = [], byGroup = {}, soon = [], cur = null;
+
+    for (var i = 0; i < MA_STAGES.length; i++) {
+      var e = MA_STAGES[i];
+      if (e.group) {
+        cur = e.group;
+        if (!byGroup[cur]) { byGroup[cur] = []; groups.push(cur); }
+        continue;
+      }
+      if (!e.parts || e.hidden) continue;
+
+      var watchable = false, sellable = false;
+      for (var j = 0; j < e.parts.length; j++) {
+        if (!e.parts[j].soon) watchable = true;
+        if (e.parts[j].open) sellable = true;
+      }
+      var keep = watchable || (opts.sellable && sellable);
+
+      if (!cur) { head.push(e); continue; }        /* Start Here, before any group */
+      if (keep) byGroup[cur].push(e); else soon.push(e);
+    }
+
+    var out = head.slice();
+    for (var g = 0; g < groups.length; g++) {
+      var list = byGroup[groups[g]];
+      if (!list.length) continue;                  /* never print an empty heading */
+      out.push({ group: groups[g] });
+      out = out.concat(list);
+    }
+    if (soon.length) {
+      out.push({ group: 'Coming Soon' });
+      out = out.concat(soon);
+    }
+    return out;
+  }
+
   function renderNav(el) {
     if (el.getAttribute('data-ma-rendered') === '1') return;
 
@@ -401,8 +452,9 @@ var MA_CONTENT = {
 
     var cur = slugFromPath(), html = '';
 
-    for (var i = 0; i < MA_STAGES.length; i++) {
-      var e = MA_STAGES[i];
+    var stages = orderedStages();
+    for (var i = 0; i < stages.length; i++) {
+      var e = stages[i];
       if (e.group) { html += '<p class="ma-nav-group">' + esc(e.group) + '</p>'; continue; }
       if (!e.parts || e.hidden) continue;
 
@@ -487,8 +539,9 @@ var MA_CONTENT = {
   function renderLadder(el) {
     if (el.getAttribute('data-ma-rendered') === '1') return;
     var html = '', n = 0;
-    for (var i = 0; i < MA_STAGES.length; i++) {
-      var e = MA_STAGES[i];
+    var stages = orderedStages();
+    for (var i = 0; i < stages.length; i++) {
+      var e = stages[i];
       if (e.group) { html += '<p class="ma-ladder-group">' + esc(e.group) + '</p>'; continue; }
       if (!e.parts || e.hidden || e.parts[0].slug === 'start') continue;
       n++;
@@ -756,8 +809,9 @@ var MA_CONTENT = {
   function renderIndex(el) {
     if (el.getAttribute('data-ma-rendered') === '1') return;
     var html = '', group = null;
-    for (var i = 0; i < MA_STAGES.length; i++) {
-      var e = MA_STAGES[i];
+    var stages = orderedStages({ sellable: true });
+    for (var i = 0; i < stages.length; i++) {
+      var e = stages[i];
       if (e.group) { group = e.group; html += '<h3 class="ma-cidx-cat">' + esc(e.group) + '</h3>'; continue; }
       if (!e.parts || e.hidden || e.parts[0].slug === 'start') continue;
 
