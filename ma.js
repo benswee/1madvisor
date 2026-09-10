@@ -86,7 +86,7 @@ var MA_STORE_OFFER = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '9edd73a7';
+var MA_JS_VERSION = 'e12951e3';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
@@ -122,7 +122,11 @@ var MA_STAGES = [
     optin: 'Live Class: Building A Pipeline That Does Not Depend On Your Warm Market',
     parts: [
       { slug: 'prospecting-family-market', label: 'The Family Market' },
-      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', open: true, course: 'The HNW Prospecting System', classes: 2, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a9ae7735bdf5b5b2bda' }
+      /* WITHDRAWN from the catalogue 2026-09-09 (Ben, "for now"): Gord's class dates are
+         not set, and its GHL product page carries no Classes/Class Dates lines either, so
+         it was the one enrolling row with no dates. Course/fee/buy data is intact —
+         put `open: true,` back once the dates exist. The GHL store still lists it. */
+      { slug: 'prospecting-hnw',           label: 'The High-Net-Worth Market', course: 'The HNW Prospecting System', classes: 2, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a9ae7735bdf5b5b2bda' }
   ]},
 
   /* Restored 2026-09-03. The original 15-lesson structure carried
