@@ -70,9 +70,23 @@ var MA_AGENDA = {
   ]
 };
 
+/* ═══ STORE OFFER — the TIME-LIMITED half of the store guarantees.
+   The 7-day refund is permanent and lives in the pasted store block. This one
+   is Sept-10-enrolment only (Ben, 2026-09-09), so it renders from here with an
+   expiry and REMOVES ITSELF the moment it lapses — nobody has to remember to
+   take a stale offer off a live sales page.
+   `until` is an ISO instant: end of Sept 10 Pacific = Sept 11 07:00 UTC (PDT).
+   Set MA_STORE_OFFER = null to pull it early. ═══ */
+var MA_STORE_OFFER = {
+  eyebrow: 'September 10 only',
+  title:   'Take the same class again',
+  body:    'Enrol on the day of the trial session and your seat includes a repeat: sit the same class again on a later date, with the same mentor, at no extra cost.',
+  until:   '2026-09-11T07:00:00Z'
+};
+
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '91a3b127';
+var MA_JS_VERSION = '5f581819';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
@@ -976,6 +990,38 @@ var MA_CONTENT = {
     el.setAttribute('data-ma-rendered', '1');
   }
 
+  /* ---------- STORE OFFER (self-expiring) ----------
+     Host: <div data-ma-store-offer></div> in the pasted store header block.
+     Styled inline here for the same reason the block is: the store pages run
+     an older stylesheet and Ben's decision is to leave store CSS alone. */
+  function renderStoreOffer(el) {
+    if (el.getAttribute('data-ma-rendered') === '1') return;
+    el.setAttribute('data-ma-rendered', '1');
+
+    var o = (typeof MA_STORE_OFFER !== 'undefined') && MA_STORE_OFFER;
+    var live = false;
+    if (o && o.title) {
+      var until = o.until ? new Date(o.until).getTime() : NaN;
+      live = isNaN(until) ? true : (new Date().getTime() < until);
+    }
+    if (!live) { el.innerHTML = ''; el.style.display = 'none'; return; }
+
+    el.innerHTML =
+        '<div style="height:100%;box-sizing:border-box;background:rgba(255,255,255,.06);'
+      + 'border:1px solid rgba(255,255,255,.12);border-left:3px solid var(--ma-rust,#E05C26);'
+      + 'border-radius:12px;padding:20px 22px;">'
+      + (o.eyebrow
+          ? '<p style="font-family:var(--ma-sans,Montserrat,sans-serif);font-size:11px;font-weight:800;'
+            + 'letter-spacing:1.6px;text-transform:uppercase;color:var(--ma-rust,#E05C26);margin:0 0 8px;">'
+            + esc(o.eyebrow) + '</p>'
+          : '')
+      + '<p style="font-family:var(--ma-sans,Montserrat,sans-serif);font-size:15px;font-weight:800;'
+      + 'color:#fff;margin:0 0 8px;">' + esc(o.title) + '</p>'
+      + '<p style="font-family:var(--ma-text,Inter,sans-serif);font-size:14px;line-height:1.6;'
+      + 'color:rgba(255,255,255,.76);margin:0;">' + esc(o.body || '') + '</p>'
+      + '</div>';
+  }
+
   function init() {
     renderContent();               /* before meta: video hook lives inside */
     var navs = document.querySelectorAll('.ma-nav');
@@ -988,6 +1034,8 @@ var MA_CONTENT = {
     for (var q = 0; q < mentors.length; q++) renderMentors(mentors[q]);
     var agendas = document.querySelectorAll('[data-ma-agenda]');
     for (var g = 0; g < agendas.length; g++) renderAgenda(agendas[g]);
+    var offers = document.querySelectorAll('[data-ma-store-offer]');
+    for (var o2 = 0; o2 < offers.length; o2++) renderStoreOffer(offers[o2]);
     var cidx = document.querySelectorAll('[data-ma-course-index]');
     for (var w = 0; w < cidx.length; w++) renderIndex(cidx[w]);
     renderMeta();
