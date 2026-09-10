@@ -86,7 +86,7 @@ var MA_STORE_OFFER = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '5f581819';
+var MA_JS_VERSION = '9edd73a7';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
@@ -132,7 +132,7 @@ var MA_STAGES = [
   { lesson: 'CPA & Client Best Interest', teacher: 'Tim', section: 'Accountants',
     optin: 'Live Class: Turning Accountants From Blockers Into Referral Partners',
     parts: [
-      { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'Client Best Interest and CPA Referrals', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790' }
+      { slug: 'cpa-best-interest', label: 'CPA & Client Best Interest', soon: true, open: true, course: 'Client Best Interest and CPA Referrals', fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8bd8e7735bdf5b5b5790', hours: '2 hours', classes: 2, dates: 'October 13 & 27 11AM PT, December 8 & 22 11AM PT' }
   ]},
 
   { lesson: 'Becoming a Star Speaker', teacher: 'Tim', section: 'Running Conferences',
@@ -154,8 +154,8 @@ var MA_STAGES = [
   { lesson: 'The Discovery Process', teacher: 'Ace & Mayank', section: 'Discovery Process',
     optin: 'Live Class: Discovery Questions That Open Bigger Cases',
     parts: [
-      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', open: true, course: 'Why You\'re Pitching Too Soon', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9fc.mp4' },
-      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce013e29b3baf97de96b9.mp4' },
+      { slug: 'discovery-theory',    label: 'The Theory Behind Discovery', open: true, course: 'Why You\'re Pitching Too Soon', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba60970cdb64b9627fbe1', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9fc.mp4', hours: '2 hours', dates: 'December 8 2PM PT, December 22 2PM PT' },
+      { slug: 'discovery-questions', label: 'The Actual Discovery Questions', open: true, course: 'Questions That Close Cases', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a42450e37726f005992', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce013e29b3baf97de96b9.mp4', hours: '2 hours', dates: 'October 13 & 27 2PM PT' },
       { slug: 'discovery-the-system-and-the-advice-memo', label: 'The System & the Advice Memo', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce0139a2eb1d780afb9f3.mp4' }
   ]},
 
@@ -169,13 +169,13 @@ var MA_STAGES = [
   { lesson: 'Personal Insured Retirement Plan', teacher: 'Carmen', section: 'Insurance',
     optin: 'Live Class: Presenting The Personal IRP With Confidence',
     parts: [
-      { slug: 'personal-irp',     label: 'The Personal IRP', soon: true, open: true, course: 'The Personal IRP Presentation', classes: 1, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a871e2f32ce566eaa76' },
-      { slug: 'personal-irp-ifa', label: 'The IFA Version', soon: true, open: true, course: 'Personal Insured Retirement Plan — IFA', classes: 1, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8aabe7735bdf5b5b2e37' }
+      { slug: 'personal-irp',     label: 'The Personal IRP', soon: true, open: true, course: 'The Personal IRP Presentation', classes: 1, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a871e2f32ce566eaa76', hours: '2 hours', dates: 'October 29 2PM PT, November 26 2PM PT' },
+      { slug: 'personal-irp-ifa', label: 'The IFA Version', soon: true, open: true, course: 'Personal Insured Retirement Plan — IFA', classes: 1, fee: '$2,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8aabe7735bdf5b5b2e37', hours: '2 hours', dates: 'October 15 2PM PT, November 12 2PM PT' }
   ]},
 
   { lesson: 'Advanced Case Study', teacher: 'Tim', section: 'Case Study',
     optin: 'Live Class: Work A Real Advanced Case With Carmen',
-    parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'The Complex HNW Case: Discovery to Signed Policy', classes: 2, fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8ac0e7735bdf5b5b3116' } ]},
+    parts: [ { slug: 'case-study', label: 'Advanced Case Study', soon: true, open: true, course: 'The Complex HNW Case: Discovery to Signed Policy', classes: 2, fee: '$10,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8ac0e7735bdf5b5b3116', hours: '2 hours', dates: 'Nov 17 & 24 11AM PT' } ]},
 
   { lesson: 'Objection Handling', teacher: 'Tim', section: 'Objection Handling',
     optin: 'Live Class: Objection Handling Role Play With The Coaches',
@@ -212,10 +212,10 @@ var MA_STAGES = [
   { lesson: 'Building a Predictable AUM Engine', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Build Your AUM Engine With Harry',
     parts: [
-      { slug: 'aum-engine',   label: 'The AUM Engine', open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c4792.mp4' },
+      { slug: 'aum-engine',   label: 'The AUM Engine', open: true, course: 'Stop Starting Every Month at Zero', classes: 2, fee: '$1,000', buy: 'https://1madvisors.com/store-product-detail/product/6a9c8a60e7735bdf5b5b22c5', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c4792.mp4', hours: '2 hours', dates: 'October 6 & 20 11AM PT, December 1 & 15 11AM PT' },
       { slug: 'aum-where-the-aum-comes-from', label: 'Where the AUM Comes From', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe8ff1a50b7322c479b.mp4' },
       { slug: 'aum-the-review-that-keeps-the-money', label: 'The Review That Keeps the Money', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9cdfe87614828d36ab8963.mp4' },
-      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy and the Ongoing Client Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2' },
+      { slug: 'aum-pac',      label: 'PAC Strategy', soon: true, open: true, course: 'PAC Strategy and the Ongoing Client Process', classes: 1, fee: '$500', buy: 'https://1madvisors.com/store-product-detail/product/6a9ba68543d1d76deaaacdd2', hours: '2 hours', dates: 'November 3 11AM PT, November 17 11AM PT' },
       { slug: 'aum-lump-sum', label: 'Lump-Sum Transfers', soon: true }
   ]},
 
@@ -863,12 +863,19 @@ var MA_CONTENT = {
           var name = op.course || op.label;
           var meta = [];
           if (op.fee) meta.push(esc(op.fee));
-          if (op.classes) meta.push(op.classes + (op.classes === 1 ? ' class' : ' classes'));
+          if (op.classes) meta.push(op.classes + (op.classes === 1 ? ' class' : ' classes')
+                                  + (op.hours ? ' &middot; ' + esc(op.hours) + ' each' : ''));
           html += '<div class="ma-cidx-buy">'
                 + '<div class="ma-cidx-buy-id">'
                 + '<span class="ma-chip-open">Enrolling Now</span>'
                 + '<span class="ma-cidx-buy-name">' + esc(name) + '</span>'
                 + (meta.length ? '<span class="ma-cidx-meta">' + meta.join(' &middot; ') + '</span>' : '')
+                /* Dates come from the GHL product description, which is where Ben maintains
+                   them — the catalogue must not disagree with the checkout page. A course
+                   with no dates on file (Gord's) simply omits the line rather than guessing. */
+                + (op.dates
+                    ? '<span class="ma-cidx-dates"><span>Dates</span> ' + esc(op.dates) + '</span>'
+                    : '')
                 + '</div>'
                 + (op.buy
                     ? '<a class="ma-cidx-cta" href="' + esc(op.buy) + '">Enrol →</a>'
@@ -881,6 +888,21 @@ var MA_CONTENT = {
       html += '</div>';
     }
     el.innerHTML = html;
+
+    /* The dates line is a new class, and the courses page is on whatever stylesheet
+       was last pasted there. Ship the rule with the registry so the feature cannot
+       arrive unstyled — same reason the rail and agenda do it. */
+    if (!document.getElementById('ma-cidx-style')) {
+      var cs = document.createElement('style');
+      cs.id = 'ma-cidx-style';
+      cs.textContent =
+          '.ma-cidx-dates{display:block;font-family:var(--ma-text,Inter,sans-serif);font-size:12.5px;'
+        + 'line-height:1.5;color:rgba(240,239,239,.62);margin:6px 0 0;}'
+        + '.ma-cidx-dates>span{font-family:var(--ma-sans,Montserrat,sans-serif);font-size:10px;'
+        + 'font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--ma-gold,#ECA021);'
+        + 'margin-right:7px;}';
+      document.head.appendChild(cs);
+    }
     el.setAttribute('data-ma-rendered', '1');
   }
 
