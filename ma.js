@@ -72,7 +72,7 @@ var MA_AGENDA = {
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = 'e6c3e625';
+var MA_JS_VERSION = 'e88386fb';
 
 var MA_STAGES = [
   { lesson: 'Start Here', parts: [ { slug: 'start', label: 'Start Here', url: '/training' } ] },
@@ -280,7 +280,7 @@ var MA_MENTORS = [
     photo: 'https://benswee.github.io/1madvisor/mentors/gord.jpg',
     creds: '50+ Years · 50 Consecutive Years Top of the Table',
     role: 'Founding Partner & Managing Partner, PanFinancial' },
-  { name: 'Carmen', featured: true },
+  { name: 'Carmen Ke', featured: true, photo: 'https://benswee.github.io/1madvisor/mentors/carmen.jpg' },   /* surname + headshot from Ben 2026-09-09; no role/creds on file — do not invent */
   { name: 'Amanda', featured: true },
   { name: 'Mayank', featured: true },
   { name: 'Ling Lim', role: 'Insurance Director, WAY Financial' },   /* role: WAY poster, 2026-09-07 */
