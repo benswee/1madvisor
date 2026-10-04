@@ -25,6 +25,14 @@
 
 var MA_BASE = '/training/';
 var MA_SOON_URL = null;
+/* THE HUB — one GHL page serves every lesson that has no page of its own.
+   /training already IS a complete lesson page (title, video, nav, form, CSS), so
+   /training?l=<slug> renders that lesson. A new lesson therefore needs NO GHL page
+   and NO CSS: add it to the registry with a `video:` and it goes live.
+   `soon: true` now means "has no dedicated GHL page", not "not available".
+   A part is LIVE if it has its own page OR a video. Built 2026-10-04. */
+var MA_HUB = '/training';
+var MA_HUB_PARAM = 'l';
 
 /* Where "Request A Seat" buttons send people. The course name rides along
    as ?course=… so the apply form knows what they picked. */
@@ -89,7 +97,7 @@ var MA_STORE_OFFER = null;
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '7e5f2bca';
+var MA_JS_VERSION = '1a07b578';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
@@ -412,15 +420,31 @@ var MA_CONTENT = {
     return out;
   }
 
+  /* A dedicated GHL page exists for this part. */
+  function hasPage(p) { return !!p.url || !p.soon; }
+  /* Watchable somewhere: on its own page, or on the hub because it has a video. */
+  function isLive(p) { return hasPage(p) || !!p.video; }
+
   function hrefFor(p) {
     if (p.url) return p.url;
     if (!p.soon) return MA_BASE + p.slug;
+    if (p.video) return MA_HUB + '?' + MA_HUB_PARAM + '=' + encodeURIComponent(p.slug);
     return MA_SOON_URL || null;
   }
 
   function slugFromPath() {
     var p = location.pathname.replace(/\/+$/, '');
     var all = allParts();
+    /* Hub routing: honoured ONLY on the hub page itself, so a stray ?l= on a
+       dedicated lesson page can never override what that page is. Unknown slugs
+       fall through to the normal path logic (the hub shows Start Here). */
+    if (p === MA_HUB) {
+      var m = new RegExp('[?&]' + MA_HUB_PARAM + '=([^&#]+)').exec(location.search);
+      if (m) {
+        var want = decodeURIComponent(m[1]);
+        for (var k = 0; k < all.length; k++) if (all[k].part.slug === want) return want;
+      }
+    }
     for (var i = 0; i < all.length; i++) {
       if (all[i].part.url && all[i].part.url.replace(/\/+$/, '') === p) return all[i].part.slug;
     }
@@ -462,7 +486,7 @@ var MA_CONTENT = {
 
       var watchable = false, sellable = false;
       for (var j = 0; j < e.parts.length; j++) {
-        if (!e.parts[j].soon) watchable = true;
+        if (isLive(e.parts[j])) watchable = true;
         if (e.parts[j].open) sellable = true;
       }
       var keep = watchable || (opts.sellable && sellable);
@@ -501,13 +525,13 @@ var MA_CONTENT = {
       if (!e.parts || e.hidden) continue;
 
       var teacher = e.teacher ? '<span class="ma-nav-teacher">' + esc(e.teacher) + '</span>' : '';
-      var allSoon = e.parts.every(function (p) { return p.soon && !p.url; });
+      var allSoon = e.parts.every(function (p) { return !isLive(p); });
 
       if (e.parts.length === 1) {
         /* single video — direct link row, no expander */
         var p = e.parts[0], href = hrefFor(p);
         var inner = '<span class="ma-nav-label">' + esc(e.lesson) + '</span>' + teacher
-                  + (p.soon ? '<em class="ma-soon">Soon</em>' : '');
+                  + (!isLive(p) ? '<em class="ma-soon">Soon</em>' : '');
         html += href
           ? '<a href="' + href + '"' + (p.slug === cur ? ' class="is-active"' : '') + '>' + inner + '</a>'
           : '<span class="ma-nav-item is-soon">' + inner + '</span>';
@@ -524,7 +548,7 @@ var MA_CONTENT = {
             + '<div class="ma-nav-parts">';
       for (var j = 0; j < e.parts.length; j++) {
         var pt = e.parts[j], ph = hrefFor(pt);
-        var pin = esc(pt.label) + (pt.soon ? ' <em class="ma-soon">Soon</em>' : '');
+        var pin = esc(pt.label) + (!isLive(pt) ? ' <em class="ma-soon">Soon</em>' : '');
         html += ph
           ? '<a href="' + ph + '"' + (pt.slug === cur ? ' class="is-active"' : '') + '>' + pin + '</a>'
           : '<span class="ma-nav-item is-soon">' + pin + '</span>';
@@ -587,7 +611,7 @@ var MA_CONTENT = {
       if (e.group) { html += '<p class="ma-ladder-group">' + esc(e.group) + '</p>'; continue; }
       if (!e.parts || e.hidden || e.parts[0].slug === 'start') continue;
       n++;
-      var live = e.parts.filter(function (p) { return !p.soon; });
+      var live = e.parts.filter(function (p) { return isLive(p); });
       var target = live.length ? hrefFor(live[0]) : null;
       var meta = (e.teacher ? esc(e.teacher) : '')
                + (e.parts.length > 1 ? ' · ' + e.parts.length + ' parts' : '')
@@ -864,7 +888,7 @@ var MA_CONTENT = {
             + '</div><div class="ma-cidx-parts">';
       for (var j = 0; j < e.parts.length; j++) {
         var p = e.parts[j], href = hrefFor(p);
-        var label = esc(p.label) + ((p.soon && !p.open) ? ' <em class="ma-soon">Soon</em>' : '');
+        var label = esc(p.label) + ((!isLive(p) && !p.open) ? ' <em class="ma-soon">Soon</em>' : '');
         html += href ? '<a href="' + href + '">' + label + '</a>'
                      : '<span class="is-soon">' + label + '</span>';
       }
