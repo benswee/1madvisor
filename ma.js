@@ -39,11 +39,16 @@ var MA_APPLY_URL = '/training/apply';
    just directly linked to the next live session"). Flip to true to bring it
    back — nothing is deleted from the pages. */
 var MA_NEXT_SESSION = {
-  eyebrow: 'Next Live Session',
-  title:   'Widen What You Offer. Grow Your Book. Scale.',
-  when:    'Thursday, September 10 · 11am PT / 2pm ET',
-  cta:     'Save My Seat',
-  url:     '/training/september'
+  /* Sept 10 has passed. This card sits on every lesson page, so a past date here
+     states something untrue site-wide — it ran stale for 24 days. Repointed at the
+     catalogue, whose dates are real and verified against the GHL product pages
+     (Oct 6 – Dec 22). When the next TRIAL session is booked, put its date back here
+     and point `url` at its page; set the whole object to null to remove the card. */
+  eyebrow: 'Live Classes',
+  title:   'Small groups. Real cases. Taught live.',
+  when:    'October to December dates are open now',
+  cta:     'See The Dates',
+  url:     '/training/courses'
 };
 /* ═══ SEPT 10 AGENDA — from the WAY Financial poster Ben supplied 2026-09-07
    (WAY_RBC_DI_Webinar_Sept10_2026 Poster.pdf). Rendered into [data-ma-agenda]
@@ -77,16 +82,14 @@ var MA_AGENDA = {
    take a stale offer off a live sales page.
    `until` is an ISO instant: end of Sept 10 Pacific = Sept 11 07:00 UTC (PDT).
    Set MA_STORE_OFFER = null to pull it early. ═══ */
-var MA_STORE_OFFER = {
-  eyebrow: 'September 10 only',
-  title:   'Take the same class again',
-  body:    'Enrol on the day of the trial session and your seat includes a repeat: sit the same class again on a later date, with the same mentor, at no extra cost.',
-  until:   '2026-09-11T07:00:00Z'
-};
+/* The Sept 10 repeat-seat offer has LAPSED and the renderer hides it on date.
+   Kept as null rather than deleted so the next dated offer has a shape to copy:
+   { eyebrow, title, body, until: '<ISO instant>' }. */
+var MA_STORE_OFFER = null;
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = 'b4042a3f';
+var MA_JS_VERSION = '7e5f2bca';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
