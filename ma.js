@@ -97,7 +97,7 @@ var MA_STORE_OFFER = null;
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = '1a07b578';
+var MA_JS_VERSION = 'e4d17130';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
@@ -661,7 +661,20 @@ var MA_CONTENT = {
        so tabs, bookmarks and search results all said Start Here. Set it from
        the same match that fills the H1. */
     if (ctx.part.slug !== 'start') {
-      document.title = ctx.part.label + ' — $1M Advisor Training';
+      var wantTitle = ctx.part.label + ' — $1M Advisor Training';
+      document.title = wantTitle;
+      /* GHL's runtime sets <title> from the PAGE's own settings, and on a slow cold
+         load it can do that after this runs — measured 2026-10-04: a hub lesson's
+         tab read "Start Here". Guard it briefly: put ours back whenever something
+         else changes it. Re-setting an identical title is a no-op, so no loop. */
+      if (!window.__maTitleGuard && typeof MutationObserver !== 'undefined') {
+        window.__maTitleGuard = true;
+        var titleMo = new MutationObserver(function () {
+          if (document.title !== wantTitle) document.title = wantTitle;
+        });
+        titleMo.observe(document.head, { childList: true, subtree: true, characterData: true });
+        setTimeout(function () { titleMo.disconnect(); }, 8000);
+      }
     }
 
     var optin = document.querySelector('[data-ma-optin]');
