@@ -97,7 +97,7 @@ var MA_STORE_OFFER = null;
 
 var MA_RAIL_FORM   = false;
 var MA_ALL_CLASSES = '/store-product-list';
-var MA_JS_VERSION = 'e4d17130';
+var MA_JS_VERSION = '5ad7dff6';
 
 var MA_STAGES = [
   /* /training led with an empty "Video Coming Soon" panel in its best slot. Gord Berger's
@@ -262,8 +262,8 @@ var MA_STAGES = [
       { slug: 'leverage-getting-it-approved', label: 'Getting It Approved', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce03e9fa5199bb34fcc5c.mp4' }
   ]},
 
-  /* New 2026-09-05. NOT `rrsp-meltdown`, which is Amanda's RRSP/RRIF interest
-     meltdown — a different topic that only looks like a match. */
+  /* New 2026-09-05. NOT `rrsp-meltdown`, the RRSP/RRIF interest meltdown —
+     a different topic that only looks like a match. */
   { lesson: 'RRSP Season & the Client Book', teacher: 'Harry', section: 'Investment',
     optin: 'Live Class: Working An RRSP Season Across A Book You Cannot Meet One By One',
     parts: [
@@ -271,7 +271,8 @@ var MA_STAGES = [
       { slug: 'rrsp-servicing-a-book-you-cant-meet-one-by-one', label: 'Servicing a Book You Cannot Meet One by One', video: 'https://assets.cdn.filesafe.space/OBppS1IbQ8RwJ06ElXKI/media/6a9ce034ff1a50b7322c4d66.mp4' }
   ]},
 
-  { lesson: 'RRSP/RRIF Interest Meltdown', teacher: 'Amanda', section: 'Investment',
+  /* Credited to Tim 2026-10-10 (Ben): Tim teaches it on tape in B2-C1; Amanda is on no recording. */
+  { lesson: 'RRSP/RRIF Interest Meltdown', teacher: 'Tim', section: 'Investment',
     optin: 'Live Class: The RRSP/RRIF Interest Meltdown Strategy',
     parts: [ { slug: 'rrsp-meltdown', label: 'RRSP/RRIF Interest Meltdown', soon: true } ]},
 
